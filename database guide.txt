@@ -1,0 +1,57 @@
+There are 2 top-level collections - users and courses
+
+/users
+
+user accounts with all their details name email etc. There is a boolean field isInstructor to distinguish between the functionalities theyll have access to in the app
+
+	/users/student 
+
+	a student account/document will have the same fields as instuctors but theyll have a subcollection "classes" that will store the active classes they are in
+
+	/users/instructor
+
+	instructors have a field called classes which will have references to all the classes they're currently teaching in a map with a boolean field isActive. 
+
+
+
+/courses
+
+courses will have the information pertaining to the course, not the "class". It will have a field that references the instructor account that created it/have authorization to edit and add quizzes into the course.
+
+Under courses, there are 3 subcollections: 
+
+a) Learning Resources
+
+b) Quizzes - quiz or poll created by the instructor. Has a boolean field to distinguish between poll and quiz. Has subcollection for the questions
+
+	bb) Questions - this will have a map of the choices, performance which has a map of boolean to see how many students got the question right, then also how much time (in seconds) each student spend on it.
+
+c) Sections - individual instances of courses. A section will contain information regardint the specific class like inviteCode. Within section, there will be a lectures subcollection. 
+
+	cc) Lectures - this will have all the lectures/meetings conducted for the class. Individual documents for each lecture will be created each time the instructor goes live. Lectures will record the following:
+
+		- attendance
+		- comprehension (optional rating given by students)
+		- lecurePace 
+		- lectureQuestions
+		- topicsDiscussed (tags)
+
+
+
+Circling back to the student accounts
+
+users/student/classes
+
+Under students, there will be a subcollection of classes. Each class under this will contain a reference to their respective section. It is from here that they will be able to get their data from
+
+users/student/classes/class/quizzes
+
+Inside the class document, there will be a quizzes subcollection. Each quiz document will have a quizRef field to reference a specific quiz created by the instructor for the course. This will not be accessible until the instructor published it during a lecture.
+
+A quiz will be duplicated within the class collection of the student so they can access it as a flash card at a later time. The quiz document will have the student's responses and score.
+
+
+
+
+
+
