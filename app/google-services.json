@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "362991554776",
+    "project_id": "remote-learning-plus",
+    "storage_bucket": "remote-learning-plus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362991554776:android:fc66106979443931c887ad",
+        "android_client_info": {
+          "package_name": "com.teamremote.remotelearningplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362991554776-gu8jh5umc75e3vqoh2100kr8cnt02rgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB-JR9nd9V551oeVihYodJFY82QAtINg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362991554776-gu8jh5umc75e3vqoh2100kr8cnt02rgn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362991554776:android:8c22d33cac0af357c887ad",
+        "android_client_info": {
+          "package_name": "com.teamremote.remotelearningplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362991554776-gu8jh5umc75e3vqoh2100kr8cnt02rgn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB-JR9nd9V551oeVihYodJFY82QAtINg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362991554776-gu8jh5umc75e3vqoh2100kr8cnt02rgn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
