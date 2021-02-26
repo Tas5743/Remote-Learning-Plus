@@ -20,121 +20,121 @@
         android:id="@+id/rgUserType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checkedButton="@id/radioStudent"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/edtTxtFirstName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/edtTxtFirstName"
-        app:layout_constraintVertical_chainStyle="packed"
-        android:checkedButton="@id/radioStudent">
+        app:layout_constraintVertical_chainStyle="packed">
 
         <RadioButton
             android:id="@+id/radioStudent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/student"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"/>
         <RadioButton
             android:id="@+id/radioInstructor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
             android:text="@string/instructor"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"/>
     </RadioGroup>
 
     <EditText
         android:id="@+id/edtTxtFirstName"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:autofillHints="name"
         android:background="@drawable/custom_input"
         android:hint="@string/first_name"
         android:inputType="textPersonName"
+        android:padding="5dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/edtTxtLastName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rgUserType"
-        app:layout_constraintBottom_toTopOf="@id/edtTxtLastName"
-        android:textSize="25sp"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/rgUserType"/>
 
     <EditText
         android:id="@+id/edtTxtLastName"
-        android:layout_width="250dp"
-        android:textSize="25sp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="name"
         android:background="@drawable/custom_input"
         android:hint="@string/last_name"
         android:inputType="textPersonName"
+        android:padding="5dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/edtTxtInstitution"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtFirstName"
-        app:layout_constraintBottom_toTopOf="@id/edtTxtInstitution"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/edtTxtFirstName"/>
 
     <EditText
         android:id="@+id/edtTxtInstitution"
-        android:layout_width="250dp"
-        android:textSize="25sp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="text"
         android:background="@drawable/custom_input"
         android:hint="@string/institution"
         android:inputType="textCapWords"
+        android:padding="5dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/edtTxtEmail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtLastName"
-        app:layout_constraintBottom_toTopOf="@id/edtTxtEmail"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtLastName"/>
 
     <EditText
         android:id="@+id/edtTxtEmail"
-        android:layout_width="250dp"
-        android:textSize="25sp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="email"
         android:background="@drawable/custom_input"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
+        android:padding="5dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@id/edtTxtPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtInstitution"
-        app:layout_constraintBottom_toBottomOf="@id/edtTxtPassword"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/edtTxtInstitution"/>
 
     <EditText
-        android:layout_width="250dp"
-        android:textSize="25sp"
+        android:id="@+id/edtTxtPassword"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="password"
         android:background="@drawable/custom_input"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:padding="5dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtEmail"
-        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
-        android:id="@+id/edtTxtPassword"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtEmail"/>
 
     <Button
+        android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="saveUser"
         android:text="@string/sign_up"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtPassword"
-        android:id="@+id/btnSignUp"
-        android:layout_marginTop="15dp"
-        android:onClick="saveUser"/>
+        app:layout_constraintTop_toBottomOf="@id/edtTxtPassword"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
