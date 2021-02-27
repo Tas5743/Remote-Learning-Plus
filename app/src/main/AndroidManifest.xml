@@ -11,7 +11,9 @@
         android:theme="@style/Theme.RemoteLearningPlus">
         <activity android:name=".RegisterUser"></activity>
         <activity android:name=".LoginSuccess" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".SelectCourseTimes"/>
+        <activity android:name=".CreateCourse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

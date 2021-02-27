@@ -93,26 +93,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chkboxFriday" />
 
-    <Spinner
-        android:id="@+id/spinnerStartTime"
-        android:layout_width="180dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="16dp"
-        android:entries="@array/starttime_array"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerEndTime"
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toStartOf="@+id/timePicker2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start_time" />
 
-    <Spinner
-        android:id="@+id/spinnerEndTime"
-        android:layout_width="180dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:entries="@array/endtime_array"
+    <TimePicker
+        android:id="@+id/timePicker2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="12dp"
+        android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/timePicker1"
         app:layout_constraintTop_toBottomOf="@+id/end_time" />
+
 
     <Button
         android:id="@+id/add_course"

@@ -43,4 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
+    // https://mvnrepository.com/artifact/com.github.mifmif/generex
+    implementation group: 'com.github.mifmif', name: 'generex', version: '1.0.1'
+
 }
