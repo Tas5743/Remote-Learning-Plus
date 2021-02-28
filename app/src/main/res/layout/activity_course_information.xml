@@ -7,7 +7,7 @@
     tools:context=".CourseInformation">
 
     <TextView
-        android:id="@+id/course_information"
+        android:id="@+id/tvcourse_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -17,139 +17,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/course_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="44dp"
-        android:text="@string/course_name"
-        app:layout_constraintEnd_toStartOf="@+id/etcourse_name"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_information" />
-
-    <TextView
-        android:id="@+id/course_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="60dp"
-        android:text="@string/course_id"
-        app:layout_constraintEnd_toStartOf="@+id/etcourse_id"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_name" />
-
-    <TextView
-        android:id="@+id/invite_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/invite_code"
-        app:layout_constraintEnd_toStartOf="@+id/etinvite_code"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_id" />
-
-    <TextView
-        android:id="@+id/section"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="72dp"
-        android:text="@string/section"
-        app:layout_constraintEnd_toStartOf="@+id/etsection"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invite_code" />
-
-    <TextView
-        android:id="@+id/course_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/course_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etsection" />
-
     <EditText
         android:id="@+id/etcourse_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="68dp"
         android:autofillHints="@string/edit_course_name"
         android:ems="10"
         android:hint="@string/edit_course_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_information" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvcourse_information" />
 
     <EditText
         android:id="@+id/etcourse_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="35dp"
         android:autofillHints="@string/edit_course_id"
         android:ems="10"
         android:hint="@string/edit_course_id"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etcourse_name" />
-
-    <EditText
-        android:id="@+id/etinvite_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="36dp"
-        android:autofillHints="@string/edit_invite_code"
-        android:ems="10"
-        android:hint="@string/edit_invite_code"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etcourse_id" />
 
     <EditText
         android:id="@+id/etsection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="35dp"
         android:autofillHints="@string/edit_section"
         android:ems="10"
         android:hint="@string/edit_section"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etinvite_code" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etcourse_id" />
 
     <EditText
         android:id="@+id/etcourse_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:autofillHints="@string/edit_course_description"
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/edit_course_description"
+        android:minLines = "3"
+        android:maxLines = "3"
+        android:scrollbars = "vertical"
         android:inputType="textMultiLine"
+        android:isScrollContainer = "true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/course_description" />
+        app:layout_constraintTop_toBottomOf="@+id/etsection" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="204dp"
         android:text="@string/next_page"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etcourse_description" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
