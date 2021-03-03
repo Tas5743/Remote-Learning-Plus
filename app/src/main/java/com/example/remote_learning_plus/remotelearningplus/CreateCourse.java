@@ -37,17 +37,18 @@ public class CreateCourse extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Expand reference to include instructor
                 EditText  edtTextName = findViewById(R.id.etcourse_name);
                 EditText  edtTextID = findViewById(R.id.etcourse_id);
 //                EditText  edtTextInviteCode= findViewById(R.id.etinvite_code);
-                EditText  edtTextSection = findViewById(R.id.etsection);
+
                 EditText  edtTextCourseDescription = findViewById(R.id.etcourse_description);
 
 
                 String TextName = edtTextName.getText().toString().trim();
                 String TextID =   edtTextID.getText().toString().trim();
 //                String TextInviteCode = edtTextInviteCode.getText().toString().trim();
-                String TextSection = edtTextSection.getText().toString().trim();
+
                 String TextCourseDescription = edtTextCourseDescription.getText().toString().trim();
 
                 if(TextName.isEmpty()){
@@ -59,9 +60,7 @@ public class CreateCourse extends AppCompatActivity {
 //                else if(TextInviteCode.isEmpty()){
 //                    Toast.makeText(CreateCourse.this,"Please fill out Course Invite Code", Toast.LENGTH_SHORT).show();
 //                }
-//                else if(TextSection.isEmpty()){
-//                    Toast.makeText(CreateCourse.this,"Please fill out Course Section", Toast.LENGTH_SHORT).show();
-//                }
+
                 else if(TextCourseDescription.isEmpty()){
                     Toast.makeText(CreateCourse.this,"Please fill out Course Description", Toast.LENGTH_SHORT).show();
                 }
@@ -87,7 +86,7 @@ public class CreateCourse extends AppCompatActivity {
 //                    selectMeetTimes.putExtra("courseName", TextName);
                     selectMeetTimes.putExtra("courseID", TextID);
 //                    selectMeetTimes.putExtra("courseInviteCode", TextInviteCode);
-                    selectMeetTimes.putExtra("courseSection",TextSection);
+//                    selectMeetTimes.putExtra("courseSection",TextSection);
 //                    selectMeetTimes.putExtra("courseDescription",TextCourseDescription);
                     startActivity(selectMeetTimes);
                 }

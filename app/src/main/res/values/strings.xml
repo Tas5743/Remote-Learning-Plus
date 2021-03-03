@@ -32,7 +32,7 @@
     <string name="next_page">Continue</string>
 
     <!--String values for course meeting schedule activity -->
-    <string name="meeting_days">Choose days to meet</string>
+    <string name="meeting_days">Enter section and choose days to meet.</string>
     <string name="monday">Mon</string>
     <string name="tuesday">Tue</string>
     <string name="wednesday">Wed</string>

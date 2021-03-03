@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -19,13 +20,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mifmif.common.regex.Generex;
 
 import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SelectCourseTimes extends AppCompatActivity{
 
@@ -103,6 +107,9 @@ public class SelectCourseTimes extends AppCompatActivity{
         sTime = sH + ":" + sM;
         eTime = eH + ":" + eM;
 
+        EditText edtTextSection = findViewById(R.id.etsection);
+        String TextSection = edtTextSection.getText().toString().trim();
+
 
         if (M.isChecked()){days.add("Monday");}
         if (T.isChecked()){days.add("Tuesday");}
@@ -110,8 +117,10 @@ public class SelectCourseTimes extends AppCompatActivity{
         if (TH.isChecked()){days.add("Thursday");}
         if (F.isChecked()){days.add("Friday");}
 
-
-        if (days.isEmpty()){
+        if(TextSection.isEmpty()){
+                Toast.makeText(SelectCourseTimes.this,"Please fill out Course Section", Toast.LENGTH_SHORT).show();
+              }
+        else if (days.isEmpty()){
             Toast.makeText(SelectCourseTimes.this, "Please select meeting day(s).", Toast.LENGTH_SHORT).show();;
         }
 
@@ -119,13 +128,26 @@ public class SelectCourseTimes extends AppCompatActivity{
 
             Generex generex = new Generex("[A-Z]{3}\\d{3}");
 
+            String inviteCode = generex.random();
+
+            DocumentReference colSections = FirebaseFirestore.getInstance().collection("masterSectionList").document(inviteCode);
+//            while(colSections){
+//                inviteCode = generex.random();
+//                colSections = FirebaseFirestore.getInstance().collection("masterSectionList").document(inviteCode);
+//                check =  colSections.get().getResult();
+//            }
+            //TODO Generate new invite code if current one already exists.
+
+
+
+
 
             Map<String, Object> dataToSave = new HashMap<String, Object>();
 
             dataToSave.put("courseDays",days);
             dataToSave.put("startTime",sTime);
             dataToSave.put("endTime",eTime);
-            dataToSave.put("InviteCode", generex.random());
+            dataToSave.put("InviteCode", inviteCode);
 
             Toast.makeText(SelectCourseTimes.this, "Course Successfully crated!", Toast.LENGTH_SHORT).show();
             //TODO redirect to course page.
@@ -134,6 +156,9 @@ public class SelectCourseTimes extends AppCompatActivity{
 
             DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/sections").document(TextSection);
             colRef.set(dataToSave);
+            Map<String, Object> masterlist = new HashMap<String, Object>();
+            masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+            colSections.set(masterlist);
         }
 
     }
