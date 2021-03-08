@@ -34,7 +34,7 @@ public class RegisterUser extends AppCompatActivity {
     private static final String TAG = "RegisterUser";
     String txtUserType = "student";
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseUser user;
     private String uID;
 

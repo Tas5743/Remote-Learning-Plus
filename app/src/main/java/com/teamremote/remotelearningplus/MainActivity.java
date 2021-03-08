@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Intent intSuccess = new Intent(MainActivity.this, LoginSuccess.class);
+                                Intent intSuccess = new Intent(MainActivity.this, Home_Student.class);
                                 startActivity(intSuccess);
                             }
                         }
