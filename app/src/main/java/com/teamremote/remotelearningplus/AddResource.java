@@ -32,19 +32,17 @@ public class AddResource extends AppCompatActivity {
 
     // TODO: get course info from previous activity
 
-    private CollectionReference colRef = FirebaseFirestore.getInstance().collection("courses/cmpsc475/learningResources");
-    private final FirebaseFirestore db;
+    String thisCourse;
+            //getIntent().getStringExtra().toString();
+    private CollectionReference colRef = FirebaseFirestore.getInstance().collection("courses/" + thisCourse + "/learningResources");
 
     EditText editTextURL= findViewById(R.id.editTextURL);
+    EditText editTextTag= findViewById(R.id.editTextTag);
     ImageView imagePreview = findViewById(R.id.imagePreview);
     TextView resourceTitle = findViewById(R.id.resourceTitle);
     TextView resourceText = findViewById(R.id.resourceText);
 
-    String classTaken = getIntent().getStringExtra().toString();
 
-    public AddResource(FirebaseFirestore db) {
-        this.db = db;
-    }
 
     public static boolean
     isValidURL(String url)
@@ -115,6 +113,13 @@ public class AddResource extends AppCompatActivity {
                 resource.put("title", resourceTitle.getText().toString());
                 resource.put("description", resourceTitle.getText().toString());
                 resource.put("preview", resourceText.getText().toString());
+
+                // TODO Reading and adding multiple tags separated by a space
+                Map<String, Boolean> tags = new HashMap<String, Boolean>();
+                tags.put(editTextTag.toString(), Boolean.TRUE);
+
+                colRef.add(resource);
+                colRef.add(tags);
 
 
             }
