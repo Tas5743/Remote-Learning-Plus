@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sudent_course_home">
+
+    <TextView
+        android:id="@+id/tvCourse_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/course_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnQuizzes"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/quizzes"
+        app:layout_constraintEnd_toStartOf="@+id/btnResources"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourse_Name" />
+
+    <Button
+        android:id="@+id/btnResources"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/resources"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnQuizzes"
+        app:layout_constraintTop_toBottomOf="@+id/tvCourse_Name" />
+
+    <Button
+        android:id="@+id/btnResults"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/results"
+        app:layout_constraintEnd_toStartOf="@+id/btnInformation"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnQuizzes" />
+
+    <Button
+        android:id="@+id/btnInformation"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/information"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnResults"
+        app:layout_constraintTop_toBottomOf="@+id/btnResources" />
+
+    <Button
+        android:id="@+id/btnAsk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:text="@string/ask_question"
+        android:onClick="AskQuestion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
