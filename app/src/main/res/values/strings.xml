@@ -12,4 +12,8 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="institution">Institution</string>
+    <string name="add_course">Add Course</string>
+    <string name="section">Section</string>
+    <string name="subject">Subject</string>
+    <string name="level">Level</string>
 </resources>
