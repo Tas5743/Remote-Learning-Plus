@@ -12,4 +12,21 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="institution">Institution</string>
+
+    <string name="rating">Enter Rating</string>
+
+    <string name="comprehension">Comprehension</string>
+    <string name="engagement">Engagement</string>
+    <string name="pace">Pace</string>
+
+    <string name="comp0">The topic is confusing</string>
+    <string name="comp1">The concept is clear</string>
+    <string name="eng0">The lecture is monotonous</string>
+    <string name="eng1">The lecture is engaging</string>
+    <string name="pace0">Too pacing is too slow</string>
+    <string name="pace1">The pacing is too fast</string>
+
+    <string name="submit">Submit</string>
+
+
 </resources>
