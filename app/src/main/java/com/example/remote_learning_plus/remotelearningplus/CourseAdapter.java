@@ -1,4 +1,4 @@
-package com.teamremote.remotelearningplus;
+package com.example.remote_learning_plus.remotelearningplus;
 
 import android.view.LayoutInflater;
 import android.view.View;
