@@ -44,4 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
+    // https://mvnrepository.com/artifact/com.github.mifmif/generex
+    implementation group: 'com.github.mifmif', name: 'generex', version: '1.0.1'
+
 }
