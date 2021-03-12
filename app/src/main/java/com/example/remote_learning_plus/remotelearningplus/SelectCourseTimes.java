@@ -54,11 +54,11 @@ public class SelectCourseTimes extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_meeting_schedule);
-        Bundle bundle = getIntent().getExtras();
+        //Bundle bundle = getIntent().getExtras();
 //        TextName = bundle.getString("courseName");
-        TextID = bundle.getString("courseID");
+        //TextID = bundle.getString("courseID");
 //        TextInviteCode = bundle.getString("CourseInviteCode");
-        TextSection = bundle.getString("courseSection");
+        //TextSection = bundle.getString("courseSection");
 //        TextCourseDescription = bundle.getString("courseDescription");
 
         add_course = findViewById(R.id.add_course);
