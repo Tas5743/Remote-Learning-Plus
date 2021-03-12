@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class JoinCourse extends AppCompatActivity {
                                             DocumentReference studentClass = FirebaseFirestore.getInstance().collection("users/" + accountname + "/classes").document(instructor.getParent().getParent().getId());
                                             HashMap<String, Object> addclass = new HashMap<>();
                                             addclass.put("classRef", document.get("sectionReference").toString());
-                                            studentClass.set(addclass);
+                                            studentClass.set(addclass, SetOptions.merge());
                                             Toast.makeText(JoinCourse.this, "Class Successfully added", Toast.LENGTH_SHORT).show();
                                         }
                                         else {
