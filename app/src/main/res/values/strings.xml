@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">RLP</string>
-
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -45,16 +43,27 @@
     <string name="friday">Fri</string>
     <string name="start_time">Start Time</string>
     <string name="end_time">End Time</string>
-    <string name="add_course">Add Course</string>
+
 
     <!--String values for home pages -->
-    <string name = "hi">Hi, Name</string>
-    <string name = "classes">Classes for Semester</string>
-    <string name = "courses">Active Courses +</string>
+    <string name="hi">Hi, Name</string>
+    <string name="classes">Classes for Semester</string>
+    <string name="courses">Active Courses +</string>
 
     <!--String values for join course -->
-    <string name = "join">Join a course</string>
-    <string name = "edit_invite_code">Enter invite code</string>
-    <string name = "submit">Submit</string>
+    <string name="join">Join a course</string>
+    <string name="edit_invite_code">Enter invite code</string>
+    <string name="submit">Submit</string>
+    <string name="create_course">Create Course</string>
+    <string name="ask_question">Ask Question</string>
+    <string name="question">Question</string>
+    <string name="course_name">Course Name</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="resources">Resources</string>
+    <string name="class_list">Class List</string>
+    <string name="information">Information</string>
+    <string name="statistics">Statistics</string>
+    <string name="add_student">Add Student</string>
+    <string name="results">Results</string>
 
 </resources>

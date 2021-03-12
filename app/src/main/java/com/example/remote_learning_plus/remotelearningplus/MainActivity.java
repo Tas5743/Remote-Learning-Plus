@@ -12,10 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.mifmif.common.regex.Main;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtTxtEmail, edtTxtPassword;
@@ -23,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     TextView txtRegister;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +82,33 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                Intent intSuccess = new Intent(MainActivity.this, Home_Student.class);
-                                startActivity(intSuccess);
+
+                                DocumentReference docRef = db.collection("users").document(mFirebaseAuth.getCurrentUser().getUid());
+                                docRef.get()
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                if(documentSnapshot.exists()){
+                                                    String userType = documentSnapshot.getString("userType");
+                                                    if(userType.equalsIgnoreCase("student")){
+                                                        Intent intSuccess = new Intent(MainActivity.this, Home_Student.class);
+                                                        startActivity(intSuccess);
+                                                    }
+                                                    else{
+                                                        Intent intSuccess = new Intent(MainActivity.this, Home_Teacher.class);
+                                                        startActivity(intSuccess);
+                                                    }
+                                                } else{
+                                                    Toast.makeText(MainActivity.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(MainActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                             }
                         }
                     });
