@@ -7,7 +7,7 @@
     tools:context=".CourseInformation">
 
     <TextView
-        android:id="@+id/tvcourse_information"
+        android:id="@+id/tvCourse_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etcourse_name"
+        android:id="@+id/etCourse_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
@@ -29,10 +29,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvcourse_information" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCourse_information" />
 
     <EditText
-        android:id="@+id/etcourse_id"
+        android:id="@+id/etCourse_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
@@ -43,10 +43,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etcourse_name" />
+        app:layout_constraintTop_toBottomOf="@+id/etCourse_name" />
 
     <EditText
-        android:id="@+id/etcourse_description"
+        android:id="@+id/etCourse_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etcourse_id" />
+        app:layout_constraintTop_toBottomOf="@+id/etCourse_id" />
 
     <Button
         android:id="@+id/button"
@@ -73,5 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etcourse_description" />
+        app:layout_constraintTop_toBottomOf="@+id/etCourse_description" />
 </androidx.constraintlayout.widget.ConstraintLayout>

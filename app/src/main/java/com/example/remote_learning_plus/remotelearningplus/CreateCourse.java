@@ -38,11 +38,11 @@ public class CreateCourse extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO Expand reference to include instructor
-                EditText  edtTextName = findViewById(R.id.etcourse_name);
-                EditText  edtTextID = findViewById(R.id.etcourse_id);
+                EditText  edtTextName = findViewById(R.id.etCourse_name);
+                EditText  edtTextID = findViewById(R.id.etCourse_id);
 //                EditText  edtTextInviteCode= findViewById(R.id.etinvite_code);
 
-                EditText  edtTextCourseDescription = findViewById(R.id.etcourse_description);
+                EditText  edtTextCourseDescription = findViewById(R.id.etCourse_description);
 
 
                 String TextName = edtTextName.getText().toString().trim();

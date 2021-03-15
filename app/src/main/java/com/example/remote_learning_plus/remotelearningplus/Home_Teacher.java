@@ -16,8 +16,8 @@ public class Home_Teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__teacher);
-        // Initialize FAB
 
+        // Initialize FAB
         createBtn = findViewById(R.id.btn_create_course);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
