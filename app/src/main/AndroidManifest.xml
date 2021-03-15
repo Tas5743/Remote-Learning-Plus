@@ -12,7 +12,6 @@
         <activity android:name=".Home_Teacher"/>
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
-        <activity android:name=".LoginSuccess" />
         <activity android:name=".CourseInformation"/>
         <activity android:name=".MainActivity">
         <intent-filter>
