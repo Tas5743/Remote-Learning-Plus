@@ -18,6 +18,24 @@ public class CourseInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_information);
+        
+        //Navigation Bar
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Instructor_HomePage.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
 
         // Initialize EditText Fields
         edtTxtName = findViewById(R.id.etCourse_name);
