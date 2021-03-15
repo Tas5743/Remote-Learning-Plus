@@ -17,13 +17,14 @@ public class Join_Course extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join__course);
 
+        //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Student_HomePage.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
