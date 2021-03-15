@@ -1,6 +1,7 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,16 +36,19 @@ import java.util.Objects;
 
 public class SelectCourseTimes extends AppCompatActivity{
 
-//    String TextName;
+    String TextName;
     String TextID;
     String TextInviteCode;
     String TextSection;
-//    String TextCourseDescription;
+    String TextCourseDescription;
     Button add_course;
     TimePicker startTime;
     TimePicker endTime;
     String sTime;
     String eTime;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -60,6 +66,11 @@ public class SelectCourseTimes extends AppCompatActivity{
 //        TextInviteCode = bundle.getString("CourseInviteCode");
         //TextSection = bundle.getString("courseSection");
 //        TextCourseDescription = bundle.getString("courseDescription");
+
+        Intent intent = getIntent();
+        TextName = intent.getStringExtra("courseName");
+        TextID = intent.getStringExtra("courseId");
+        TextCourseDescription = intent.getStringExtra("courseDesc");
 
         add_course = findViewById(R.id.add_course);
 
@@ -143,22 +154,35 @@ public class SelectCourseTimes extends AppCompatActivity{
 
 
             Map<String, Object> dataToSave = new HashMap<String, Object>();
-
+            dataToSave.put("courseName", TextName);
+            dataToSave.put("courseSection", TextSection);
+            dataToSave.put("courseId", TextID);
             dataToSave.put("courseDays",days);
             dataToSave.put("startTime",sTime);
             dataToSave.put("endTime",eTime);
             dataToSave.put("InviteCode", inviteCode);
 
-            Toast.makeText(SelectCourseTimes.this, "Course Successfully crated!", Toast.LENGTH_SHORT).show();
-            //TODO redirect to course page.
-            //TODO Add section textbox
+            // Reference new course to teachers course list
+            String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+            DocumentReference docRefInstructor = db.collection("users").document(userId).collection("courses").document(TextID+TextSection);
+            Map<String, Object> courseList = new HashMap<>();
+            courseList.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+            courseList.put("courseSection", TextSection);
+            courseList.put("courseID", TextID);
+            docRefInstructor.set(courseList);
 
 
-            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/sections").document(TextSection);
+
+            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/section").document(TextSection);
             colRef.set(dataToSave);
             Map<String, Object> masterlist = new HashMap<String, Object>();
             masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
             colSections.set(masterlist);
+
+            Toast.makeText(SelectCourseTimes.this, "Course Successfully created!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SelectCourseTimes.this, Home_Teacher.class);
+            startActivity(intent);
+
         }
 
     }
