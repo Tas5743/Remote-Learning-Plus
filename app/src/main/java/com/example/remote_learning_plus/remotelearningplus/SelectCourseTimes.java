@@ -61,13 +61,14 @@ public class SelectCourseTimes extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_meeting_schedule);
         
+        //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Instructor_HomePage.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
