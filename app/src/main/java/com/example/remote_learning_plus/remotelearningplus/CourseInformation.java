@@ -26,7 +26,7 @@ public class CourseInformation extends AppCompatActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Instructor_HomePage.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
