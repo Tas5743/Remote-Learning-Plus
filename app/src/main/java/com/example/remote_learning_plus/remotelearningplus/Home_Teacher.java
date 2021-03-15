@@ -16,7 +16,25 @@ public class Home_Teacher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__teacher);
-
+ 
+        //Bottom Navigation
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
+        
         // Initialize FAB
         createBtn = findViewById(R.id.btn_create_course);
         createBtn.setOnClickListener(new View.OnClickListener() {
