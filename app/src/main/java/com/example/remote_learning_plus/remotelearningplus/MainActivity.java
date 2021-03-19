@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         edtTxtPassword = findViewById(R.id.edtTxtPassword);
         txtRegister = findViewById(R.id.txtSignUp);
         btnLogin = findViewById(R.id.btnLogin);
-
+        /*
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
-        };
+        };*/
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override

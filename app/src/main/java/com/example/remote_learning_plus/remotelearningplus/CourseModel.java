@@ -1,29 +1,24 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 public class CourseModel {
-    private String level;
-    private String subject;
-    private String section;
+    private String courseID;
+    private String courseSection;
 
-    public CourseModel(String level, String subject, String section) {
-        this.level = level;
-        this.subject = subject;
-        this.section = section;
+    public CourseModel(String courseID, String courseSection) {
+        this.courseID = courseID;
+        this.courseSection = courseSection;
     }
 
     public CourseModel() {
         // Empty constructor needed
     }
 
-    public String getLevel() {
-        return level;
+    public String getCourseID() {
+        return courseID;
     }
 
-    public String getSubject() {
-        return subject;
-    }
 
-    public String getSection() {
-        return section;
+    public String getCourseSection() {
+        return courseSection;
     }
 }
