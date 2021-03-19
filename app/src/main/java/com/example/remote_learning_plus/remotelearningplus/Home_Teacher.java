@@ -28,7 +28,29 @@ public class Home_Teacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__teacher);
 
+
         setUpRecyclerView();
+
+
+ 
+        //Bottom Navigation
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
+        
 
         // Initialize FAB
         createBtn = findViewById(R.id.btn_create_course);
@@ -40,6 +62,7 @@ public class Home_Teacher extends AppCompatActivity {
             }
         });
     }
+
 
     private void setUpRecyclerView() {
         Query query = courseRef;
@@ -69,3 +92,4 @@ public class Home_Teacher extends AppCompatActivity {
     }
 
 }
+

@@ -26,6 +26,24 @@ public class Home_Student extends AppCompatActivity {
         setContentView(R.layout.activity_home__student);
 
         setUpRecyclerView();
+        
+        //Navigation Bar
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), Join_Course.class);
+                        startActivity(intent2);
+                        break;
+                }
+            }
+        });
     }
 
     private void setUpRecyclerView() {
