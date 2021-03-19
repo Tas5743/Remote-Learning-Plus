@@ -65,5 +65,6 @@
     <string name="statistics">Statistics</string>
     <string name="add_student">Add Student</string>
     <string name="results">Results</string>
+    <string name="course">Course</string>
 
 </resources>

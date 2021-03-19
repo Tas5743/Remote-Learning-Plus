@@ -28,9 +28,8 @@ public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseA
 
     @Override
     protected void onBindViewHolder(@NonNull CourseHolder holder, int position, @NonNull CourseModel model) {
-        holder.txtLevel.setText(model.getLevel());
-        holder.txtSubject.setText(model.getSubject());
-        holder.txtSection.setText(model.getSection());
+        holder.txtCourseID.setText(model.getCourseID());
+        holder.txtCourseSection.setText(model.getCourseSection());
     }
 
     @NonNull
@@ -41,16 +40,14 @@ public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseA
     }
 
     class CourseHolder extends RecyclerView.ViewHolder{
-        TextView txtLevel;
-        TextView txtSubject;
-        TextView txtSection;
+        TextView txtCourseID;
+        TextView txtCourseSection;
 
 
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
-            txtLevel = itemView.findViewById(R.id.txtLevel);
-            txtSubject = itemView.findViewById(R.id.txtSubject);
-            txtSection = itemView.findViewById(R.id.txtSection);
+            txtCourseID = itemView.findViewById(R.id.txtCourse);
+            txtCourseSection = itemView.findViewById(R.id.txtSection);
         }
     }
 }
