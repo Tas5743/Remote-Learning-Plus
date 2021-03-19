@@ -14,10 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 
@@ -42,14 +46,15 @@ public class StudentQuiz extends AppCompatActivity {
     String courseSectionStr;
     String quizTitleStr;
     String correct;
+    String path;
     int questionnum;
     Long points;
     DocumentReference QuizQuestion;
+    DocumentReference studentcopy;
+    HashMap<String, String> choices;
 
     private void save(){
         RadioButton selected = (RadioButton) findViewById(responses.getCheckedRadioButtonId());
-        String path = QuizQuestion.getParent().getParent().getParent().getParent().getPath()+ "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr + "/" + student + "/" +questionnum;
-        DocumentReference studentcopy = FirebaseFirestore.getInstance().document(path);
         HashMap<String, Object> answer = new HashMap<>();
         Long grade = 0L;
 
@@ -117,8 +122,6 @@ public class StudentQuiz extends AppCompatActivity {
             next.setVisibility(View.INVISIBLE);
         }
 
-
-
         //QuizQuestion = FirebaseFirestore.getInstance().document(quiz+"/"+questionnum);
         QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
 
@@ -133,7 +136,7 @@ public class StudentQuiz extends AppCompatActivity {
 
                         question.setText(document.getData().get("question").toString());
                         points =  (Long) document.getData().get("points");
-                        HashMap<String, String> choices = (HashMap<String, String>) document.get("choices");
+                        choices = (HashMap<String, String>) document.get("choices");
                         correct = choices.get("correct");
 
                         if (choices.containsKey("option1")){
@@ -162,6 +165,45 @@ public class StudentQuiz extends AppCompatActivity {
 //                            ((RadioButton) responses.getChildAt(i)).setText(c.get(i));
 //                            responses.getChildAt(i).setVisibility(View.VISIBLE);}
 //                        }
+
+                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath()+ "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr+ "/" + student;
+                        studentcopy = FirebaseFirestore.getInstance().document(path  + "/" +questionnum);
+                        studentcopy.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                String TAG = "quiz";
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+
+                                        if (document.getData().containsKey("response")){
+                                            String response = document.getData().get("response").toString();
+
+                                            if(choices.containsKey("option1") && choices.get("option1").equals(response)){
+                                                response1.toggle();
+                                            }
+                                            if(choices.containsKey("option2") && choices.get("option2").equals(response)){
+                                                response2.toggle();
+                                            }
+                                            if(choices.containsKey("option3") && choices.get("option3").equals(response)){
+                                                response3.toggle();
+                                            }
+                                            if(choices.containsKey("option4") && choices.get("option4").equals(response)){
+                                                response4.toggle();
+                                            }
+                                            if(choices.containsKey("option5") && choices.get("option5").equals(response)){
+                                                response5.toggle();
+                                            }
+                                        }
+                                    } else {
+                                        Log.d(TAG, "No such document");
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
+                                }
+                            }
+                        });
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -170,6 +212,8 @@ public class StudentQuiz extends AppCompatActivity {
                 }
             }
         });
+
+
 
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,8 +259,56 @@ public class StudentQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 save();
+                CollectionReference quizgrade = FirebaseFirestore.getInstance().collection(path);
+                quizgrade.get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                String TAG = "GRADE";
+                                if (task.isSuccessful()) {
+                                    Long totalgrade = 0L;
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        Log.d(TAG, document.getId() + " => " + document.getData());
+                                        if(document.contains("grade")){
+                                        totalgrade += (Long) document.getData().get("grade");}
+                                    }
+
+
+                                    Long finalTotalgrade = totalgrade;
+                                    QuizQuestion.getParent().getParent().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                                    Long maxgrade = (Long) document.getData().get("totalPoints");
+
+                                                    HashMap<String, Object> grading = new HashMap<>();
+                                                    grading.put("fraction", finalTotalgrade + "/" + maxgrade);
+
+                                                    NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+                                                    defaultFormat.setMinimumFractionDigits(0);
+                                                    grading.put("percentage", defaultFormat.format(finalTotalgrade/maxgrade));
+                                                    grading.put("taken", true);
+                                                    FirebaseFirestore.getInstance().document(path + "/grade").set(grading);
+                                                } else {
+                                                    Log.d(TAG, "No such document");
+                                                }
+                                            } else {
+                                                Log.d(TAG, "get failed with ", task.getException());
+                                            }
+                                        }
+                                    });
+
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+
                 Intent Submit = new Intent(StudentQuiz.this, Student_HomePage.class);
-                startActivity(Submit);
+                //startActivity(Submit);
             }
         });
 
