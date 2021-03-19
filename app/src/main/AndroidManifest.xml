@@ -21,6 +21,7 @@
         </intent-filter></activity>
         <activity android:name=".SelectCourseTimes" />
         <activity android:name=".CreateCourse"/>
+        <activity android:name=".Join_Course"/>
     </application>
 
 </manifest>

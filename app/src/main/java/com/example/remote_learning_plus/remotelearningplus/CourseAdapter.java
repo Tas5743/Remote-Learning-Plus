@@ -50,4 +50,5 @@ public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseA
             txtCourseSection = itemView.findViewById(R.id.txtSection);
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.remote_learning_plus;
+package com.example.remote_learning_plus.remotelearningplus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,7 @@ public class student_course_home extends AppCompatActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Student_HomePage.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
                         startActivity(intent);
                     case R.id.btnAdd:
                         Intent intent2 = new Intent(getApplicationContext(), ask_question.class);

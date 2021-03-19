@@ -40,7 +40,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etInvite_code" />
+        app:layout_constraintTop_toBottomOf="@+id/etInvite_code"
+        android:onClick="onClick"/>
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@menu/menu_main"/>
+            app:menu="@layout/menu_main"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

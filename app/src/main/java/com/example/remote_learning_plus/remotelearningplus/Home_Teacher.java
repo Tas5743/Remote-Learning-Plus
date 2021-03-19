@@ -1,15 +1,18 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -51,7 +54,7 @@ public class Home_Teacher extends AppCompatActivity {
             }
         });
         
-
+        /*
         // Initialize FAB
         createBtn = findViewById(R.id.btn_create_course);
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +63,7 @@ public class Home_Teacher extends AppCompatActivity {
                 Intent intent = new Intent(Home_Teacher.this, CourseInformation.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
 
