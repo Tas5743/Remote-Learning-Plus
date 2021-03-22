@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -64,6 +66,16 @@ public class Home_Teacher extends AppCompatActivity {
                 startActivity(intent);
             }
         });*/
+        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                CourseModel course = documentSnapshot.toObject(CourseModel.class);
+                Intent intent = new Intent(Home_Teacher.this, student_course_home.class);
+                intent.putExtra("courseID", course.getCourseID());
+                intent.putExtra("courseSection", course.getCourseSection());
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -82,6 +94,8 @@ public class Home_Teacher extends AppCompatActivity {
 
     }
 
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -93,6 +107,8 @@ public class Home_Teacher extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+
+
 
 }
 
