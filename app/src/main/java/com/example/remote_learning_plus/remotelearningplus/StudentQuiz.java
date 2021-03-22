@@ -222,6 +222,7 @@ public class StudentQuiz extends AppCompatActivity {
                 Intent previous  = new Intent(StudentQuiz.this,StudentQuiz.class);
                 previous.putExtra("student", student);
                 previous.putExtra("quiz",quizPath);
+                //previous.putExtra("quiz",quiz + "/" + questionnum);
                 previous.putExtra("num", questionnum-1);
                 previous.putExtra("total",totalquestion);
                 previous.putExtra("courseCode",courseCodeStr);
@@ -242,6 +243,7 @@ public class StudentQuiz extends AppCompatActivity {
                 Intent Next  = new Intent(StudentQuiz.this,StudentQuiz.class);
                 Next.putExtra("student", student);
                 Next.putExtra("quiz",quizPath);
+                //Next.putExtra("quiz",quiz + "/" + questionnum);
                 Next.putExtra("num", questionnum+1);
                 Next.putExtra("total",totalquestion);
                 Next.putExtra("courseCode",courseCodeStr);
