@@ -187,7 +187,7 @@ public class SelectCourseTimes extends AppCompatActivity{
             String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             DocumentReference docRefInstructor = db.collection("users").document(userId).collection("courses").document(TextID+TextSection);
             Map<String, Object> courseList = new HashMap<>();
-            courseList.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+            courseList.put("sectionReference","courses/"+TextID+"/section/"+TextSection);
             courseList.put("courseSection", TextSection);
             courseList.put("courseID", TextID);
             docRefInstructor.set(courseList);
