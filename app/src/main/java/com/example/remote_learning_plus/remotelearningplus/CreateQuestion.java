@@ -32,13 +32,10 @@ public class CreateQuestion extends AppCompatActivity {
     Button finishButton = findViewById(R.id.finishButton);
 
     // TO DO: Get course and quiz
-    String course, quiz;
+    String course="CMPSC111", quiz="Time complexity";
 
     private final DocumentReference quizRef = FirebaseFirestore.getInstance().document("courses" + course + "quizzes" + quiz);
     private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "questions");
-
-    public CreateQuestion(FirebaseFirestore db) {
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -14,12 +14,15 @@
         <activity android:name=".RegisterUser" />
         <activity android:name=".LoginSuccess" />
         <activity android:name=".CourseInformation"/>
-        <activity android:name=".MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".CreateQuestion" >
 
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            </intent-filter></activity>
+
+
         <activity android:name=".SelectCourseTimes" />
         <activity android:name=".CreateCourse"/>
     </application>
