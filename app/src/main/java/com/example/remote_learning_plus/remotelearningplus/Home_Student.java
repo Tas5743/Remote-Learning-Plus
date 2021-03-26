@@ -52,7 +52,7 @@ public class Home_Student extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), Join_Course.class);
+                        Intent intent2 = new Intent(getApplicationContext(), JoinCourse.class);
                         startActivity(intent2);
                         break;
                 }
