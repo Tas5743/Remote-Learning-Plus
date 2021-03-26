@@ -98,6 +98,11 @@
     <string name="eng1">The lecture is engaging</string>
     <string name="pace0">Too pacing is too slow</string>
     <string name="pace1">The pacing is too fast</string>
+    <string name="resource_url">Resource URL</string>
+    <string name="topic">Topic</string>
+    <string name="add_resource">Add Resource</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 
 
 </resources>

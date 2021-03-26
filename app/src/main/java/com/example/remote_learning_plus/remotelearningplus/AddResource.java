@@ -2,7 +2,7 @@
 // URL VALIDATION from https://stackoverflow.com/questions/8660209/how-to-validate-url
 // META description extraction from: https://stackoverflow.com/questions/9958425/get-title-meta-description-content-using-url
 
-package com.teamremote.remotelearningplus;
+package com.example.remote_learning_plus.remotelearningplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 

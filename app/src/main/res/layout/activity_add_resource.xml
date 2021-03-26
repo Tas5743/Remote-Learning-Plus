@@ -13,7 +13,7 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="100dp"
-        android:text="Add Resource"
+        android:text="@string/add_resource"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,13 +27,15 @@
         android:layout_marginTop="260dp"
         android:ems="10"
         android:inputType="textUri"
-        android:text="Resource URL"
+        android:text="@string/resource_url"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:inputType="textUri" />
+        tools:inputType="textUri"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editTextTag"
@@ -43,43 +45,51 @@
         android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="textAutoCorrect|textPersonName|textCapSentences|textCapWords"
-        android:text="Topic"
+        android:text="@string/topic"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePreview"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
 
     <ImageView
         android:id="@+id/imagePreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="283dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toStartOf="@+id/resourceText"
+        app:layout_constraintStart_toStartOf="@+id/editTextURL"
+        app:layout_constraintTop_toBottomOf="@+id/editTextURL"
+        tools:srcCompat="@tools:sample/avatars"
+        tools:ignore="contentDescription"/>
 
     <TextView
         android:id="@+id/resourceTitle"
         android:layout_width="167dp"
         android:layout_height="25dp"
-        android:text="Title"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="283dp" />
+        android:text="@string/title"
+        app:layout_constraintEnd_toEndOf="@+id/editTextURL"
+        app:layout_constraintTop_toTopOf="@+id/imagePreview"
+        tools:ignore="labelFor"
+        />
 
     <TextView
         android:id="@+id/resourceText"
         android:layout_width="168dp"
         android:layout_height="90dp"
-        android:text="Description"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="319dp" />
+        android:text="@string/description"
+        app:layout_constraintBottom_toBottomOf="@+id/imagePreview"
+        app:layout_constraintEnd_toEndOf="@+id/resourceTitle"
+        tools:ignore="labelFor"/>
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="Add Resource"
+        android:text="@string/add_resource"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTag" />

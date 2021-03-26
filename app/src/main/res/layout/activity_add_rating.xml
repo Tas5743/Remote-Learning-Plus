@@ -89,7 +89,7 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="45"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:text="@string/pace1"
         android:textSize="8sp"
@@ -123,7 +123,7 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="45"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:text="@string/pace0"
         android:textSize="8sp"
