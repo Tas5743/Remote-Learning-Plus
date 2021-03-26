@@ -39,9 +39,9 @@ public class Home_Teacher extends AppCompatActivity {
  
         //Bottom Navigation
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
@@ -52,6 +52,7 @@ public class Home_Teacher extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                 }
+                return true;
             }
         });
 
