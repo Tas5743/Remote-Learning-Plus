@@ -9,21 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteLearningPlus">
-        <activity android:name=".Home_Teacher"/>
+        <activity android:name=".StudentQuestions"></activity>
+        <activity android:name=".Home_Teacher" />
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
-        <activity android:name=".CourseInformation"/>
+        <activity android:name=".CourseInformation" />
         <activity android:name=".MainActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SelectCourseTimes" />
-        <activity android:name=".CreateCourse"/>
-        <activity android:name=".JoinCourse"/>
-        <activity android:name=".student_course_home"/>
-        <activity android:name=".instructor_course"/>
+        <activity android:name=".CreateCourse" />
+        <activity android:name=".JoinCourse" />
+        <activity android:name=".student_course_home" />
+        <activity android:name=".instructor_course" />
     </application>
 
 </manifest>
