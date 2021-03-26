@@ -24,6 +24,8 @@
         <activity android:name=".JoinCourse"/>
         <activity android:name=".student_course_home"/>
         <activity android:name=".instructor_course"/>
+        <activity android:name=".AddResource"/>
+
     </application>
 
 </manifest>

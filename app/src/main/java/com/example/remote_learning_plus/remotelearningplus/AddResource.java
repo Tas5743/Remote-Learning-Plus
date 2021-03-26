@@ -2,7 +2,7 @@
 // URL VALIDATION from https://stackoverflow.com/questions/8660209/how-to-validate-url
 // META description extraction from: https://stackoverflow.com/questions/9958425/get-title-meta-description-content-using-url
 
-package com.teamremote.remotelearningplus;
+package com.example.remote_learning_plus.remotelearningplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,11 +36,11 @@ public class AddResource extends AppCompatActivity {
             //getIntent().getStringExtra().toString();
     private CollectionReference colRef = FirebaseFirestore.getInstance().collection("courses/" + thisCourse + "/learningResources");
 
-    EditText editTextURL= findViewById(R.id.editTextURL);
-    EditText editTextTag= findViewById(R.id.editTextTag);
-    ImageView imagePreview = findViewById(R.id.imagePreview);
-    TextView resourceTitle = findViewById(R.id.resourceTitle);
-    TextView resourceText = findViewById(R.id.resourceText);
+    EditText editTextURL;
+    EditText editTextTag;
+    ImageView imagePreview;
+    TextView resourceTitle;
+    TextView resourceText;
 
 
 
@@ -78,6 +78,12 @@ public class AddResource extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_resource);
+
+        editTextURL= findViewById(R.id.editTextURL);
+        editTextTag= findViewById(R.id.editTextTag);
+        imagePreview = findViewById(R.id.imagePreview);
+        resourceTitle = findViewById(R.id.resourceTitle);
+        resourceText = findViewById(R.id.resourceText);
 
 
         editTextURL.setOnFocusChangeListener(new View.OnFocusChangeListener() {
