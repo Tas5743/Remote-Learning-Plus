@@ -18,9 +18,9 @@ public class ask_question extends AppCompatActivity {
    
         //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Student.class);
@@ -31,6 +31,7 @@ public class ask_question extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                 }
+                return true;
             }
         });
     }
