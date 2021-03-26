@@ -1,4 +1,4 @@
-package com.example.remote_learning_plus.remotelearningplus;
+package com.teamremote.remotelearningplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -20,8 +18,8 @@ public class AddRating extends AppCompatActivity {
 
     // TODO: get following info from previous activity
 
-    String thisLecture="courses/cmpsc475/sections/section1/lectures/02242021";
-    String thisStudentID="1";
+    String thisLecture;
+    String thisStudentID;
 
     //getIntent().getStringExtra().toString();
     private DocumentReference docRef = FirebaseFirestore.getInstance().document(thisLecture);
@@ -43,38 +41,20 @@ public class AddRating extends AppCompatActivity {
                 RatingBar eng = findViewById(R.id.ratingBarEng);
                 RatingBar paceBar = findViewById(R.id.ratingBarPace);
 
+                Map<String, Object> rating = new HashMap<String, Object>();
 
-                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Rating rating = documentSnapshot.toObject(Rating.class);
+                Map<String, Object> comprehension = new HashMap<String, Object>();
+                comprehension.put(thisStudentID, comp.getRating());
 
-                        assert rating != null;
-                        if (rating.getComprehension()!=null) rating.getComprehension().put(thisStudentID, comp.getRating());
-                        else {
-                            HashMap<String, Object> comprehension = new HashMap<>();
-                            comprehension.put(thisStudentID, comp.getRating());
-                            rating.setComprehension(comprehension);
-                        }
+                Map<String, Object> engagement = new HashMap<String, Object>();
+                engagement.put(thisStudentID, eng.getRating());
 
-                        if (rating.getEngagement()!=null) rating.getEngagement().put(thisStudentID, eng.getRating());
-                        else {
-                            HashMap<String, Object> engagement = new HashMap<>();
-                            engagement.put(thisStudentID, eng.getRating());
-                            rating.setComprehension(engagement);
-                        }
+                Map<String, Object> pace = new HashMap<String, Object>();
+                pace.put(thisStudentID, paceBar.getRating());
 
-                        if (rating.getPace()!=null) rating.getPace().put(thisStudentID, paceBar.getRating());
-                        else {
-                            HashMap<String, Object> pace = new HashMap<>();
-                            pace.put(thisStudentID, paceBar.getRating());
-                            rating.setComprehension(pace);
-                        }
-
-                        docRef.set(rating);
-
-                    }
-                });
+                docRef.set(pace);
+                docRef.set(engagement);
+                docRef.set(comprehension);
 
             }
         } );
