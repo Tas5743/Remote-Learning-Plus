@@ -23,11 +23,10 @@ public class CourseInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_information);
         
-        //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
@@ -38,6 +37,7 @@ public class CourseInformation extends AppCompatActivity {
                         startActivity(intent2);
                         break;
                 }
+                return true;
             }
         });
 
