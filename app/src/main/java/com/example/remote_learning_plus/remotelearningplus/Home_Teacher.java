@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class Home_Teacher extends AppCompatActivity {
-    FloatingActionButton createBtn;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference courseRef = db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("courses");
@@ -55,22 +54,12 @@ public class Home_Teacher extends AppCompatActivity {
                 }
             }
         });
-        
-        /*
-        // Initialize FAB
-        createBtn = findViewById(R.id.btn_create_course);
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Home_Teacher.this, CourseInformation.class);
-                startActivity(intent);
-            }
-        });*/
+
         adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 CourseModel course = documentSnapshot.toObject(CourseModel.class);
-                Intent intent = new Intent(Home_Teacher.this, student_course_home.class);
+                Intent intent = new Intent(Home_Teacher.this, instructor_course.class);
                 intent.putExtra("courseID", course.getCourseID());
                 intent.putExtra("courseSection", course.getCourseSection());
                 startActivity(intent);

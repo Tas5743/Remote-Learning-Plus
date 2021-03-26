@@ -2,26 +2,16 @@ package com.example.remote_learning_plus.remotelearningplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.remote_learning_plus.remotelearningplus.Home_Student;
-import com.example.remote_learning_plus.remotelearningplus.Join_Course;
-import com.example.remote_learning_plus.remotelearningplus.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,7 +21,6 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class JoinCourse extends AppCompatActivity {
@@ -80,6 +69,7 @@ public class JoinCourse extends AppCompatActivity {
         //accountname = bundle.getString("account");
 
         submit.setOnClickListener(v -> {
+            Log.d("button_clicked", "button_clicked");
             String code = inviteCode.getText().toString();
             if(code.isEmpty()){
                 Toast.makeText(JoinCourse.this,"Please enter an invite code",Toast.LENGTH_SHORT).show();
@@ -113,14 +103,19 @@ public class JoinCourse extends AppCompatActivity {
                                             roster.add(studentname);
                                             HashMap<String, Object> updateclass = new HashMap<>();
                                             updateclass.put("roster", roster);
-                                            instructor.set(updateclass);
-                                            DocumentReference studentClass = FirebaseFirestore.getInstance().collection("users/" + accountname + "/courses").document(instructor.getParent().getParent().getId());
+                                            instructor.set(updateclass, SetOptions.merge());
+                                            //DocumentReference studentClass = FirebaseFirestore.getInstance().collection("users/" + accountname + "/courses").document(instructor.getParent().getParent().getId());
+                                            DocumentReference studentClass = FirebaseFirestore.getInstance().collection("users/" + accountname + "/courses").document(documentSnapshot.get("courseId").toString());
+                                            String courseID = documentSnapshot.get("courseId").toString();
+                                            String courseSelection = documentSnapshot.get("courseSection").toString();
                                             HashMap<String, Object> addclass = new HashMap<>();
                                             addclass.put("classRef", document.get("sectionReference").toString());
-                                            addclass.put("courseID", document.get("courseID").toString());
-                                            addclass.put("courseSection", document.get("section").toString());
+                                            addclass.put("courseID", courseID);
+                                            addclass.put("courseSection", courseSelection);
                                             studentClass.set(addclass, SetOptions.merge());
                                             Toast.makeText(JoinCourse.this, "Class Successfully added", Toast.LENGTH_SHORT).show();
+                                            Intent intent= new Intent(this, Home_Student.class);
+                                            startActivity(intent);
                                         }
                                         else {
                                             Toast.makeText(JoinCourse.this, "You are already a student for this course section.",Toast.LENGTH_SHORT).show();
@@ -146,25 +141,6 @@ public class JoinCourse extends AppCompatActivity {
                     Log.d(TAG, "get failed with ", task.getException());
                 }
             });
-                //Navigation Bar
-
-                BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-                bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-                    @Override
-                    public void onNavigationItemReselected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.btnHome:
-                                Intent intent = new Intent(getApplicationContext(), Home_Student.class);
-                                startActivity(intent);
-                                break;
-                            case R.id.btnAdd:
-                                Intent intent2 = new Intent(getApplicationContext(), JoinCourse.class);
-                                startActivity(intent2);
-                                break;
-                        }
-                    }
-                });
-
 }});
 
     }

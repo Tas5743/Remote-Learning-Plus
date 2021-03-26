@@ -14,6 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -21,7 +22,6 @@ public class Home_Student extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference courseRef = db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("courses");
-
     private CourseAdapter adapter;
 
     @Override
@@ -30,6 +30,17 @@ public class Home_Student extends AppCompatActivity {
         setContentView(R.layout.activity_home__student);
 
         setUpRecyclerView();
+
+        adapter.setOnItemClickListener(new CourseAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                CourseModel course = documentSnapshot.toObject(CourseModel.class);
+                Intent intent = new Intent(Home_Student.this, student_course_home.class);
+                intent.putExtra("courseID", course.getCourseID());
+                intent.putExtra("courseSection", course.getCourseSection());
+                startActivity(intent);
+            }
+        });
         
         //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
