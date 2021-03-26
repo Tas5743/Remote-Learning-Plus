@@ -65,10 +65,10 @@ public class SelectCourseTimes extends AppCompatActivity{
         setContentView(R.layout.activity_course_meeting_schedule);
         
         //Navigation Bar
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
@@ -79,6 +79,7 @@ public class SelectCourseTimes extends AppCompatActivity{
                         startActivity(intent2);
                         break;
                 }
+                return true;
             }
         });
         //Bundle bundle = getIntent().getExtras();
