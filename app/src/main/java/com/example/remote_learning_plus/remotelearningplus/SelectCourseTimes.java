@@ -197,7 +197,7 @@ public class SelectCourseTimes extends AppCompatActivity{
             DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/section").document(TextSection);
             colRef.set(dataToSave);
             Map<String, Object> masterlist = new HashMap<String, Object>();
-            masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+            masterlist.put("sectionReference","courses/"+TextID+"/section/"+TextSection);
             colSections.set(masterlist);
 
             Toast.makeText(SelectCourseTimes.this, "Course Successfully created!", Toast.LENGTH_SHORT).show();
