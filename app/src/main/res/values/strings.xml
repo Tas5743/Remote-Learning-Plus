@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">RLP</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -11,6 +12,11 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="institution">Institution</string>
+    <string name="resource_url">Resource URL</string>
+    <string name="topic">Topic</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add_resource">Add Resource</string>
     <string name="add_course">Add Course</string>
     <string name="section">Section</string>
     <string name="subject">Subject</string>
