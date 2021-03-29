@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.w3c.dom.Text;
 
 public class student_course_home extends AppCompatActivity {
     TextView txtCourseName;
@@ -36,7 +33,7 @@ public class student_course_home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Home_Student.class);
                         startActivity(intent);
                     case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), ask_question.class);
+                        Intent intent2 = new Intent(getApplicationContext(), Student_Ask_Question.class);
                         startActivity(intent2);
                 }
             }
