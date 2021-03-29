@@ -6,32 +6,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 public class Student_Ask_Question extends AppCompatActivity {
+
+    Bundle studentandinstructor = getIntent().getExtras();
+    //String student = studentandinstructor.getString("student");
+    //String instructor_course = studentandinstructor.getString("course_path");
+    String student = "student";
+    String instructor_course = "courses/SW123/sections/1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask_question);
-   
-        //Navigation Bar
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+
+        Button button = findViewById(R.id.btnSubmit);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), Student_Ask_Question.class);
-                        startActivity(intent2);
-                        break;
-                }
+            public void onClick(View v) {
+                EditText question = findViewById(R.id.etQuestion);
+                CollectionReference log = FirebaseFirestore.getInstance().collection(instructor_course+"/questions");
+                HashMap<String,Object> croissant = new HashMap<>();
+                croissant.put("student", student);
+                croissant.put("question", question.getText().toString());
+                croissant.put("isAnswered", false);
+                log.add(croissant);
+                Toast.makeText(Student_Ask_Question.this,"Question posted.", Toast.LENGTH_SHORT).show();
+                Intent homepage = new Intent(Student_Ask_Question.this, Home_Student.class);
+                startActivity(homepage);
             }
         });
+
     }
 }
