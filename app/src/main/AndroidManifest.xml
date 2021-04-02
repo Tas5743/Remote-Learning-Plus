@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteLearningPlus">
-        <activity android:name=".StudentQuestions"></activity>
+        <activity android:name=".StudentQuestions"/>
         <activity android:name=".Home_Teacher" />
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
@@ -26,6 +26,7 @@
         <activity android:name=".JoinCourse" />
         <activity android:name=".student_course_home" />
         <activity android:name=".instructor_course" />
+        <activity android:name=".Student_Ask_Question" />
     </application>
 
 </manifest>

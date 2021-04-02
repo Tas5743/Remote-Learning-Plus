@@ -30,27 +30,20 @@ public class QuestionAdapter extends FirestoreRecyclerAdapter<QuestionModel, Que
     @Override
     protected void onBindViewHolder(@NonNull QuestionHolder holder, int position, @NonNull QuestionModel model) {
         holder.txtQuestion.setText(model.getQuestion());
-        holder.txtStudent.setText(model.getStudent());
-
     }
 
     @NonNull
     @Override
     public QuestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item, parent, false);
         return new QuestionHolder(v);
     }
 
     class QuestionHolder extends RecyclerView.ViewHolder{
-        TextView txtQuestion;
-        TextView txtStudent;
-
-
+        TextView txtQuestion = itemView.findViewById(R.id.txtQuestion);
         public QuestionHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtQuestion = itemView.findViewById(R.id.txtCourse);
-            txtStudent = itemView.findViewById(R.id.txtSection);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override

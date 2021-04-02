@@ -71,4 +71,8 @@
     <string name="enter_course_invite_code">Enter course invite Code.</string>
     <string name="invite_code">Invite Code</string>
     <string name="inivte_code">Inivte Code</string>
+    <string name="hide_name">Hide Name</string>
+    <string name="questions">Questions</string>
+    <string name="answered">Answered</string>
+    <string name="back">Back</string>
 </resources>

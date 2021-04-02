@@ -1,15 +1,20 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -21,26 +26,59 @@ import com.google.firebase.firestore.Query;
 public class StudentQuestions extends AppCompatActivity {
     String course;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final CollectionReference courseRef = db.collection("courses").document(course).collection("Questions");
+    private  CollectionReference courseRef;
     private QuestionAdapter adapter;
+    String courseID, courseSection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home__student);
 
+        Intent intent = getIntent();
+        courseID = intent.getStringExtra("courseID");
+        courseSection = intent.getStringExtra("courseSection");
+        Log.d("getStringExtra", "id:" + courseID + " section: " + courseSection);
+        courseRef = db.collection("courses/" + courseID + "/section/" + courseSection + "/questions");
+
         setUpRecyclerView();
 
-        /*adapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new QuestionAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                QuestionModel course = documentSnapshot.toObject(QuestionModel.class);
-                Intent intent = new Intent(StudentQuestions.this, student_course_home.class);
-                intent.putExtra("courseID", course.getCourseID());
-                intent.putExtra("courseSection", course.getCourseSection());
-                startActivity(intent);
+                QuestionModel question = documentSnapshot.toObject(QuestionModel.class);
+                AlertDialog.Builder builder = new AlertDialog.Builder(StudentQuestions.this);
+                builder.setMessage(question.getQuestion())
+                        .setTitle(question.getStudent())
+                        .setPositiveButton(R.string.answered, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        db.document("courses/" + courseID + "/section/" + courseSection + "/questions/" + documentSnapshot.getId())
+                                                .delete()
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("StudentQuestions", "Question Deletion Successful");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("StudentQuestions", "Question Deletion Failed", e);
+                                                    }
+                                                });
+                                    }
+                                })
+                        .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // exit dialog
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
-        });*/
+        });
 
         //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
