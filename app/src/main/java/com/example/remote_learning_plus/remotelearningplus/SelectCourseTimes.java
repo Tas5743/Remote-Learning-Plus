@@ -1,11 +1,13 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -17,17 +19,24 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.mifmif.common.regex.Generex;
 
 import java.util.ArrayList;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -54,9 +63,9 @@ public class SelectCourseTimes extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_meeting_schedule);
-        //Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 //        TextName = bundle.getString("courseName");
-        //TextID = bundle.getString("courseID");
+        TextID = bundle.getString("courseID");
 //        TextInviteCode = bundle.getString("CourseInviteCode");
         //TextSection = bundle.getString("courseSection");
 //        TextCourseDescription = bundle.getString("courseDescription");
@@ -125,41 +134,56 @@ public class SelectCourseTimes extends AppCompatActivity{
         }
 
         else{
+                FirebaseFirestore.getInstance().collection("masterSectionList").get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    List<String>  sections = new ArrayList<>();
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        sections.add(document.getId());
+                                    }
 
-            Generex generex = new Generex("[A-Z]{3}\\d{3}");
+                                    boolean unique = false;
+                                        String inviteCode = "o";
+                                        while (!unique){
+                                            Generex generex = new Generex("[A-Z]{3}\\d{3}");
+                                            inviteCode = generex.random();
+                                            if(
+                                           !sections.contains(inviteCode)){
+                                                unique = true;
+                                            }}
+                                            DocumentReference colSections = FirebaseFirestore.getInstance().collection("masterSectionList").document(inviteCode);
+                                            Map<String, Object> dataToSave = new HashMap<String, Object>();
 
-            String inviteCode = generex.random();
+                                            dataToSave.put("courseDays",days);
+                                            dataToSave.put("startTime",sTime);
+                                            dataToSave.put("endTime",eTime);
+                                            dataToSave.put("InviteCode", inviteCode);
 
-            DocumentReference colSections = FirebaseFirestore.getInstance().collection("masterSectionList").document(inviteCode);
-//            while(colSections){
-//                inviteCode = generex.random();
-//                colSections = FirebaseFirestore.getInstance().collection("masterSectionList").document(inviteCode);
-//                check =  colSections.get().getResult();
-//            }
-            //TODO Generate new invite code if current one already exists.
-
-
-
-
-
-            Map<String, Object> dataToSave = new HashMap<String, Object>();
-
-            dataToSave.put("courseDays",days);
-            dataToSave.put("startTime",sTime);
-            dataToSave.put("endTime",eTime);
-            dataToSave.put("InviteCode", inviteCode);
-
-            Toast.makeText(SelectCourseTimes.this, "Course Successfully crated!", Toast.LENGTH_SHORT).show();
-            //TODO redirect to course page.
-            //TODO Add section textbox
+                                            Toast.makeText(SelectCourseTimes.this, "Course Successfully crated!", Toast.LENGTH_SHORT).show();
 
 
-            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/sections").document(TextSection);
-            colRef.set(dataToSave);
-            Map<String, Object> masterlist = new HashMap<String, Object>();
-            masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
-            colSections.set(masterlist);
+                                            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/sections").document(TextSection);
+                                            colRef.set(dataToSave);
+                                            Map<String, Object> masterlist = new HashMap<String, Object>();
+                                            masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+                                            colSections.set(masterlist);
+                                            Intent coursehome = new Intent(SelectCourseTimes.this, Instructor_HomePage.class);
+                                            startActivity(coursehome);
+                                        }
+                                }
+                        });
+
+
+
+
+
+
+
+
+
         }
-
     }
 }
+
