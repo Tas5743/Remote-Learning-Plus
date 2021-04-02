@@ -76,7 +76,7 @@ public class Student_Ask_Question extends AppCompatActivity {
                 if(!hideName){
                     croissant.put("student", studentName);
                 }else{
-                    croissant.put("student", "anonymous");
+                    croissant.put("student", "Anonymous");
                 }
                 croissant.put("question", questionText);
                 log.set(croissant);
