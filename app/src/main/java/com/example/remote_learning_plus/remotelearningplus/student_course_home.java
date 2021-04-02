@@ -7,24 +7,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.w3c.dom.Text;
-
-public class student_course_home extends AppCompatActivity {
+public class student_course_home extends AppCompatActivity implements View.OnClickListener {
     TextView txtCourseName;
-    String courseID;
+    String courseID, courseSection;
+    Button btnAskQuestion, btnQuiz, btnResources, btnResults, btnInformation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_course_home);
 
+        btnAskQuestion = findViewById(R.id.btnAsk);
+        btnQuiz = findViewById(R.id.btnQuizzes);
+        btnResources = findViewById(R.id.btnResources);
+        btnResults = findViewById(R.id.btnResults);
+        btnInformation = findViewById(R.id.btnInformation);
+
+        btnAskQuestion.setOnClickListener(this);
+        btnQuiz.setOnClickListener(this);
+        btnResources.setOnClickListener(this);
+        btnResults.setOnClickListener(this);
+        btnInformation.setOnClickListener(this);
+
         Intent intent = getIntent();
         txtCourseName = findViewById(R.id.tvCourse_Name);
         courseID = intent.getStringExtra("courseID");
+        courseSection = intent.getStringExtra("courseSection");
         txtCourseName.setText(courseID);
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
@@ -36,10 +49,30 @@ public class student_course_home extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Home_Student.class);
                         startActivity(intent);
                     case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), ask_question.class);
+                        Intent intent2 = new Intent(getApplicationContext(), Student_Ask_Question.class);
                         startActivity(intent2);
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.btnAsk:
+                Intent intent = new Intent(this, Student_Ask_Question.class);
+                intent.putExtra("courseID", courseID);
+                intent.putExtra("courseSection", courseSection);
+                startActivity(intent);
+                break;
+            case R.id.btnQuizzes:
+                break;
+            case R.id.btnResources:
+                break;
+            case R.id.btnResults:
+                break;
+            case R.id.btnInformation:
+                break;
+        }
     }
 }
