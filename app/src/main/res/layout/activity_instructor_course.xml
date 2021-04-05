@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".instructor_course">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/course_name"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +24,9 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="44dp"
+        android:backgroundTint="@color/white"
         android:text="@string/quizzes"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toStartOf="@+id/btnResources"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +37,9 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="44dp"
+        android:backgroundTint="@color/white"
         android:text="@string/resources"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnQuizzes"
@@ -44,7 +50,9 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
         android:text="@string/class_list"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toStartOf="@+id/btnInformation"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +63,9 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
         android:text="@string/information"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnClass_List"
@@ -66,24 +76,26 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
         android:text="@string/statistics"
-        app:layout_constraintEnd_toStartOf="@+id/btnInformation"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnClass_List" />
 
     <Button
-        android:id="@+id/btnQuestions"
+        android:id="@+id/btnAdd"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginTop="30dp"
-        android:text="@string/questions"
+        android:backgroundTint="@color/white"
+        android:text="@string/add_student"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/btnStatistics"
-        app:layout_constraintTop_toBottomOf="@+id/btnClass_List" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/btnInformation" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -97,6 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@layout/menu_main"/>
+            app:menu="@menu/menu_main"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
