@@ -1,79 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue_background"
-    tools:context=".Join_Course">
-
-    <ImageView
-        android:id="@+id/imgJoin"
-        android:layout_width="325dp"
-        android:layout_height="325dp"
-        android:layout_marginTop="64dp"
-        android:background="@color/white"
-        android:contentDescription="@string/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/joincourse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="304dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="116dp"
         android:text="@string/join_a_course"
-        android:textColor="@color/dark_grey"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgJoin" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Join a course +" />
+
+    <TextView
+        android:id="@+id/joincourse2"
+        android:layout_width="304dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/enter_course_invite_code"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joincourse"
+        tools:text="Enter course invite code." />
 
     <EditText
         android:id="@+id/EditTxtInviteCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:autofillHints="@string/edit_invite_code"
-        android:background="@color/light_grey"
+        android:layout_width="304dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/invite_code"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColor="@color/medium_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joincourse" />
+        app:layout_constraintTop_toBottomOf="@+id/joincourse2" />
 
     <Button
         android:id="@+id/JoinCourseBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:backgroundTint="@color/blue_background"
+        android:layout_width="304dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="40dp"
         android:text="@string/submit"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTxtInviteCode" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:menu="@menu/menu_main" />
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTxtInviteCode"
+        app:layout_constraintVertical_bias="0.066"
+        tools:text="Submit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
