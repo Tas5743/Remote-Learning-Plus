@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rlp_blue"
+    android:background="@color/blue_background"
     tools:context=".MainActivity">
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/custom_input"
+        android:background="@color/white"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
@@ -41,7 +41,7 @@
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edtTxtEmail"
-        android:background="@drawable/custom_input"
+        android:background="@color/white"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingStart="12dp"
@@ -58,9 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/rlp_button"
+        android:backgroundTint="@color/grey"
         android:text="@string/login"
-        app:backgroundTint="@color/rlp_button"
+        android:textColor="@color/light_grey"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtTxtPassword" />
