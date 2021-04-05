@@ -9,22 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteLearningPlus">
-        <activity android:name=".Home_Teacher"/>
+        <activity android:name=".CreateQuiz"></activity>
+        <activity android:name=".Home_Teacher" />
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".LoginSuccess" />
-        <activity android:name=".CourseInformation"/>
+        <activity android:name=".CourseInformation" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".CreateQuestion" >
-
+        <activity android:name=".CreateQuestion">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter></activity>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".SelectCourseTimes" />
-        <activity android:name=".CreateCourse"/>
+        <activity android:name=".CreateCourse" />
     </application>
 
 </manifest>

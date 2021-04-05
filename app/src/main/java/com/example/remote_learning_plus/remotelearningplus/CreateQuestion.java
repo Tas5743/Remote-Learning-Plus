@@ -3,6 +3,8 @@ package com.example.remote_learning_plus.remotelearningplus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,44 +22,79 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
+import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class CreateQuestion extends AppCompatActivity {
 
-    Button qButton = findViewById(R.id.newQuestionButton);
-    Button finishButton = findViewById(R.id.finishButton);
-
+    private static final String TAG = "Tag";
     // TO DO: Get course and quiz
-    String course="CMPSC111", quiz="Time complexity";
+    String course="CMPSC111", quiz="/courses/cmpsc475/quizzes/quiz1";
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private final DocumentReference quizRef = FirebaseFirestore.getInstance().document("courses" + course + "quizzes" + quiz);
-    private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "questions");
+    private final DocumentReference quizRef = FirebaseFirestore.getInstance().document(quiz);
+    private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_question);
 
+        Button qButton = findViewById(R.id.newQuestionButton);
+        Button finishButton = findViewById(R.id.finishButton);
 
         // Set question number
         TextView tvQNum = findViewById(R.id.tvQNum);
 
+        // Counting the documents in collection
+        db.collection(String.valueOf(questionsRef))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            ArrayList<Question> qs = new ArrayList<>();
+
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                               qs.add(document.toObject(Question.class));
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+
+                            }
+                            tvQNum.setText(Integer.toString(qs.size()+1));
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+
+                        }
+                    }
+                });
+
+/*
+        // getting it from a field in quizzes
         quizRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Quiz quizSnap = documentSnapshot.toObject(Quiz.class);
                 assert quizSnap != null;
-                tvQNum.setText(quizSnap.getItems() + 1);
+                tvQNum.setText(Integer.toString(quizSnap.getItems()));
+
             }
-        });
+        });*/
 
 
         // Create question
-        Question question = new Question();
+
         EditText etQuestion = findViewById(R.id.etQuestion);
         EditText etChoice1 = findViewById(R.id.etChoice1);
         EditText etChoice2 = findViewById(R.id.etChoice2);
@@ -86,14 +123,20 @@ public class CreateQuestion extends AppCompatActivity {
                     Toast.makeText(CreateQuestion.this, "Please fill out points", Toast.LENGTH_SHORT).show();
                 } else if (etTimeLimit.getText().toString().isEmpty()) {
                     Toast.makeText(CreateQuestion.this, "Please fill out time limit", Toast.LENGTH_SHORT).show();
+                } else if (radioGroup.getCheckedRadioButtonId()==-1) {
+                        Toast.makeText(CreateQuestion.this, "Please select the correct answer", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    Question question = new Question();
+
+
                     question.setQuestion(etQuestion.getText().toString());
 
-                    String[] choices = new String[4];
-                    choices[0] = etChoice1.getText().toString();
-                    choices[1] = etChoice2.getText().toString();
-                    choices[2] = etChoice3.getText().toString();
-                    choices[3] = etChoice4.getText().toString();
+                    HashMap<String,String> choices = new HashMap<>();
+                    choices.put("Choice 1", etChoice1.getText().toString());
+                    choices.put("Choice 2", etChoice2.getText().toString());
+                    choices.put("Choice 3", etChoice3.getText().toString());
+                    choices.put("Choice 4", etChoice4.getText().toString());
                     question.setChoices(choices);
 
                     if (radioGroup.getCheckedRadioButtonId() == radioButton1.getId()) {
@@ -107,12 +150,13 @@ public class CreateQuestion extends AppCompatActivity {
                     }
 
                     question.setPoint(Integer.parseInt(etPoints.getText().toString()));
-
                     question.setTimeLimit(Integer.parseInt(etTimeLimit.getText().toString()));
-
                     questionsRef.add(question);
 
-                    quizRef.update("items", tvQNum);
+                    int items = Integer.parseInt(tvQNum.getText().toString()) + 1;
+                    quizRef.update("items", items);
+                    openNewCreateQuestionActivity();
+
                 }
             }
         });
@@ -126,5 +170,16 @@ public class CreateQuestion extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void openNewCreateQuestionActivity() {
+        Intent intent = new Intent(this, CreateQuestion.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

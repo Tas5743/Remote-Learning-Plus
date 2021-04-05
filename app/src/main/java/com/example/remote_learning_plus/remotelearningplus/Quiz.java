@@ -10,6 +10,7 @@ public class Quiz {
     private HashMap<String, Double> scores;
 
 
+
     public Quiz() {
 
     }

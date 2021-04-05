@@ -9,16 +9,16 @@
     <EditText
         android:id="@+id/etQuestion"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:gravity="start|top"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/qLabel2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/qLabel"
@@ -33,24 +33,13 @@
         android:labelFor= "@id/etQuestion"
         />
 
-    <TextView
-        android:id="@+id/qLabel2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:text="@string/choices"
-        app:layout_constraintBottom_toTopOf="@+id/etChoice1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:contentDescription="@string/multiple_choice_1"/>
-
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="37dp"
         android:layout_height="203dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="270dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="32dp"
         android:padding="0dp"
         app:layout_constraintBottom_toTopOf="@+id/etPoints"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +201,7 @@
         android:layout_marginBottom="20dp"
         android:autofillHints=""
         android:ems="10"
-        android:inputType="text"
+        android:inputType="number|text"
         android:text="@string/_10"
         android:textAlignment="center"
         android:textSize="10sp"
