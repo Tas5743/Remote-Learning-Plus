@@ -4,23 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_background"
-    tools:context=".register_user">
+    android:background="@color/rlp_blue"
+    tools:context=".RegisterUser">
 
     <TextView
         android:id="@+id/txtSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="@string/sign_up"
         android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"/>
     <RadioGroup
         android:id="@+id/rgUserType"
         android:layout_width="wrap_content"
@@ -40,8 +35,7 @@
             android:onClick="onRadioButtonClicked"
             android:text="@string/student"
             android:textColor="@color/white"
-            android:textSize="20sp" />
-
+            android:textSize="20sp"/>
         <RadioButton
             android:id="@+id/radioInstructor"
             android:layout_width="wrap_content"
@@ -49,7 +43,7 @@
             android:onClick="onRadioButtonClicked"
             android:text="@string/instructor"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
     </RadioGroup>
 
     <EditText
@@ -57,16 +51,15 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:autofillHints="name"
-        android:background="@color/white"
+        android:background="@drawable/custom_input"
         android:hint="@string/first_name"
         android:inputType="textPersonName"
         android:padding="5dp"
-        android:textColor="@color/light_grey"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/edtTxtLastName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rgUserType" />
+        app:layout_constraintTop_toBottomOf="@id/rgUserType"/>
 
     <EditText
         android:id="@+id/edtTxtLastName"
@@ -74,16 +67,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="name"
-        android:background="@color/white"
+        android:background="@drawable/custom_input"
         android:hint="@string/last_name"
         android:inputType="textPersonName"
         android:padding="5dp"
-        android:textColor="@color/light_grey"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/edtTxtInstitution"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtFirstName" />
+        app:layout_constraintTop_toBottomOf="@id/edtTxtFirstName"/>
 
     <EditText
         android:id="@+id/edtTxtInstitution"
@@ -91,16 +83,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="text"
-        android:background="@color/white"
+        android:background="@drawable/custom_input"
         android:hint="@string/institution"
         android:inputType="textCapWords"
         android:padding="5dp"
-        android:textColor="@color/light_grey"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/edtTxtEmail"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtLastName"/>
 
     <EditText
         android:id="@+id/edtTxtEmail"
@@ -108,16 +99,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="email"
-        android:background="@color/white"
+        android:background="@drawable/custom_input"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="5dp"
-        android:textColor="@color/light_grey"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@id/edtTxtPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtInstitution" />
+        app:layout_constraintTop_toBottomOf="@id/edtTxtInstitution"/>
 
     <EditText
         android:id="@+id/edtTxtPassword"
@@ -125,29 +115,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:autofillHints="password"
-        android:background="@color/white"
+        android:background="@drawable/custom_input"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:padding="5dp"
-        android:textColor="@color/light_grey"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@id/btnSignUp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtTxtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtEmail"/>
 
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:backgroundTint="@color/grey"
         android:onClick="saveUser"
         android:text="@string/sign_up"
-        android:textColor="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtTxtPassword" />
+        app:layout_constraintTop_toBottomOf="@id/edtTxtPassword"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
