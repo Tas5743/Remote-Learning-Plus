@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_background">
+
+    <ImageView
+        android:id="@+id/imgQuiz"
+        android:layout_width="350dp"
+        android:layout_height="475dp"
+        android:background="@color/white"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quizTitle"></ImageView>
+
+    <RadioGroup
+        android:id="@+id/quiz_responses"
+        android:layout_width="345dp"
+        android:layout_height="293dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_question">
+
+        <RadioButton
+            android:id="@+id/response1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:visibility="visible"
+            tools:text="response1" />
+
+        <RadioButton
+            android:id="@+id/response2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey"
+            android:visibility="visible"
+            tools:text="response2" />
+
+        <RadioButton
+            android:id="@+id/response3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey"
+            android:visibility="visible"
+            tools:text="response3" />
+
+        <RadioButton
+            android:id="@+id/response4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey"
+            android:visibility="visible"
+            tools:text="response4" />
+
+        <RadioButton
+            android:id="@+id/response5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_grey"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="24dp"
+            tools:layout_editor_absoluteY="742dp"
+            tools:text="response5" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/quizTitle"
+        android:layout_width="359dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="84dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Quiz Title" />
+
+    <TextView
+        android:id="@+id/courseCode"
+        android:layout_width="174dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="51dp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/quizTitle"
+        app:layout_constraintEnd_toStartOf="@+id/quiz_section"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CourseCode" />
+
+    <TextView
+        android:id="@+id/quiz_course_title"
+        android:layout_width="174dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/quiz_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toEndOf="@+id/courseCode"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Course Title" />
+
+    <TextView
+        android:id="@+id/quiz_section"
+        android:layout_width="174dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="54dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/quizTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quiz_course_title"
+        tools:text="Section" />
+
+    <Button
+        android:id="@+id/btn_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/previous"
+        app:layout_constraintBottom_toBottomOf="@+id/imgQuiz"
+        app:layout_constraintStart_toStartOf="@+id/imgQuiz"
+        android:backgroundTint="@color/blue_background"/>
+
+    <Button
+        android:id="@+id/btn_submit_quiz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="@+id/imgQuiz"
+        app:layout_constraintStart_toEndOf="@+id/btn_prev"
+        android:backgroundTint="@color/blue_background"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="@+id/imgQuiz"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_responses"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_submit_quiz"
+        android:backgroundTint="@color/blue_background" />
+
+    <TextView
+        android:id="@+id/quiz_question"
+        android:layout_width="345dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgQuiz"
+        tools:text="Question" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

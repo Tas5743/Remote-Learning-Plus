@@ -4,7 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectCourseTimes">
+    android:background="@color/blue_background"
+    tools:context=".CourseMeetingSchedule">
+
+    <ImageView
+        android:id="@+id/imgSchedule"
+        android:layout_width="375dp"
+        android:layout_height="475dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+    <ImageView
+        android:id="@+id/imgDays"
+        android:layout_width="350dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/light_grey"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_days"></ImageView>
 
     <EditText
         android:id="@+id/etsection"
@@ -14,6 +39,8 @@
         android:ems="10"
         android:hint="@string/edit_section"
         android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:background="@color/light_grey"
         app:layout_constraintBottom_toTopOf="@+id/chkboxWednesday"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -24,126 +51,123 @@
         android:id="@+id/meeting_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/meeting_days"
+        android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TimePicker
-        android:id="@+id/timePicker2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/timePicker1"
-        app:layout_constraintTop_toBottomOf="@+id/end_time" />
-
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toStartOf="@+id/timePicker2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_time" />
-
-    <TextView
-        android:id="@+id/end_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="76dp"
-        android:text="@string/end_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkboxFriday" />
-
-    <CheckBox
-        android:id="@+id/chkboxFriday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/friday"
-        app:layout_constraintBottom_toBottomOf="@+id/chkboxThursday"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chkboxThursday"
-        app:layout_constraintTop_toTopOf="@+id/chkboxThursday"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/start_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="64dp"
-        android:text="@string/start_time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chkboxMonday" />
-
-    <CheckBox
-        android:id="@+id/chkboxMonday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/monday"
-        app:layout_constraintEnd_toStartOf="@+id/chkboxTuesday"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meeting_days" />
-
-    <CheckBox
-        android:id="@+id/chkboxTuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tuesday"
-        app:layout_constraintBottom_toBottomOf="@+id/chkboxMonday"
-        app:layout_constraintEnd_toStartOf="@+id/chkboxWednesday"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/chkboxMonday"
-        app:layout_constraintTop_toTopOf="@+id/chkboxMonday"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imgSchedule" />
 
     <CheckBox
         android:id="@+id/chkboxThursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
         android:text="@string/thursday"
-        app:layout_constraintBottom_toBottomOf="@+id/chkboxWednesday"
-        app:layout_constraintEnd_toStartOf="@+id/chkboxFriday"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/chkboxWednesday"
-        app:layout_constraintTop_toTopOf="@+id/chkboxWednesday"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imgDays" />
+
+    <CheckBox
+        android:id="@+id/chkboxMonday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/monday"
+        app:layout_constraintStart_toStartOf="@+id/imgDays"
+        app:layout_constraintTop_toTopOf="@+id/imgDays" />
 
     <CheckBox
         android:id="@+id/chkboxWednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
         android:text="@string/wednesday"
-        app:layout_constraintBottom_toBottomOf="@+id/chkboxTuesday"
-        app:layout_constraintEnd_toStartOf="@+id/chkboxThursday"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/chkboxTuesday"
-        app:layout_constraintTop_toTopOf="@+id/chkboxTuesday"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imgDays" />
+
+    <CheckBox
+        android:id="@+id/chkboxFriday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/friday"
+        app:layout_constraintEnd_toEndOf="@+id/imgDays"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/chkboxThursday"
+        app:layout_constraintTop_toTopOf="@+id/imgDays" />
+
+    <CheckBox
+        android:id="@+id/chkboxTuesday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/tuesday"
+        app:layout_constraintStart_toEndOf="@+id/chkboxMonday"
+        app:layout_constraintTop_toTopOf="@+id/imgDays" />
+
+    <TextView
+        android:id="@+id/start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/start_time"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/imgSchedule"
+        app:layout_constraintTop_toBottomOf="@+id/imgDays" />
+
+    <TextView
+        android:id="@+id/end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/end_time"
+        android:textColor="@color/dark_grey"
+        app:layout_constraintEnd_toEndOf="@+id/imgSchedule"
+        app:layout_constraintTop_toBottomOf="@+id/imgDays" />
+
+    <TimePicker
+        android:id="@+id/timePicker1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintStart_toStartOf="@+id/imgSchedule"
+        app:layout_constraintTop_toBottomOf="@+id/start_time" />
+
+    <TimePicker
+        android:id="@+id/timePicker2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="@+id/imgSchedule"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toEndOf="@+id/timePicker1"
+        app:layout_constraintTop_toBottomOf="@+id/end_time" />
 
     <Button
         android:id="@+id/add_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/blue_background"
         android:text="@string/add_course"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-    
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -151,11 +175,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@layout/menu_main"/>
+            app:menu="@menu/menu_main" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
