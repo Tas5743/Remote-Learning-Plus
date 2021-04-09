@@ -14,7 +14,8 @@
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".CourseInformation" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SelectCourseTimes" />
-        <activity android:name=".CreateCourse" />
+        <activity android:name=".CreateCourse"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".JoinCourse" />
         <activity android:name=".student_course_home" />
         <activity android:name=".instructor_course" />

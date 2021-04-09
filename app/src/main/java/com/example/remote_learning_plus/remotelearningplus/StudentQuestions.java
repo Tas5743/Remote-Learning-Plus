@@ -82,19 +82,18 @@ public class StudentQuestions extends AppCompatActivity {
 
         //Navigation Bar
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), JoinCourse.class);
-                        startActivity(intent2);
                         break;
                 }
+                return true;
             }
         });
     }
