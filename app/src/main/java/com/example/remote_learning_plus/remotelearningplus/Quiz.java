@@ -9,19 +9,21 @@ public class Quiz {
     private HashMap<String, Boolean> tags;
     private HashMap<String, Double> scores;
 
-
-
+    
     public Quiz() {
 
     }
 
+    public Quiz(String quizTitle) {
+        this.title = quizTitle;
+    }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String quizTitle) {
+        this.title = quizTitle;
     }
 
     public int getItems() {

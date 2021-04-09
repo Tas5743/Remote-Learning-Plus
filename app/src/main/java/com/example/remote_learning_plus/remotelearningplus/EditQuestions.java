@@ -24,20 +24,19 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class CreateQuestion extends AppCompatActivity {
+public class EditQuestions extends AppCompatActivity {
 
     private static final String TAG = "Tag";
-    // TO DO: Get course and quiz
-    String quizPath ="/courses/cmpsc475/quizzes/quiz1";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final DocumentReference quizRef = FirebaseFirestore.getInstance().document(quizPath);
-    private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
-    int itemNum = 1;
+    String quizPAth = "/courses/cmpsc475/quizzes/quiz1";
+            // getIntent().getExtras().get("quizPath").toString();
+    DocumentReference quizRef = db.document(quizPAth);
+    CollectionReference questionsRef = db.collection(quizPAth + "/questions");
 
     private TextView tvQNum;
     private EditText etQuestion;
@@ -52,13 +51,16 @@ public class CreateQuestion extends AppCompatActivity {
     private RadioButton radioButton2;
     private RadioButton radioButton3;
     private RadioButton radioButton4;
-
+    private ArrayList<Question> questions;
+    private Question question;
+    int itemNum = 1;
+    int lastNum;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_question);
+        setContentView(R.layout.activity_edit_questions);
 
         tvQNum = findViewById(R.id.tvQNum);
         etQuestion = findViewById(R.id.etQuestion);
@@ -74,70 +76,117 @@ public class CreateQuestion extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
 
-
         Button qButton = findViewById(R.id.nextQuestionButton);
         Button finishButton = findViewById(R.id.saveButton);
 
-        // retrieving the last question from the question collection
+        fetchQuestion();
+
+        // get last item number
         questionsRef.orderBy("itemNum", Query.Direction.DESCENDING).limit(1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                   @Override
-                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                       if (task.isSuccessful()) {
-                           for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                               Question q = document.toObject(Question.class);
-                               itemNum = q.getItemNum() +1;
-                               tvQNum.setText(Integer.toString(itemNum));
-                           }
-                       } else {
-                           Log.d(TAG, "error", task.getException());
-                       }
-                   }
-               });
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                Question q = document.toObject(Question.class);
+                                lastNum = q.getItemNum();
+                            }
+                        } else {
+                            Log.d(TAG, "error", task.getException());
+                        }
+                    }
+                });
+
 
 
         qButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createQuestion();
-                openNewCreateQuestionActivity();
+                itemNum++;
+                if (itemNum > lastNum) { openNewCreateQuestionActivity(); }
+                else fetchQuestion();
             }
 
         });
-
 
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // TO DO QUIZ HOMEPAGE
                 createQuestion();
                 openQuizHomeActivity();
             }
-
         });
 
     }
 
 
-    public void createQuestion() {
+
+    private void fetchQuestion(){
+
+        questionsRef.whereEqualTo("itemNum", itemNum)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                Question q = document.toObject(Question.class);
+
+                                tvQNum.setText(Integer.toString(q.getItemNum()));
+                                etQuestion.setText(q.getQuestion());
+
+                                HashMap<String, String> choices = q.getChoices();
+                                etChoice1.setText(choices.get("option1"));
+                                etChoice2.setText(choices.get("option2"));
+                                etChoice3.setText(choices.get("option3"));
+                                etChoice4.setText(choices.get("option4"));
+
+                                int key = q.getKey();
+                                switch (key) {
+                                    case 1 : radioGroup.check(radioButton1.getId());
+                                    case 2 : radioGroup.check(radioButton2.getId());
+                                    case 3 : radioGroup.check(radioButton3.getId());
+                                    case 4 : radioGroup.check(radioButton4.getId());
+                                }
+
+                                etTimeLimit.setText(Integer.toString(q.getTimeLimit()));
+                                etPoints.setText(Integer.toString(q.getPoint()));
+
+                            }
+                        } else {
+                            Log.d(TAG, "error", task.getException());
+                        }
+                    }
+                });
+
+    }
+
+
+
+    private void createQuestion(){
         if (etQuestion.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out question", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditQuestions.this, "Please fill out question", Toast.LENGTH_SHORT).show();
         } else if (etChoice1.getText().toString().isEmpty() || etChoice2.getText().toString().isEmpty() ||
                 etChoice3.getText().toString().isEmpty() || etChoice4.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out all the choices", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditQuestions.this, "Please fill out all the choices", Toast.LENGTH_SHORT).show();
 
         } else if (etPoints.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out points", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditQuestions.this, "Please fill out points", Toast.LENGTH_SHORT).show();
         } else if (etTimeLimit.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out time limit", Toast.LENGTH_SHORT).show();
-        } else if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(CreateQuestion.this, "Please select the correct answer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditQuestions.this, "Please fill out time limit", Toast.LENGTH_SHORT).show();
+        } else if (radioGroup.getCheckedRadioButtonId()==-1) {
+            Toast.makeText(EditQuestions.this, "Please select the correct answer", Toast.LENGTH_SHORT).show();
         } else {
             writeData();
         }
     }
-    public void writeData() {
+
+    private void writeData(){
 
         Question question = new Question();
 
@@ -145,7 +194,7 @@ public class CreateQuestion extends AppCompatActivity {
 
         question.setQuestion(etQuestion.getText().toString());
 
-        HashMap<String, String> choices = new HashMap<>();
+        HashMap<String,String> choices = new HashMap<>();
         choices.put("option1", etChoice1.getText().toString());
         choices.put("option2", etChoice2.getText().toString());
         choices.put("option3", etChoice3.getText().toString());
@@ -169,9 +218,10 @@ public class CreateQuestion extends AppCompatActivity {
         question.setPoint(Integer.parseInt(etPoints.getText().toString()));
         question.setTimeLimit(Integer.parseInt(etTimeLimit.getText().toString()));
 
-        db.document(questionsRef.getPath() + "/" + (itemNum)).set(question);
-
+        db.document(questionsRef.getPath() + "/" + question.getItemNum()).set(question);
     }
+
+
 
     private void openNewCreateQuestionActivity() {
         Intent intent = new Intent(this, CreateQuestion.class);

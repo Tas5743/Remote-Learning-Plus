@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import org.w3c.dom.Text;
-
 public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseAdapter.CourseHolder> {
 
 
@@ -49,7 +47,7 @@ public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseA
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
             txtLevel = itemView.findViewById(R.id.txtLevel);
-            txtSubject = itemView.findViewById(R.id.txtSubject);
+            txtSubject = itemView.findViewById(R.id.quizTitle);
             txtSection = itemView.findViewById(R.id.txtSection);
         }
     }
