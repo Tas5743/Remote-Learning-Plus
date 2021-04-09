@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectCourseTimes" />
+        <activity android:name=".SelectCourseTimes"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".CreateCourse"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".JoinCourse" />

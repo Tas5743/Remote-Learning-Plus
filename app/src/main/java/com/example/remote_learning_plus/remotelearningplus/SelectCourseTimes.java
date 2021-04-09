@@ -151,7 +151,8 @@ public class SelectCourseTimes extends AppCompatActivity{
         if (F.isChecked()){days.add("Friday");}
 
         if(TextSection.isEmpty()){
-                Toast.makeText(SelectCourseTimes.this,"Please fill out Course Section", Toast.LENGTH_SHORT).show();
+                edtTextSection.setError("Enter a course section.");
+                edtTextSection.requestFocus();
               }
         else if (days.isEmpty()){
             Toast.makeText(SelectCourseTimes.this, "Please select meeting day(s).", Toast.LENGTH_SHORT).show();;

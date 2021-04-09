@@ -67,7 +67,7 @@ public class CourseInformation extends AppCompatActivity {
                     edtTxtId.requestFocus();
                 }
                 else if(desc.isEmpty()){
-                    edtTxtDesc.setError("Please enter a course ID.");
+                    edtTxtDesc.setError("Please enter a course description.");
                     edtTxtDesc.requestFocus();
                 }
                 else {
