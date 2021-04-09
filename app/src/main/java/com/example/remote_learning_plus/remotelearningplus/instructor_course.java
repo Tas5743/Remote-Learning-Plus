@@ -54,6 +54,10 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
                         Intent intent2 = new Intent(getApplicationContext(), Home_Teacher.class);
                         startActivity(intent2);
                         break;
+                    case R.id.btnAdd:
+                        Intent intent3 = new Intent(getApplicationContext(), SelectCourseTimes.class);
+                        intent3.putExtra("coursename", courseID);
+                        intent3.putExtra()
                 }
                 return true;
             }

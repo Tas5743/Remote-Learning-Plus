@@ -41,9 +41,6 @@ public class SelectCourseTimes extends AppCompatActivity{
 
     String TextName;
     String TextID;
-    String TextInviteCode;
-    String TextSection;
-    String TextCourseDescription;
     Button add_course;
     TimePicker startTime;
     TimePicker endTime;
@@ -92,7 +89,6 @@ public class SelectCourseTimes extends AppCompatActivity{
         Intent intent = getIntent();
         TextName = intent.getStringExtra("courseName");
         TextID = intent.getStringExtra("courseId");
-        TextCourseDescription = intent.getStringExtra("courseDesc");
 
         add_course = findViewById(R.id.add_course);
 

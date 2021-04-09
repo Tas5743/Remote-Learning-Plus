@@ -87,11 +87,11 @@ public class StudentQuestions extends AppCompatActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Student.class);
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
                         startActivity(intent);
                         break;
                     case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), JoinCourse.class);
+                        Intent intent2 = new Intent(getApplicationContext(), CreateCourse.class);
                         startActivity(intent2);
                         break;
                 }
