@@ -18,7 +18,8 @@ import java.util.Objects;
 
 public class QuizHome extends AppCompatActivity {
 
-    // TO DO: Get course and quiz
+    // TO DO: Get course
+    //String course = getIntent().getStringExtra("course");
     String course="CMPSC475";
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -30,7 +31,6 @@ public class QuizHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_home);
-
         setUpRecyclerView();
     }
 
@@ -52,23 +52,26 @@ public class QuizHome extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        String quiz = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.quizTitle)).getText().toString();
-                        openQuizPageActivity(quiz);
+                        String quizTitle = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.quizTitle)).getText().toString();
+                        openQuizPageActivity(position, quizTitle);
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
                         String quizTitle = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.quizTitle)).getText().toString();
-                        openQuizPageActivity(quizTitle);
+                        openQuizPageActivity(position, quizTitle);
                     }
                 })
         );
 
     }
 
-    private void openQuizPageActivity(String quizTitle) {
+    private void openQuizPageActivity(int quizNum, String quizTitle) {
         Intent intent = new Intent(this, QuizPage.class);
-        intent.putExtra("quizTitle", quizTitle);
+        intent.putExtra("quizNum", quizNum);
+        intent.putExtra("isNewQuiz", false);
+        intent.putExtra("oldTitle", quizTitle);
+        intent.putExtra("course", course);
         startActivity(intent);
     }
 

@@ -31,8 +31,15 @@ import java.util.Objects;
 public class CreateQuestion extends AppCompatActivity {
 
     private static final String TAG = "Tag";
-    // TO DO: Get course and quiz
-    String quizPath ="/courses/cmpsc475/quizzes/quiz1";
+
+    // Data from intent
+    //String course = getIntent().getStringExtra("course");
+    //int quizNum = getIntent().getIntExtra("quizNum", 1);
+    //String quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+
+    int quizNum = 1;
+    String course = "cmpsc475";
+    String quizPath = "/courses/cmpsc475/quizzes/quiz1";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final DocumentReference quizRef = FirebaseFirestore.getInstance().document(quizPath);
@@ -92,7 +99,15 @@ public class CreateQuestion extends AppCompatActivity {
                            }
                        } else {
                            Log.d(TAG, "error", task.getException());
+                           tvQNum.setText(Integer.toString(itemNum));
                        }
+
+
+
+                       //db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
+
+                       db.document("/courses/cmpsc475/quizzes/quiz1")
+                               .update("items", Integer.parseInt(tvQNum.getText().toString()));
                    }
                });
 
@@ -105,7 +120,6 @@ public class CreateQuestion extends AppCompatActivity {
             }
 
         });
-
 
 
         finishButton.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +140,6 @@ public class CreateQuestion extends AppCompatActivity {
         } else if (etChoice1.getText().toString().isEmpty() || etChoice2.getText().toString().isEmpty() ||
                 etChoice3.getText().toString().isEmpty() || etChoice4.getText().toString().isEmpty()) {
             Toast.makeText(CreateQuestion.this, "Please fill out all the choices", Toast.LENGTH_SHORT).show();
-
         } else if (etPoints.getText().toString().isEmpty()) {
             Toast.makeText(CreateQuestion.this, "Please fill out points", Toast.LENGTH_SHORT).show();
         } else if (etTimeLimit.getText().toString().isEmpty()) {
@@ -175,12 +188,16 @@ public class CreateQuestion extends AppCompatActivity {
 
     private void openNewCreateQuestionActivity() {
         Intent intent = new Intent(this, CreateQuestion.class);
+        intent.putExtra("quizNum", quizNum);
+        intent.putExtra("isNewQuiz", false);
+        intent.putExtra("course", course);
         startActivity(intent);
     }
 
 
     private void openQuizHomeActivity() {
         Intent intent = new Intent(this, QuizHome.class);
+        intent.putExtra("course", course);
         startActivity(intent);
     }
 

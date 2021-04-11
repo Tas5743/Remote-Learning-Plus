@@ -34,12 +34,14 @@ public class QuizPage extends AppCompatActivity {
     //Intent intent = getIntent();
 
     //String course = intent.getStringExtra("course");
-    //String oldTitle = intent.getStringExtra("quizTitle");
     //Boolean isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
+    //int quizNum = intent.getIntExtra("quizNum", 1);
+    //String oldTitle = intent.getStringExtra("oldTitle");
 
     // Test data
+    String oldTitle = "Hashmaps";
     String course = "cmpsc475";
-    String oldTitle="quiz1";
+    int quizNum = 1;
     Boolean isNewQuiz = false;
 
     CollectionReference quizzesRef = db.collection("/courses/" + course + "/quizzes");
@@ -57,13 +59,6 @@ public class QuizPage extends AppCompatActivity {
         // change values for the activity if quiz is being edited
         if (!isNewQuiz) {
 
-            quizzesRef.document(oldTitle).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    quiz = documentSnapshot.toObject(Quiz.class);
-                }
-            });
-
             tvQuizTitle.setText(R.string.edit_quiz_title);
             etQuizTitle.setText(oldTitle);
             qButton.setText(R.string.edit_questions);
@@ -74,80 +69,37 @@ public class QuizPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                quiz.setTitle(etQuizTitle.getText().toString());
-                db.document(quizzesRef.getPath() + "/" + quiz.getTitle()).set(quiz);
-
 
                 if (!isNewQuiz) {
 
-                    // move questions collection to this new quiz document
-                    // delete doc and sub collection
-
-                    openEditQuestionsActivity(etQuizTitle.getText().toString());
+                    db.document(quizzesRef.getPath() + "/quiz" + quizNum)
+                            .update("title", etQuizTitle.getText().toString());
+                    openEditQuestionsActivity();
 
                 } else {
-                    openCreateQuestionsActivity(quiz.getTitle());
+
+                    quiz.setTitle(etQuizTitle.getText().toString());
+                    db.document(quizzesRef.getPath() + "/quiz" + quizNum).set(quiz);
+                    openCreateQuestionsActivity();
                 }
             }
         });
     }
 
 
-
-    public void moveFirestoreCollection(CollectionReference fromPath, final CollectionReference toPath) {
-        fromPath.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        toPath.set(document.getData())
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                                        fromPath.delete()
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Error deleting document", e);
-                                                    }
-                                                });
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "Error writing document", e);
-                                    }
-                                });
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
-
-
-
-    private void openEditQuestionsActivity(String quizTitle) {
+    private void openEditQuestionsActivity() {
         Intent intent = new Intent(this, EditQuestions.class);
-        intent.putExtra("quizTitle", quizTitle);
+        String quizPath = quizzesRef.getPath() + "/quiz" + quizNum;
+        intent.putExtra("quizPath", quizPath);
+        intent.putExtra("course", course);
+        intent.putExtra("quizNum", quizNum);
         startActivity(intent);
     }
 
-    private void openCreateQuestionsActivity(String quizTitle) {
-        Intent intent = new Intent(this, EditQuestions.class);
-        intent.putExtra("quizTitle", quizTitle);
+    private void openCreateQuestionsActivity() {
+        Intent intent = new Intent(this, CreateQuestion.class);
+        intent.putExtra("course", course);
+        intent.putExtra("quizNum", quizNum+1);
         startActivity(intent);
     }
 

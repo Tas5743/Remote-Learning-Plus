@@ -33,8 +33,8 @@ public class EditQuestions extends AppCompatActivity {
     private static final String TAG = "Tag";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    // String quizPath = getIntent().getStringExtra("quizPath");
     String quizPAth = "/courses/cmpsc475/quizzes/quiz1";
-            // getIntent().getExtras().get("quizPath").toString();
     DocumentReference quizRef = db.document(quizPAth);
     CollectionReference questionsRef = db.collection(quizPAth + "/questions");
 
@@ -51,8 +51,7 @@ public class EditQuestions extends AppCompatActivity {
     private RadioButton radioButton2;
     private RadioButton radioButton3;
     private RadioButton radioButton4;
-    private ArrayList<Question> questions;
-    private Question question;
+
     int itemNum = 1;
     int lastNum;
 
@@ -115,7 +114,6 @@ public class EditQuestions extends AppCompatActivity {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TO DO QUIZ HOMEPAGE
                 createQuestion();
                 openQuizHomeActivity();
             }
@@ -220,7 +218,6 @@ public class EditQuestions extends AppCompatActivity {
 
         db.document(questionsRef.getPath() + "/" + question.getItemNum()).set(question);
     }
-
 
 
     private void openNewCreateQuestionActivity() {
