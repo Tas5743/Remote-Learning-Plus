@@ -33,51 +33,26 @@ public class AddResource extends AppCompatActivity {
     // TODO: get course info from previous activity
 
     String thisCourse;
-            //getIntent().getStringExtra().toString();
-    private CollectionReference colRef = FirebaseFirestore.getInstance().collection("courses/" + thisCourse + "/learningResources");
+    private final CollectionReference colRef = FirebaseFirestore.getInstance()
+                    .collection("courses/" + thisCourse + "/learningResources");
 
-    EditText editTextURL= findViewById(R.id.editTextURL);
-    EditText editTextTag= findViewById(R.id.editTextTag);
-    ImageView imagePreview = findViewById(R.id.imagePreview);
-    TextView resourceTitle = findViewById(R.id.resourceTitle);
-    TextView resourceText = findViewById(R.id.resourceText);
-
-
-
-    public static boolean
-    isValidURL(String url)
-    {// Regex to check valid URL
-        String regex = "((http|https)://)(www.)?"
-                + "[a-zA-Z0-9@:%._\\+~#?&//=]"
-                + "{2,256}\\.[a-z]"
-                + "{2,6}\\b([-a-zA-Z0-9@:%"
-                + "._\\+~#?&//=]*)";
-
-        // Compile the ReGex
-        Pattern p = Pattern.compile(regex);
-
-        // If the string is empty
-        // return false
-        if (url == null) {
-            return false;
-        }
-
-        // Find match between given string
-        // and regular expression
-        // using Pattern.matcher()
-        Matcher m = p.matcher(url);
-
-        // Return if the string
-        // matched the ReGex
-        return m.matches();
-    }
-
+    EditText editTextURL;
+    EditText editTextTag;
+    ImageView imagePreview;
+    TextView resourceTitle;
+    TextView resourceText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_resource);
+
+        editTextURL= findViewById(R.id.editTextURL);
+        editTextTag= findViewById(R.id.editTextTag);
+        imagePreview = findViewById(R.id.imagePreview);
+        resourceTitle = findViewById(R.id.resourceTitle);
+        resourceText = findViewById(R.id.resourceText);
 
 
         editTextURL.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -120,8 +95,6 @@ public class AddResource extends AppCompatActivity {
 
                 colRef.add(resource);
                 colRef.add(tags);
-
-
             }
         });
 
@@ -163,33 +136,39 @@ public class AddResource extends AppCompatActivity {
         //set preview image
         String imgURL = getMetaTag(doc, "og:image");
 
-
     }
 
 
 
+    public static boolean
+    isValidURL(String url)
+    {// Regex to check valid URL
+        String regex = "((http|https)://)(www.)?"
+                + "[a-zA-Z0-9@:%._\\+~#?&//=]"
+                + "{2,256}\\.[a-z]"
+                + "{2,6}\\b([-a-zA-Z0-9@:%"
+                + "._\\+~#?&//=]*)";
 
-   /* void generatePreview(EditText editTextURL) throws IOException {
+        // Compile the ReGex
+        Pattern p = Pattern.compile(regex);
 
-        String url = editTextURL.getText().toString();
-        String title = Jsoup.connect(url).get().title();
-        String text = getMetaTag(url, "description");
-        if (text == null) text = getMetaTag(url, "og:description");
-        String imgURL = getMetaTag(url, "og:image");
+        // If the string is empty
+        // return false
+        if (url == null) {
+            return false;
+        }
 
-        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(url))
-                // Open links with this app on Android
-                .setSocialMetaTagParameters(
-                            new DynamicLink.SocialMetaTagParameters().Builder()
-                            .setTitle(title)
-                            .setDescription(text)
-                            .setImageUrl(imgURL)
-                            .build())
-                .buildDynamicLink();
+        // Find match between given string
+        // and regular expression
+        // using Pattern.matcher()
+        Matcher m = p.matcher(url);
 
-        Uri dynamicLinkUri = dynamicLink.getUri();
+        // Return if the string
+        // matched the ReGex
+        return m.matches();
+    }
 
-    }*/
+
+
 
 }
