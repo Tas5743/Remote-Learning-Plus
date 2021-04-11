@@ -17,7 +17,6 @@ public class Home_Student extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference courseRef = db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("courses");
-
     private CourseAdapter adapter;
 
     @Override

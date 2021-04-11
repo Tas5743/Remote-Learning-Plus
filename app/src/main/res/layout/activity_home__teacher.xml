@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Home_Student">
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_create_course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:src="@drawable/ic_add"
-        android:layout_margin="16dp"
-        app:tint="@null"
-        android:contentDescription="@string/create_course"/>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/quizRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteLearningPlus">
-        <activity android:name=".CreateQuiz"></activity>
+        <activity android:name=".QuizPage"></activity>
+        <activity android:name=".EditQuestions" />
+        <activity android:name=".QuizHome" />
         <activity android:name=".Home_Teacher" />
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
@@ -23,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".SelectCourseTimes" />
         <activity android:name=".CreateCourse" />
     </application>

@@ -18,14 +18,7 @@ public class Home_Teacher extends AppCompatActivity {
         setContentView(R.layout.activity_home__teacher);
         // Initialize FAB
 
-        createBtn = findViewById(R.id.btn_create_course);
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Home_Teacher.this, CourseInformation.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
 }
