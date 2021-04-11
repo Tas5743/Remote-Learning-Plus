@@ -1,6 +1,7 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -76,15 +77,17 @@ public class StudentResults extends AppCompatActivity {
         submit = findViewById(R.id.btn_exit_results);
 
 
-        //Bundle query = getIntent().getExtras();
+        Bundle query = getIntent().getExtras();
         //String student = query.getString("student");
         //String quizPath = query.getString("quizPath");
-        //int questionnum = query.getInt("num");
+        if (query != null)
+        questionnum = query.getInt("num");
         //int totalquestion = query.getInt("total");
         student = "student";
-        quizPath = "courses/cmpsc475/quizzes/quiz1/questions/question1";
+        quizPath = "courses/cmpsc475/quizzes/quiz1";
+        if (query == null)
         questionnum = 1;
-        int totalquestion = 1;
+        int totalquestion = 114;
 
 //       String courseCodeStr = query.getString("courseCode");
 //       String courseTitleStr = query.getString("courseTitle");
@@ -109,8 +112,8 @@ public class StudentResults extends AppCompatActivity {
             next.setVisibility(View.INVISIBLE);
         }
 
-        //QuizQuestion = FirebaseFirestore.getInstance().document(quiz+"/"+questionnum);
-        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
+        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath+"/questions/"+questionnum);
+
 
         QuizQuestion.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -130,35 +133,35 @@ public class StudentResults extends AppCompatActivity {
                             response1.setText(choices.get("option1"));
                             response1.setVisibility(View.VISIBLE);
                             if(choices.get("option1").equals(choices.get("correct"))){
-                                response1.setBackgroundColor(100);
+                                response1.setBackgroundColor(Color.GREEN);
                             }}
 
                         if (choices.containsKey("option2")){
                             response2.setText(choices.get("option2"));
                             response2.setVisibility(View.VISIBLE);
                             if(choices.get("option2").equals(choices.get("correct"))){
-                                response2.setBackgroundColor(1);
+                                response2.setBackgroundColor(Color.GREEN);
                             }}
 
                         if (choices.containsKey("option3")){
                             response3.setText(choices.get("option3"));
                             response3.setVisibility(View.VISIBLE);
                             if(choices.get("option3").equals(choices.get("correct"))){
-                                response3.setBackgroundColor(1);
+                                response3.setBackgroundColor(Color.GREEN);
                             }}
 
                         if (choices.containsKey("option4")){
                             response4.setText(choices.get("option4"));
                             response4.setVisibility(View.VISIBLE);
                             if(choices.get("option4").equals(choices.get("correct"))){
-                                response4.setBackgroundColor(1);
+                                response4.setBackgroundColor(Color.GREEN);
                             }}
 
                         if (choices.containsKey("option5")){
                             response5.setText(choices.get("option5"));
                             response5.setVisibility(View.VISIBLE);
                             if(choices.get("option4").equals(choices.get("correct"))){
-                                response4.setBackgroundColor(1);
+                                response4.setBackgroundColor(Color.GREEN);
                             }}
 
 
@@ -183,19 +186,19 @@ public class StudentResults extends AppCompatActivity {
                                             String response = document.getData().get("response").toString();
 
                                             if(choices.containsKey("option1") && choices.get("option1").equals(response) && !response.equals(choices.get("correct"))){
-                                                response1.setBackgroundColor(100);
+                                                response1.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option2") && choices.get("option2").equals(response)&& !response.equals(choices.get("correct"))){
-                                                response2.setBackgroundColor(100);
+                                                response2.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option3") && choices.get("option3").equals(response)&& !response.equals(choices.get("correct"))){
-                                                response3.setBackgroundColor(100);
+                                                response3.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option4") && choices.get("option4").equals(response)&& !response.equals(choices.get("correct"))){
-                                                response4.setBackgroundColor(100);
+                                                response4.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option5") && choices.get("option5").equals(response)&& !response.equals(choices.get("correct"))){
-                                                response5.setBackgroundColor(100);
+                                                response5.setBackgroundColor(Color.RED);
                                             }
                                         }
                                     } else {
@@ -223,7 +226,6 @@ public class StudentResults extends AppCompatActivity {
                 Intent previous  = new Intent(StudentResults.this, StudentResults.class);
                 previous.putExtra("student", student);
                 previous.putExtra("quiz",quizPath);
-                //previous.putExtra("quiz",quiz + "/" + questionnum);
                 previous.putExtra("num", questionnum-1);
                 previous.putExtra("total",totalquestion);
                 previous.putExtra("courseCode",courseCodeStr);

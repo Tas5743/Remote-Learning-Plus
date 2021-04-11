@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -37,7 +38,7 @@ public class StudentQuiz extends AppCompatActivity {
     RadioButton response2;
     RadioButton response3;
     RadioButton response4;
-    RadioButton response5;
+    //  RadioButton response5;
     Button prev;
     Button next;
     Button submit;
@@ -47,20 +48,20 @@ public class StudentQuiz extends AppCompatActivity {
     String quizTitleStr;
     String correct;
     String path;
-    int questionnum;
+    Integer questionnum;
     Long points;
     DocumentReference QuizQuestion;
     DocumentReference studentcopy;
     HashMap<String, String> choices;
 
-    private void save(){
+    private void save() {
         RadioButton selected = (RadioButton) findViewById(responses.getCheckedRadioButtonId());
         HashMap<String, Object> answer = new HashMap<>();
         Long grade = 0L;
 
-        if (!(selected == null)){
+        if (!(selected == null)) {
             answer.put("response", selected.getText().toString());
-            if (selected.getText().toString().equals(correct)){
+            if (selected.getText().toString().equals(correct)) {
                 grade = points;
             }
         }
@@ -69,6 +70,7 @@ public class StudentQuiz extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,20 +86,21 @@ public class StudentQuiz extends AppCompatActivity {
         response2 = findViewById(R.id.response2);
         response3 = findViewById(R.id.response3);
         response4 = findViewById(R.id.response4);
-        response5 = findViewById(R.id.response5);
+//        response5 = findViewById(R.id.response5);
         prev = findViewById(R.id.btn_prev);
         next = findViewById(R.id.btn_next);
         submit = findViewById(R.id.btn_submit_quiz);
 
-        //Bundle query = getIntent().getExtras();
+        Bundle query = getIntent().getExtras();
         //String student = query.getString("student");
         //String quizPath = query.getString("quizPath");
-        //int questionnum = query.getInt("num");
+        if (query != null)
+            questionnum = query.getInt("num");
+        else questionnum = 1;
         //int totalquestion = query.getInt("total");
         student = "student";
-        quizPath = "courses/cmpsc475/quizzes/quiz1/questions/question1";
-        questionnum = 1;
-        int totalquestion = 1;
+        quizPath = "courses/cmpsc475/quizzes/quiz1";
+        int totalquestion = 114;
 
 //       String courseCodeStr = query.getString("courseCode");
 //       String courseTitleStr = query.getString("courseTitle");
@@ -115,15 +118,15 @@ public class StudentQuiz extends AppCompatActivity {
         quizTitle.setText(quizTitleStr);
 
 
-        if (questionnum == 1){
+        if (questionnum == 1) {
             prev.setVisibility(View.INVISIBLE);
         }
-        if (questionnum == totalquestion){
+        if (questionnum == totalquestion) {
             next.setVisibility(View.INVISIBLE);
         }
 
-        //QuizQuestion = FirebaseFirestore.getInstance().document(quiz+"/"+questionnum);
-        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
+        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath + "/questions/" + questionnum);
+        //QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
 
         QuizQuestion.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -134,30 +137,34 @@ public class StudentQuiz extends AppCompatActivity {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                        question.setText(document.getData().get("question").toString());
-                        points =  (Long) document.getData().get("points");
+                        question.setText(questionnum + ".\n" + document.getData().get("question").toString());
+                        points = (Long) document.getData().get("point");
                         choices = (HashMap<String, String>) document.get("choices");
                         correct = choices.get("correct");
 
-                        if (choices.containsKey("option1")){
+                        if (choices.containsKey("option1")) {
                             response1.setText(choices.get("option1"));
-                            response1.setVisibility(View.VISIBLE);}
+                            response1.setVisibility(View.VISIBLE);
+                        }
 
-                        if (choices.containsKey("option2")){
+                        if (choices.containsKey("option2")) {
                             response2.setText(choices.get("option2"));
-                            response2.setVisibility(View.VISIBLE);}
+                            response2.setVisibility(View.VISIBLE);
+                        }
 
-                        if (choices.containsKey("option3")){
+                        if (choices.containsKey("option3")) {
                             response3.setText(choices.get("option3"));
-                            response3.setVisibility(View.VISIBLE);}
+                            response3.setVisibility(View.VISIBLE);
+                        }
 
-                        if (choices.containsKey("option4")){
+                        if (choices.containsKey("option4")) {
                             response4.setText(choices.get("option4"));
-                            response4.setVisibility(View.VISIBLE);}
+                            response4.setVisibility(View.VISIBLE);
+                        }
 
-                        if (choices.containsKey("option5")){
-                            response5.setText(choices.get("option5"));
-                            response5.setVisibility(View.VISIBLE);}
+//                        if (choices.containsKey("option5")){
+//                            response5.setText(choices.get("option5"));
+//                            response5.setVisibility(View.VISIBLE);}
 
 
 //                        for (int i = 0; i < responses .getChildCount(); i++) {
@@ -166,8 +173,8 @@ public class StudentQuiz extends AppCompatActivity {
 //                            responses.getChildAt(i).setVisibility(View.VISIBLE);}
 //                        }
 
-                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath()+ "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr+ "/" + student;
-                        studentcopy = FirebaseFirestore.getInstance().document(path  + "/" +questionnum);
+                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath() + "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr + "/" + student;
+                        studentcopy = FirebaseFirestore.getInstance().document(path + "/" + questionnum);
                         studentcopy.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -177,24 +184,24 @@ public class StudentQuiz extends AppCompatActivity {
                                     if (document.exists()) {
                                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                                        if (document.getData().containsKey("response")){
+                                        if (document.getData().containsKey("response")) {
                                             String response = document.getData().get("response").toString();
 
-                                            if(choices.containsKey("option1") && choices.get("option1").equals(response)){
+                                            if (choices.containsKey("option1") && choices.get("option1").equals(response)) {
                                                 response1.toggle();
                                             }
-                                            if(choices.containsKey("option2") && choices.get("option2").equals(response)){
+                                            if (choices.containsKey("option2") && choices.get("option2").equals(response)) {
                                                 response2.toggle();
                                             }
-                                            if(choices.containsKey("option3") && choices.get("option3").equals(response)){
+                                            if (choices.containsKey("option3") && choices.get("option3").equals(response)) {
                                                 response3.toggle();
                                             }
-                                            if(choices.containsKey("option4") && choices.get("option4").equals(response)){
+                                            if (choices.containsKey("option4") && choices.get("option4").equals(response)) {
                                                 response4.toggle();
                                             }
-                                            if(choices.containsKey("option5") && choices.get("option5").equals(response)){
-                                                response5.toggle();
-                                            }
+//                                            if(choices.containsKey("option5") && choices.get("option5").equals(response)){
+//                                                response5.toggle();
+//                                            }
                                         }
                                     } else {
                                         Log.d(TAG, "No such document");
@@ -214,21 +221,20 @@ public class StudentQuiz extends AppCompatActivity {
         });
 
 
-
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 save();
-                Intent previous  = new Intent(StudentQuiz.this,StudentQuiz.class);
+                Intent previous = new Intent(StudentQuiz.this, StudentQuiz.class);
                 previous.putExtra("student", student);
-                previous.putExtra("quiz",quizPath);
+                previous.putExtra("quiz", quizPath);
                 //previous.putExtra("quiz",quiz + "/" + questionnum);
-                previous.putExtra("num", questionnum-1);
-                previous.putExtra("total",totalquestion);
-                previous.putExtra("courseCode",courseCodeStr);
+                previous.putExtra("num", questionnum - 1);
+                previous.putExtra("total", totalquestion);
+                previous.putExtra("courseCode", courseCodeStr);
                 previous.putExtra("courseTitle", courseTitleStr);
                 previous.putExtra("section", courseSectionStr);
-                previous.putExtra("quizTitle",quizTitleStr);
+                previous.putExtra("quizTitle", quizTitleStr);
 
                 startActivity(previous);
 
@@ -240,16 +246,15 @@ public class StudentQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 save();
-                Intent Next  = new Intent(StudentQuiz.this,StudentQuiz.class);
+                Intent Next = new Intent(StudentQuiz.this, StudentQuiz.class);
                 Next.putExtra("student", student);
-                Next.putExtra("quiz",quizPath);
-                //Next.putExtra("quiz",quiz + "/" + questionnum);
-                Next.putExtra("num", questionnum+1);
-                Next.putExtra("total",totalquestion);
-                Next.putExtra("courseCode",courseCodeStr);
+                Next.putExtra("quiz", quizPath);
+                Next.putExtra("num", questionnum + 1);
+                Next.putExtra("total", totalquestion);
+                Next.putExtra("courseCode", courseCodeStr);
                 Next.putExtra("courseTitle", courseTitleStr);
                 Next.putExtra("section", courseSectionStr);
-                Next.putExtra("quizTitle",quizTitleStr);
+                Next.putExtra("quizTitle", quizTitleStr);
 
                 startActivity(Next);
 
@@ -268,15 +273,16 @@ public class StudentQuiz extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 String TAG = "GRADE";
                                 if (task.isSuccessful()) {
-                                    Long totalgrade = 0L;
+                                    float totalgrade = 0;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Log.d(TAG, document.getId() + " => " + document.getData());
-                                        if(document.contains("grade")){
-                                        totalgrade += (Long) document.getData().get("grade");}
+                                        if (document.contains("grade")) {
+                                            totalgrade += (Integer) document.getData().get("grade");
+                                        }
                                     }
 
 
-                                    Long finalTotalgrade = totalgrade;
+                                    float finalTotalGrade = totalgrade;
                                     QuizQuestion.getParent().getParent().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -284,21 +290,42 @@ public class StudentQuiz extends AppCompatActivity {
                                                 DocumentSnapshot document = task.getResult();
                                                 if (document.exists()) {
                                                     Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                                    Long maxgrade = (Long) document.getData().get("totalPoints");
 
-                                                    HashMap<String, Object> grading = new HashMap<>();
-                                                    grading.put("fraction", finalTotalgrade + "/" + maxgrade);
+                                                    //Gather maxgrade
+                                                    QuizQuestion.getParent().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                            Long maxGrade = 0L;
+                                                            String TAG = "GRADE";
+                                                            if (task.isSuccessful()) {
 
-                                                    NumberFormat defaultFormat = NumberFormat.getPercentInstance();
-                                                    defaultFormat.setMinimumFractionDigits(0);
-                                                    grading.put("percentage", defaultFormat.format(finalTotalgrade/maxgrade));
-                                                    grading.put("taken", true);
-                                                    FirebaseFirestore.getInstance().document(path + "/grade").set(grading);
+
+                                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                                    if (document.contains("point")) {
+                                                                        maxGrade += (Long) document.getData().get("point");
+                                                                    }
+                                                                }
+
+                                                                HashMap<String, Object> grading = new HashMap<>();
+                                                                grading.put("fraction", finalTotalGrade + "/" + maxGrade);
+
+                                                                NumberFormat defaultFormat = NumberFormat.getPercentInstance();
+                                                                defaultFormat.setMinimumFractionDigits(0);
+                                                                float percentageGrade = (float) finalTotalGrade / maxGrade;
+                                                                grading.put("percentage", defaultFormat.format(percentageGrade));
+                                                                grading.put("taken", true);
+                                                                FirebaseFirestore.getInstance().document(path + "/grade").set(grading);
+                                                                Intent Submit = new Intent(StudentQuiz.this, Student_HomePage.class);
+                                                                //startActivity(Submit);
+                                                            } else {
+                                                                Log.d(TAG, "get failed with ", task.getException());
+                                                            }
+                                                        }
+                                                    });
                                                 } else {
-                                                    Log.d(TAG, "No such document");
+                                                    Log.d(TAG, "get failed with ", task.getException());
                                                 }
-                                            } else {
-                                                Log.d(TAG, "get failed with ", task.getException());
                                             }
                                         }
                                     });
@@ -308,12 +335,8 @@ public class StudentQuiz extends AppCompatActivity {
                                 }
                             }
                         });
-
-                Intent Submit = new Intent(StudentQuiz.this, Student_HomePage.class);
-                //startActivity(Submit);
             }
         });
-
 
 
     }

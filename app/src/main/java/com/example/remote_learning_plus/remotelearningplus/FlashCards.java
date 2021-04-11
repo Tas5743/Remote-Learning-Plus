@@ -63,14 +63,16 @@ public class FlashCards extends AppCompatActivity {
         exit = findViewById(R.id.btn_exit_flash);
         flipcard = findViewById(R.id.Flip_card);
 
-        //Bundle query = getIntent().getExtras();
+        Bundle query = getIntent().getExtras();
         //String student = query.getString("student");
         //String quizPath = query.getString("quizPath");
-        //int questionnum = query.getInt("num");
+        if (query != null)
+        questionnum = query.getInt("num");
         //int totalquestion = query.getInt("total");
-        quizPath = "courses/cmpsc475/quizzes/quiz1/questions/question1";
+        quizPath = "courses/cmpsc475/quizzes/quiz1";
+        if (query==null)
         questionnum = 1;
-        int totalquestion = 1;
+        int totalquestion = 114;
 
 //       String courseCodeStr = query.getString("courseCode");
 //       String courseTitleStr = query.getString("courseTitle");
@@ -96,8 +98,8 @@ public class FlashCards extends AppCompatActivity {
             next.setVisibility(View.INVISIBLE);
         }
 
-        //QuizQuestion = FirebaseFirestore.getInstance().document(quiz+"/"+questionnum);
-        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
+        QuizQuestion = FirebaseFirestore.getInstance().document(quizPath+"/questions/"+questionnum);
+
 
         QuizQuestion.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -129,7 +131,6 @@ public class FlashCards extends AppCompatActivity {
             public void onClick(View v) {
                 Intent previous  = new Intent(FlashCards.this,FlashCards.class);
                 previous.putExtra("quiz",quizPath);
-                //previous.putExtra("quiz",quiz + "/" + questionnum);
                 previous.putExtra("num", questionnum-1);
                 previous.putExtra("total",totalquestion);
                 previous.putExtra("courseCode",courseCodeStr);
@@ -148,7 +149,6 @@ public class FlashCards extends AppCompatActivity {
             public void onClick(View v) {
                 Intent Next  = new Intent(FlashCards.this, FlashCards.class);
                 Next.putExtra("quiz",quizPath);
-                //Next.putExtra("quiz",quiz + "/" + questionnum);
                 Next.putExtra("num", questionnum+1);
                 Next.putExtra("total",totalquestion);
                 Next.putExtra("courseCode",courseCodeStr);
