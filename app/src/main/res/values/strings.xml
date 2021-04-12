@@ -71,6 +71,6 @@
     <string name="returnhome">Return</string>
     <string name="flashcards">Flashcards</string>
     <string name="score">Score</string>
-
+    <string name="quiz">Quiz</string>
 
 </resources>
