@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,15 +33,17 @@ public class AddResource extends AppCompatActivity {
 
     // TODO: get course info from previous activity
 
-    String thisCourse;
-    private final CollectionReference colRef = FirebaseFirestore.getInstance()
-                    .collection("courses/" + thisCourse + "/learningResources");
+    Intent intent = getIntent();
+    String course = intent.getStringExtra("course");
 
-    EditText editTextURL;
-    EditText editTextTag;
-    ImageView imagePreview;
-    TextView resourceTitle;
-    TextView resourceText;
+    private final CollectionReference colRef = FirebaseFirestore.getInstance()
+                    .collection("courses/" + course + "/learningResources");
+
+    private EditText editTextURL;
+    private EditText editTextTag;
+    private ImageView imagePreview;
+    private TextView resourceTitle;
+    private TextView resourceText;
 
 
     @Override
@@ -48,8 +51,8 @@ public class AddResource extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_resource);
 
-        editTextURL= findViewById(R.id.editTextURL);
-        editTextTag= findViewById(R.id.editTextTag);
+        editTextURL= findViewById(R.id.etURL);
+        editTextTag= findViewById(R.id.etTitle);
         imagePreview = findViewById(R.id.imagePreview);
         resourceTitle = findViewById(R.id.resourceTitle);
         resourceText = findViewById(R.id.resourceText);
@@ -66,7 +69,7 @@ public class AddResource extends AppCompatActivity {
 
                     if (isValidURL(editTextURL.getText().toString())) {
                         try {
-                            generatePreview(findViewById(R.id.editTextURL));
+                            generatePreview(findViewById(R.id.etURL));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
