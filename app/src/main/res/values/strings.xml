@@ -80,4 +80,14 @@
     <string name="days">Days</string>
     <string name="schedule">Schedule</string>
     <string name="times">Times</string>
+
+    <!--String values for join course -->
+
+    <string name="exit">Exit</string>
+    <string name="description">desc</string>
+    <string name="final_score">Final Score</string>
+    <string name="returnhome">Return</string>
+    <string name="flashcards">Flashcards</string>
+    <string name="score">Score</string>
+    <string name="quiz">Quiz</string>
 </resources>
