@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class student_course_home extends AppCompatActivity implements View.OnClickListener {
     TextView txtCourseName;
-    String courseID, courseSection;
+    String courseID, courseSection, courseRef;
     Button btnAskQuestion, btnQuiz, btnResources, btnResults, btnInformation;
 
     @Override
@@ -38,6 +38,7 @@ public class student_course_home extends AppCompatActivity implements View.OnCli
         txtCourseName = findViewById(R.id.tvCourse_Name);
         courseID = intent.getStringExtra("courseID");
         courseSection = intent.getStringExtra("courseSection");
+        courseRef = intent.getStringExtra("courseRef");
         txtCourseName.setText(courseID);
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
@@ -63,6 +64,7 @@ public class student_course_home extends AppCompatActivity implements View.OnCli
                 Intent intent = new Intent(this, Student_Ask_Question.class);
                 intent.putExtra("courseID", courseID);
                 intent.putExtra("courseSection", courseSection);
+                intent.putExtra("courseRef", courseRef);
                 startActivity(intent);
                 break;
             case R.id.btnQuizzes:

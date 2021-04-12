@@ -29,7 +29,7 @@ public class Student_Ask_Question extends AppCompatActivity {
     Boolean hideName = false;
     EditText edtTxtQuestion;
     Button button;
-    String courseID, courseSection, studentUID, studentName, questionText;
+    String courseID, courseSection, studentUID, studentName, questionText, courseRef;
     DocumentReference docRef;
 
 
@@ -63,6 +63,7 @@ public class Student_Ask_Question extends AppCompatActivity {
         Intent intent = getIntent();
         courseID = intent.getStringExtra("courseID");
         courseSection= intent.getStringExtra("courseSection");
+        courseRef = intent.getStringExtra("courseRef");
 
         edtTxtQuestion = findViewById(R.id.etQuestion);
 
@@ -70,7 +71,7 @@ public class Student_Ask_Question extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DocumentReference log = db.collection("courses/" + courseID + "/section/" + courseSection + "/questions").document(studentName);
+                DocumentReference log = db.collection(courseRef + "/questions").document(studentName);
                 HashMap<String,Object> croissant = new HashMap<>();
                 questionText = edtTxtQuestion.getText().toString();
                 if(!hideName){

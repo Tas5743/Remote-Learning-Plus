@@ -11,10 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mifmif.common.regex.Generex;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CourseInformation extends AppCompatActivity {
-
+    DocumentReference colRef;
     Button btn;
     EditText edtTxtName, edtTxtId, edtTxtDesc;
     String name, id, desc;
@@ -71,11 +83,47 @@ public class CourseInformation extends AppCompatActivity {
                     edtTxtDesc.requestFocus();
                 }
                 else {
-                    Intent intent = new Intent(CourseInformation.this, SelectCourseTimes.class);
-                    intent.putExtra("courseName", name);
-                    intent.putExtra("courseId", id);
-                    intent.putExtra("courseDesc", desc);
-                    startActivity(intent);
+                    //TODO redirect to course page.
+
+                    FirebaseFirestore.getInstance().collection("courses").get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        List<String> sections = new ArrayList<>();
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            sections.add(document.getId());
+                                        }
+
+                                        boolean unique = false;
+                                        String uniqueCourseID = "o";
+                                        while (!unique) {
+                                            Generex generex = new Generex("[A-Za-z0-9]{9}");
+                                            uniqueCourseID = generex.random();
+                                            if (
+                                                    !sections.contains(uniqueCourseID)) {
+                                                unique = true;
+                                            }
+                                        }
+                                        //colRef = FirebaseFirestore.getInstance().collection("courses").document(uniqueClassID);
+
+                                        //Map<String, Object> dataToSave = new HashMap<String, Object>();
+                                        //dataToSave.put("courseTitle", edtTxtName);
+                                        //dataToSave.put("courseID", edtTxtId);
+                                        //dataToSave.put("courseDescription", edtTxtDesc);
+                                        //dataToSave.put("courseIndex", uniqueClassID);
+
+                                        //colRef.set(dataToSave);
+                                        Toast.makeText(CourseInformation.this, "Course Successfully created!", Toast.LENGTH_SHORT).show();
+                                        Intent selectMeetTimes = new Intent(CourseInformation.this, SelectCourseTimes.class);
+                                        selectMeetTimes.putExtra("courseName", name);
+                                        selectMeetTimes.putExtra("courseId", id);
+                                        selectMeetTimes.putExtra("courseDesc", desc);
+                                        selectMeetTimes.putExtra("uniqueCourseID", uniqueCourseID);
+                                        startActivity(selectMeetTimes);
+                                    }
+                                }
+                            });
                 }
             }
         });

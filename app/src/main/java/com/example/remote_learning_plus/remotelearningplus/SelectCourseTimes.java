@@ -42,7 +42,7 @@ public class SelectCourseTimes extends AppCompatActivity{
     String TextName;
     String TextID;
     String TextInviteCode;
-    String TextSection;
+    String uniqueCourseID;
     String TextCourseDescription;
     Button add_course;
     TimePicker startTime;
@@ -92,6 +92,7 @@ public class SelectCourseTimes extends AppCompatActivity{
         Intent intent = getIntent();
         TextName = intent.getStringExtra("courseName");
         TextID = intent.getStringExtra("courseId");
+        uniqueCourseID = intent.getStringExtra("uniqueCourseID");
         TextCourseDescription = intent.getStringExtra("courseDesc");
 
         add_course = findViewById(R.id.add_course);
@@ -189,17 +190,17 @@ public class SelectCourseTimes extends AppCompatActivity{
             String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             DocumentReference docRefInstructor = db.collection("users").document(userId).collection("courses").document(TextID+TextSection);
             Map<String, Object> courseList = new HashMap<>();
-            courseList.put("sectionReference","courses/"+TextID+"/section/"+TextSection);
+            courseList.put("sectionReference","courses/"+uniqueCourseID+"/section/"+TextSection);
             courseList.put("courseSection", TextSection);
             courseList.put("courseID", TextID);
             docRefInstructor.set(courseList);
 
 
 
-            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/section").document(TextSection);
+            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+uniqueCourseID+"/section").document(TextSection);
             colRef.set(dataToSave);
             Map<String, Object> masterlist = new HashMap<String, Object>();
-            masterlist.put("sectionReference","courses/"+TextID+"/section/"+TextSection);
+            masterlist.put("sectionReference","courses/"+uniqueCourseID+"/section/"+TextSection);
             colSections.set(masterlist);
 
             Toast.makeText(SelectCourseTimes.this, "Course Successfully created!", Toast.LENGTH_SHORT).show();

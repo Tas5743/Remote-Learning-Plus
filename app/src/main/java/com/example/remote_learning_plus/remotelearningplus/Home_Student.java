@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -38,6 +39,9 @@ public class Home_Student extends AppCompatActivity {
                 Intent intent = new Intent(Home_Student.this, student_course_home.class);
                 intent.putExtra("courseID", course.getCourseID());
                 intent.putExtra("courseSection", course.getCourseSection());
+                intent.putExtra("courseRef", course.getCourseRef());
+                Log.d("STUDENT_HOME", "courseID: " + course.getCourseID());
+                Log.d("STUDENT_HOME", "courseRef: " + course.getCourseRef());
                 startActivity(intent);
             }
         });

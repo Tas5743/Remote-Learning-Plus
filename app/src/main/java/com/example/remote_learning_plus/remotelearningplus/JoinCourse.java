@@ -109,7 +109,7 @@ public class JoinCourse extends AppCompatActivity {
                                             String courseID = documentSnapshot.get("courseId").toString();
                                             String courseSelection = documentSnapshot.get("courseSection").toString();
                                             HashMap<String, Object> addclass = new HashMap<>();
-                                            addclass.put("classRef", document.get("sectionReference").toString());
+                                            addclass.put("courseRef", document.get("sectionReference").toString());
                                             addclass.put("courseID", courseID);
                                             addclass.put("courseSection", courseSelection);
                                             studentClass.set(addclass, SetOptions.merge());
