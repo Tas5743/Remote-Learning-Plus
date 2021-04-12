@@ -10,4 +10,10 @@
     <color name="rlp_blue">#002975</color>
     <color name="rlp_blue_light">#70a2ff</color>
     <color name="rlp_button">#011b4a</color>
+    <color name="blue_background">#002680</color>
+    <color name="grey">#b3b3b3</color>
+    <color name="light_grey">#f2f2f2</color>
+    <color name="dark_grey">#4d4d4d</color>
+    <color name="medium_grey">#bfbfbf</color>
+    <color name="grey_blue">#e0ebeb</color>
 </resources>

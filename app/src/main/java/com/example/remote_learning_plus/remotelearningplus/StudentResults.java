@@ -51,6 +51,7 @@ public class StudentResults extends AppCompatActivity {
     String correct;
     String path;
     int questionnum;
+    int totalquestion;
     Long points;
     DocumentReference QuizQuestion;
     DocumentReference studentcopy;
@@ -78,26 +79,14 @@ public class StudentResults extends AppCompatActivity {
 
 
         Bundle query = getIntent().getExtras();
-        //String student = query.getString("student");
-        //String quizPath = query.getString("quizPath");
-        if (query != null)
+        student = query.getString("student");
+        quizPath = query.getString("quiz");
+        totalquestion = query.getInt("total");
+        String courseCodeStr = query.getString("courseCode");
+        String courseTitleStr = query.getString("courseTitle");
+        courseSectionStr = query.getString("section");
+        quizTitleStr = query.getString("quizTitle");
         questionnum = query.getInt("num");
-        //int totalquestion = query.getInt("total");
-        student = "student";
-        quizPath = "courses/cmpsc475/quizzes/quiz1";
-        if (query == null)
-        questionnum = 1;
-        int totalquestion = 114;
-
-//       String courseCodeStr = query.getString("courseCode");
-//       String courseTitleStr = query.getString("courseTitle");
-//       String courseSectionStr = query.getString("section");
-//       String quizTitleStrquery = query.getString("quizTitle");
-
-        String courseCodeStr = "CMPSC475";
-        String courseTitleStr = "App Development";
-        courseSectionStr = "section1";
-        quizTitleStr = "quiz1";
 
         courseCode.setText(courseCodeStr);
         courseTitle.setText(courseTitleStr);
@@ -124,7 +113,7 @@ public class StudentResults extends AppCompatActivity {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
-                        question.setText(document.getData().get("question").toString());
+                        question.setText(questionnum + ".\n" + document.getData().get("question").toString());
                         points =  (Long) document.getData().get("points");
                         choices = (HashMap<String, String>) document.get("choices");
                         correct = choices.get("correct");
@@ -134,6 +123,7 @@ public class StudentResults extends AppCompatActivity {
                             response1.setVisibility(View.VISIBLE);
                             if(choices.get("option1").equals(choices.get("correct"))){
                                 response1.setBackgroundColor(Color.GREEN);
+                                response1.setTextColor(Color.BLACK);
                             }}
 
                         if (choices.containsKey("option2")){
@@ -141,6 +131,7 @@ public class StudentResults extends AppCompatActivity {
                             response2.setVisibility(View.VISIBLE);
                             if(choices.get("option2").equals(choices.get("correct"))){
                                 response2.setBackgroundColor(Color.GREEN);
+                                response2.setTextColor(Color.BLACK);
                             }}
 
                         if (choices.containsKey("option3")){
@@ -148,6 +139,7 @@ public class StudentResults extends AppCompatActivity {
                             response3.setVisibility(View.VISIBLE);
                             if(choices.get("option3").equals(choices.get("correct"))){
                                 response3.setBackgroundColor(Color.GREEN);
+                                response3.setTextColor(Color.BLACK);
                             }}
 
                         if (choices.containsKey("option4")){
@@ -155,13 +147,15 @@ public class StudentResults extends AppCompatActivity {
                             response4.setVisibility(View.VISIBLE);
                             if(choices.get("option4").equals(choices.get("correct"))){
                                 response4.setBackgroundColor(Color.GREEN);
+                                response4.setTextColor(Color.BLACK);
                             }}
 
                         if (choices.containsKey("option5")){
                             response5.setText(choices.get("option5"));
                             response5.setVisibility(View.VISIBLE);
                             if(choices.get("option4").equals(choices.get("correct"))){
-                                response4.setBackgroundColor(Color.GREEN);
+                                response5.setBackgroundColor(Color.GREEN);
+                                response5.setTextColor(Color.BLACK);
                             }}
 
 
@@ -186,18 +180,23 @@ public class StudentResults extends AppCompatActivity {
                                             String response = document.getData().get("response").toString();
 
                                             if(choices.containsKey("option1") && choices.get("option1").equals(response) && !response.equals(choices.get("correct"))){
+                                                response1.setTextColor(Color.BLACK);
                                                 response1.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option2") && choices.get("option2").equals(response)&& !response.equals(choices.get("correct"))){
+                                                response2.setTextColor(Color.BLACK);
                                                 response2.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option3") && choices.get("option3").equals(response)&& !response.equals(choices.get("correct"))){
+                                                response3.setTextColor(Color.BLACK);
                                                 response3.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option4") && choices.get("option4").equals(response)&& !response.equals(choices.get("correct"))){
+                                                response4.setTextColor(Color.BLACK);
                                                 response4.setBackgroundColor(Color.RED);
                                             }
                                             if(choices.containsKey("option5") && choices.get("option5").equals(response)&& !response.equals(choices.get("correct"))){
+                                                response5.setTextColor(Color.BLACK);
                                                 response5.setBackgroundColor(Color.RED);
                                             }
                                         }
@@ -245,7 +244,6 @@ public class StudentResults extends AppCompatActivity {
                 Intent Next  = new Intent(StudentResults.this, StudentResults.class);
                 Next.putExtra("student", student);
                 Next.putExtra("quiz",quizPath);
-                //Next.putExtra("quiz",quiz + "/" + questionnum);
                 Next.putExtra("num", questionnum+1);
                 Next.putExtra("total",totalquestion);
                 Next.putExtra("courseCode",courseCodeStr);
@@ -262,8 +260,15 @@ public class StudentResults extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Submit = new Intent(StudentResults.this, Student_HomePage.class);
-                //startActivity(Submit);
+                Intent submit = new Intent(StudentResults.this, quizHome.class);
+                submit.putExtra("student", student);
+                submit.putExtra("quiz", quizPath);
+                submit.putExtra("total", totalquestion);
+                submit.putExtra("courseCode", courseCodeStr);
+                submit.putExtra("courseTitle", courseTitleStr);
+                submit.putExtra("section", courseSectionStr);
+                submit.putExtra("quizTitle", quizTitleStr);
+                startActivity(submit);
             }
         });
 

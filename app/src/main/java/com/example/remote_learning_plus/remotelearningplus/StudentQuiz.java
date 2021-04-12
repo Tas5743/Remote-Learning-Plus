@@ -49,6 +49,7 @@ public class StudentQuiz extends AppCompatActivity {
     String correct;
     String path;
     Integer questionnum;
+    Integer totalquestion;
     Long points;
     DocumentReference QuizQuestion;
     DocumentReference studentcopy;
@@ -92,27 +93,15 @@ public class StudentQuiz extends AppCompatActivity {
         submit = findViewById(R.id.btn_submit_quiz);
 
         Bundle query = getIntent().getExtras();
-        //String student = query.getString("student");
-        //String quizPath = query.getString("quizPath");
-        if (query != null)
-            questionnum = query.getInt("num");
-        else questionnum = 1;
-        //int totalquestion = query.getInt("total");
-        student = "student";
-        quizPath = "courses/cmpsc475/quizzes/quiz1";
-        int totalquestion = 114;
-
-//       String courseCodeStr = query.getString("courseCode");
-//       String courseTitleStr = query.getString("courseTitle");
-//       String courseSectionStr = query.getString("section");
-//       String quizTitleStrquery = query.getString("quizTitle");
-
-        String courseCodeStr = "CMPSC475";
-        String courseTitleStr = "App Development";
-        courseSectionStr = "section1";
-        quizTitleStr = "quiz1";
-
-        courseCode.setText(courseCodeStr);
+        student = query.getString("student");
+        quizPath = query.getString("quiz");
+        totalquestion = query.getInt("total");
+       String courseCodeStr = query.getString("courseCode");
+       String courseTitleStr = query.getString("courseTitle");
+       courseSectionStr = query.getString("section");
+       quizTitleStr = query.getString("quizTitle");
+       questionnum = query.getInt("num");
+       courseCode.setText(courseCodeStr);
         courseTitle.setText(courseTitleStr);
         courseSection.setText(courseSectionStr);
         quizTitle.setText(quizTitleStr);
@@ -121,13 +110,11 @@ public class StudentQuiz extends AppCompatActivity {
         if (questionnum == 1) {
             prev.setVisibility(View.INVISIBLE);
         }
-        if (questionnum == totalquestion) {
+        if (questionnum.equals(totalquestion)) {
             next.setVisibility(View.INVISIBLE);
         }
 
         QuizQuestion = FirebaseFirestore.getInstance().document(quizPath + "/questions/" + questionnum);
-        //QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
-
         QuizQuestion.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -228,14 +215,12 @@ public class StudentQuiz extends AppCompatActivity {
                 Intent previous = new Intent(StudentQuiz.this, StudentQuiz.class);
                 previous.putExtra("student", student);
                 previous.putExtra("quiz", quizPath);
-                //previous.putExtra("quiz",quiz + "/" + questionnum);
                 previous.putExtra("num", questionnum - 1);
                 previous.putExtra("total", totalquestion);
                 previous.putExtra("courseCode", courseCodeStr);
                 previous.putExtra("courseTitle", courseTitleStr);
                 previous.putExtra("section", courseSectionStr);
                 previous.putExtra("quizTitle", quizTitleStr);
-
                 startActivity(previous);
 
             }
@@ -246,17 +231,16 @@ public class StudentQuiz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 save();
-                Intent Next = new Intent(StudentQuiz.this, StudentQuiz.class);
-                Next.putExtra("student", student);
-                Next.putExtra("quiz", quizPath);
-                Next.putExtra("num", questionnum + 1);
-                Next.putExtra("total", totalquestion);
-                Next.putExtra("courseCode", courseCodeStr);
-                Next.putExtra("courseTitle", courseTitleStr);
-                Next.putExtra("section", courseSectionStr);
-                Next.putExtra("quizTitle", quizTitleStr);
-
-                startActivity(Next);
+                Intent next = new Intent(StudentQuiz.this, StudentQuiz.class);
+                next.putExtra("student", student);
+                next.putExtra("quiz", quizPath);
+                next.putExtra("num", questionnum + 1);
+                next.putExtra("total", totalquestion);
+                next.putExtra("courseCode", courseCodeStr);
+                next.putExtra("courseTitle", courseTitleStr);
+                next.putExtra("section", courseSectionStr);
+                next.putExtra("quizTitle", quizTitleStr);
+                startActivity(next);
 
             }
         });
@@ -273,11 +257,11 @@ public class StudentQuiz extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 String TAG = "GRADE";
                                 if (task.isSuccessful()) {
-                                    float totalgrade = 0;
+                                    Long totalgrade = 0L;
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         Log.d(TAG, document.getId() + " => " + document.getData());
                                         if (document.contains("grade")) {
-                                            totalgrade += (Integer) document.getData().get("grade");
+                                            totalgrade +=  (Long) document.getData().get("grade");
                                         }
                                     }
 
@@ -316,8 +300,16 @@ public class StudentQuiz extends AppCompatActivity {
                                                                 grading.put("percentage", defaultFormat.format(percentageGrade));
                                                                 grading.put("taken", true);
                                                                 FirebaseFirestore.getInstance().document(path + "/grade").set(grading);
-                                                                Intent Submit = new Intent(StudentQuiz.this, Student_HomePage.class);
-                                                                //startActivity(Submit);
+
+                                                                Intent submit = new Intent(StudentQuiz.this, quizScore.class);
+                                                                submit.putExtra("student", student);
+                                                                submit.putExtra("quiz", quizPath);
+                                                                submit.putExtra("total", totalquestion);
+                                                                submit.putExtra("courseCode", courseCodeStr);
+                                                                submit.putExtra("courseTitle", courseTitleStr);
+                                                                submit.putExtra("section", courseSectionStr);
+                                                                submit.putExtra("quizTitle", quizTitleStr);
+                                                                startActivity(submit);
                                                             } else {
                                                                 Log.d(TAG, "get failed with ", task.getException());
                                                             }

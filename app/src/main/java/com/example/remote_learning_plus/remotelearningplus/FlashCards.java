@@ -64,25 +64,17 @@ public class FlashCards extends AppCompatActivity {
         flipcard = findViewById(R.id.Flip_card);
 
         Bundle query = getIntent().getExtras();
-        //String student = query.getString("student");
-        //String quizPath = query.getString("quizPath");
-        if (query != null)
+        String student = query.getString("student");
+        quizPath = query.getString("quiz");
+        int totalquestion = query.getInt("total");
         questionnum = query.getInt("num");
-        //int totalquestion = query.getInt("total");
-        quizPath = "courses/cmpsc475/quizzes/quiz1";
-        if (query==null)
-        questionnum = 1;
-        int totalquestion = 114;
+       String courseCodeStr = query.getString("courseCode");
+       String courseTitleStr = query.getString("courseTitle");
+       courseSectionStr = query.getString("section");
+       quizTitleStr = query.getString("quizTitle");
 
-//       String courseCodeStr = query.getString("courseCode");
-//       String courseTitleStr = query.getString("courseTitle");
-//       String courseSectionStr = query.getString("section");
-//       String quizTitleStrquery = query.getString("quizTitle");
 
-        String courseCodeStr = "CMPSC475";
-        String courseTitleStr = "App Development";
-        courseSectionStr = "section1";
-        quizTitleStr = "quiz1";
+
 
         courseCode.setText(courseCodeStr);
         courseTitle.setText(courseTitleStr);
@@ -130,6 +122,7 @@ public class FlashCards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent previous  = new Intent(FlashCards.this,FlashCards.class);
+                previous.putExtra("student", student);
                 previous.putExtra("quiz",quizPath);
                 previous.putExtra("num", questionnum-1);
                 previous.putExtra("total",totalquestion);
@@ -147,16 +140,17 @@ public class FlashCards extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Next  = new Intent(FlashCards.this, FlashCards.class);
-                Next.putExtra("quiz",quizPath);
-                Next.putExtra("num", questionnum+1);
-                Next.putExtra("total",totalquestion);
-                Next.putExtra("courseCode",courseCodeStr);
-                Next.putExtra("courseTitle", courseTitleStr);
-                Next.putExtra("section", courseSectionStr);
-                Next.putExtra("quizTitle",quizTitleStr);
+                Intent next  = new Intent(FlashCards.this, FlashCards.class);
+                next.putExtra("student", student);
+                next.putExtra("quiz",quizPath);
+                next.putExtra("num", questionnum+1);
+                next.putExtra("total",totalquestion);
+                next.putExtra("courseCode",courseCodeStr);
+                next.putExtra("courseTitle", courseTitleStr);
+                next.putExtra("section", courseSectionStr);
+                next.putExtra("quizTitle",quizTitleStr);
 
-                startActivity(Next);
+                startActivity(next);
 
             }
         });
@@ -165,8 +159,15 @@ public class FlashCards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent Submit = new Intent(FlashCards.this, Student_HomePage.class);
-                //startActivity(Submit);
+                Intent submit = new Intent(FlashCards.this, quizHome.class);
+                submit.putExtra("student", student);
+                submit.putExtra("quiz", quizPath);
+                submit.putExtra("total", totalquestion);
+                submit.putExtra("courseCode", courseCodeStr);
+                submit.putExtra("courseTitle", courseTitleStr);
+                submit.putExtra("section", courseSectionStr);
+                submit.putExtra("quizTitle", quizTitleStr);
+                startActivity(submit);
             }
         });
 

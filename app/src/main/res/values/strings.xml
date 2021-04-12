@@ -66,6 +66,11 @@
     <string name="add_student">Add Student</string>
     <string name="results">Results</string>
     <string name="exit">Exit</string>
+    <string name="description">desc</string>
+    <string name="final_score">Final Score</string>
+    <string name="returnhome">Return</string>
+    <string name="flashcards">Flashcards</string>
+    <string name="score">Score</string>
 
 
 </resources>
