@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,20 +23,23 @@ import com.google.firebase.firestore.Query;
 import java.util.Objects;
 
 public class StudentQuizzes extends AppCompatActivity {
+    private static String TAG = "Tag";
 
     /*Intent intent = getIntent();
     String student = getIntent().getStringExtra("student");
     String courseCodeStr = getIntent().getStringExtra("courseCodeStr");
     String courseTitleStr = getIntent().getStringExtra("courseTitleStr");
-    String courseSectionStr = getIntent().getStringExtra("courseSectionStr");*/
+    String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
+    String quizzesPath ="/courses/" + courseCodeStr + "/quizzes/"; */
 
     String student = "student";
     String courseCodeStr = "cmpsc475";
-    String courseTitleStr = "Hashmaps";
-    String courseSectionStr = "1";
+    String courseTitleStr = "Computer Science";
+    String courseSectionStr = "section1";
     int quizItems;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //private CollectionReference quizRef = db.collection("quizzesPath");
     private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
     private QuizAdapter adapter;
 
@@ -66,13 +70,16 @@ public class StudentQuizzes extends AppCompatActivity {
                     public void onItemClick(View view, int position) {
 
                         String quizTitle = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.quizTitle)).getText().toString();
-                        openQuizPageActivity(position, quizTitle);
+                        Log.d(StudentQuizzes.TAG, Integer.toString(position));
+                        openQuizPageActivity(position+1, quizTitle);
                     }
 
                     @Override
                     public void onLongItemClick(View view, int position) {
                         String quizTitle = ((TextView) Objects.requireNonNull(recyclerView.findViewHolderForAdapterPosition(position)).itemView.findViewById(R.id.quizTitle)).getText().toString();
-                        openQuizPageActivity(position, quizTitle);
+                        System.out.println(position);
+
+                        openQuizPageActivity(position+1, quizTitle);
                     }
                 })
         );
@@ -82,23 +89,18 @@ public class StudentQuizzes extends AppCompatActivity {
     private void openQuizPageActivity(int quizNum, String quizTitleStr) {
         Intent submit = new Intent(StudentQuizzes.this, quizHome.class);
 
-        String quizPath = "courses/" + courseCodeStr + "quizzes/quiz/" + quizNum;
-        db.document(quizPath).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            private static final String TAG = "TAG";
-
+        String quizPath = "courses/" + courseCodeStr + "/quizzes/quiz" + quizNum;
+        db.document(quizPath).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot.exists()) {
-                        quizItems = (int) documentSnapshot.get("items");
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "Failed with", task.getException());
-                }
-            }});
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Quiz quiz = documentSnapshot.toObject(Quiz.class);
+                quizItems = Integer.parseInt(documentSnapshot.get("items").toString());
+                Log.d(TAG, "quiz items = " + quizItems);
+
+            }
+        });
+
+        Log.d(TAG, "Quiz items = " + Integer.toString(quizItems));
 
         submit.putExtra("student", student);
         submit.putExtra("quiz", quizPath);
@@ -122,4 +124,6 @@ public class StudentQuizzes extends AppCompatActivity {
         adapter.stopListening();
     }
 
+    private class TAG {
+    }
 }
