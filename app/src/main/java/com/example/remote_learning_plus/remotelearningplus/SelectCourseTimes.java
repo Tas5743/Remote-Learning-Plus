@@ -95,6 +95,7 @@ public class SelectCourseTimes extends AppCompatActivity{
         uniqueCourseID = intent.getStringExtra("uniqueCourseID");
         TextCourseDescription = intent.getStringExtra("courseDesc");
 
+
         add_course = findViewById(R.id.add_course);
 
         startTime = findViewById(R.id.timePicker1);
@@ -117,7 +118,7 @@ public class SelectCourseTimes extends AppCompatActivity{
 
     public void savecourse2(View v){
 
-        ArrayList<String> days = new ArrayList<>();
+        //ArrayList<String> days = new ArrayList<>();
         CheckBox M = findViewById(R.id.chkboxMonday);
         CheckBox T = findViewById(R.id.chkboxTuesday);
         CheckBox W = findViewById(R.id.chkboxWednesday);
@@ -144,12 +145,20 @@ public class SelectCourseTimes extends AppCompatActivity{
         EditText edtTextSection = findViewById(R.id.etsection);
         String TextSection = edtTextSection.getText().toString().trim();
 
-
+        /*
         if (M.isChecked()){days.add("Monday");}
         if (T.isChecked()){days.add("Tuesday");}
         if (W.isChecked()){days.add("Wednesday");}
         if (TH.isChecked()){days.add("Thursday");}
-        if (F.isChecked()){days.add("Friday");}
+        if (F.isChecked()){days.add("Friday");}*/
+
+        String days = "";
+        if (M.isChecked()){days += "M ";}
+        if (T.isChecked()){days += "T ";}
+        if (W.isChecked()){days += "W ";}
+        if (TH.isChecked()){days += "Th ";}
+        if (F.isChecked()){days += "F ";}
+
 
         if(TextSection.isEmpty()){
                 edtTextSection.setError("Enter a course section.");
@@ -181,10 +190,12 @@ public class SelectCourseTimes extends AppCompatActivity{
             dataToSave.put("courseName", TextName);
             dataToSave.put("courseSection", TextSection);
             dataToSave.put("courseId", TextID);
+            //dataToSave.put("courseDays",days);
             dataToSave.put("courseDays",days);
             dataToSave.put("startTime",sTime);
             dataToSave.put("endTime",eTime);
             dataToSave.put("InviteCode", inviteCode);
+            dataToSave.put("courseDesc", TextCourseDescription);
 
             // Reference new course to teachers course list
             String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();

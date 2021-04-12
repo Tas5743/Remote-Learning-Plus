@@ -74,6 +74,9 @@ public class student_course_home extends AppCompatActivity implements View.OnCli
             case R.id.btnResults:
                 break;
             case R.id.btnInformation:
+                Intent courseInfo = new Intent(this, CourseInformationPage.class);
+                courseInfo.putExtra("courseRef", courseRef);
+                startActivity(courseInfo);
                 break;
         }
     }
