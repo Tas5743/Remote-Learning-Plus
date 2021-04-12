@@ -33,7 +33,7 @@ public class StudentQuizzes extends AppCompatActivity {
     String courseCodeStr = "cmpsc475";
     String courseTitleStr = "Hashmaps";
     String courseSectionStr = "1";
-
+    int quizItems;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
@@ -80,10 +80,9 @@ public class StudentQuizzes extends AppCompatActivity {
     }
 
     private void openQuizPageActivity(int quizNum, String quizTitleStr) {
-        Intent submit = new Intent(StudentQuizzes.this, StudentQuizzes.class);
+        Intent submit = new Intent(StudentQuizzes.this, quizHome.class);
 
         String quizPath = "courses/" + courseCodeStr + "quizzes/quiz/" + quizNum;
-        final int[] quizItems = new int[1];
         db.document(quizPath).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             private static final String TAG = "TAG";
 
@@ -92,8 +91,7 @@ public class StudentQuizzes extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
-                        Quiz quiz = documentSnapshot.toObject(Quiz.class);
-                        quizItems[0] = quiz.getItems();
+                        quizItems = (int) documentSnapshot.get("items");
                     } else {
                         Log.d(TAG, "No such document");
                     }
@@ -102,11 +100,9 @@ public class StudentQuizzes extends AppCompatActivity {
                 }
             }});
 
-        final int totalquestion = quizItems[0];
-
         submit.putExtra("student", student);
         submit.putExtra("quiz", quizPath);
-        submit.putExtra("total", totalquestion);
+        submit.putExtra("total", quizItems);
         submit.putExtra("courseCode", courseCodeStr);
         submit.putExtra("courseTitle", courseTitleStr);
         submit.putExtra("section", courseSectionStr);
