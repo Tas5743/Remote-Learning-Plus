@@ -14,7 +14,11 @@
         <activity android:name=".RegisterUser" />
         <activity android:name=".LoginSuccess" />
         <activity android:name=".CourseInformation"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".StudentResults"/>
+        <activity android:name=".StudentQuiz"/>
+        <activity android:name=".FlashCards"/>
+        <activity android:name=".quizScore"/>
+        <activity android:name=".quizHome">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
