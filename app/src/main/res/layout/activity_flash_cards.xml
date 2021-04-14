@@ -7,26 +7,12 @@
     android:background="@color/blue_background">
 
     <TextView
-        android:id="@+id/flashtext"
-        android:layout_width="392dp"
-        android:layout_height="323dp"
-        android:layout_marginBottom="56dp"
-        android:background="@color/white"
-        android:textColor="@color/dark_grey"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_exit_flash"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Flashcard_flashcard" />
-
-    <TextView
         android:id="@+id/flashTitle"
         android:layout_width="359dp"
         android:layout_height="28dp"
         android:layout_marginBottom="71dp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/flashtext"
+        app:layout_constraintBottom_toTopOf="@+id/Flip_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Quiz Title" />
@@ -112,14 +98,16 @@
         android:id="@+id/Flip_card"
         android:layout_width="394dp"
         android:layout_height="325dp"
-        android:layout_marginTop="71dp"
         android:layout_marginBottom="102dp"
-        android:background="@android:color/transparent"
+        android:background="@android:color/white"
+        android:textColor="@color/dark_grey"
+        android:textSize="24sp"
         android:visibility="visible"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btn_exit_flash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flashTitle"
-        tools:visibility="gone" />
+        tools:text="Flashcardstuff"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ public class FlashCards extends AppCompatActivity {
     TextView courseTitle;
     TextView courseSection;
     TextView Title;
-    TextView card;
+//    TextView card;
     Button prev;
     Button next;
     Button exit;
@@ -56,7 +56,7 @@ public class FlashCards extends AppCompatActivity {
         courseTitle = findViewById(R.id.flash_course_title);
         courseSection = findViewById(R.id.flash_section);
         Title = findViewById(R.id.flashTitle);
-        card = findViewById(R.id.flashtext);
+        //card = findViewById(R.id.flashtext);
 
         prev = findViewById(R.id.btn_prev_flash);
         next = findViewById(R.id.btn_next_flash);
@@ -105,7 +105,7 @@ public class FlashCards extends AppCompatActivity {
                         question = document.getData().get("question").toString();
                         choices = (HashMap<String, String>) document.get("choices");
                         correct = choices.get("correct");
-                        card.setText(question);
+                        flipcard.setText(question);
 
                     } else {
                         Log.d(TAG, "No such document");
@@ -175,10 +175,10 @@ public class FlashCards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (flipped){
-                    card.setText(question);
+                    flipcard.setText(question);
                     flipped = false;
                 }
-                else {card.setText(correct);
+                else {flipcard.setText(correct);
                     flipped = true;}
 
             }
