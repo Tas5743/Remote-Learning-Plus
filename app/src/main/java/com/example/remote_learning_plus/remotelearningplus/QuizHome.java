@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,20 +26,21 @@ import java.util.Objects;
 
 public class QuizHome extends AppCompatActivity {
 
-    // Course Page -> Quiz Home
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private QuizAdapter adapter;
+
 
     /* TODO: Data from previous activity needed:
+        Course Page -> Quiz Home
         - "course" - as in course id as written in Firestore
         - intent.putExtra("course", course); // copy this
     */
 
-    private QuizAdapter adapter;
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // Intent data
-    Intent intent = getIntent();
-    String course=intent.getStringExtra("course");
-    private final CollectionReference quizRef = db.collection("/courses/" + course + "/quizzes");
+    Intent intent;
+    String course;
+    CollectionReference quizRef;
 
     // Data for testing
     // private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
@@ -49,11 +51,17 @@ public class QuizHome extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_home);
         setUpRecyclerView();
 
+        intent = getIntent();
+        course=intent.getStringExtra("course");
+        quizRef = db.collection("/courses/" + course + "/quizzes");
+
+
         // Bottom navigation
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){

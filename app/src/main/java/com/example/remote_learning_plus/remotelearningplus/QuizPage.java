@@ -34,11 +34,10 @@ public class QuizPage extends AppCompatActivity {
     private static final String TAG = "TAG";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    // Get course/quizTitle from previous activity
-    Intent intent = getIntent();
-    String course = intent.getStringExtra("course");
-    Boolean isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
-    int quizNum = intent.getIntExtra("quizNum", 1);
+    Intent intent;
+    String course;
+    Boolean isNewQuiz;
+    int quizNum;
     String oldTitle;
 
     /*Test data
@@ -55,6 +54,11 @@ public class QuizPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_page);
+
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
+        quizNum = intent.getIntExtra("quizNum", 1);
 
         Button qButton = findViewById(R.id.qButton);
         TextView tvQuizTitle = findViewById(R.id.tvQuizTitle);

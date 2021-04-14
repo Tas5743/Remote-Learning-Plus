@@ -35,12 +35,11 @@ public class EditQuestions extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // Intent data
-    Intent intent = getIntent();
-    String course = intent.getStringExtra("course");
-    int quizNum = intent.getIntExtra("quizNum", 1);
-
-    String quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
-    CollectionReference questionsRef = db.collection(quizPath + "/questions");
+    Intent intent;
+    String course;
+    int quizNum;
+    String quizPath;
+    CollectionReference questionsRef;
 
     private TextView tvQNum;
     private EditText etQuestion;
@@ -79,12 +78,21 @@ public class EditQuestions extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
 
+        // Intent data
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        quizNum = intent.getIntExtra("quizNum", 1);
+        quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+        questionsRef = db.collection(quizPath + "/questions");
+
+
 
         // Bottom Navigation
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);

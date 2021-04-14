@@ -32,23 +32,22 @@ import java.util.Objects;
 
 public class CreateQuestion extends AppCompatActivity {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    int itemNum = 1;
     private static final String TAG = "Tag";
 
     // Data from intent
-    Intent intent = getIntent();
-    String course = intent.getStringExtra("course");
-    int quizNum = intent.getIntExtra("quizNum", 1);
-    String quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+    Intent intent;
+    String course;
+    int quizNum;
+    String quizPath;
+    DocumentReference quizRef;
+    CollectionReference questionsRef;
 
     // Test data
     /*int quizNum = 1;
     String course = "cmpsc475";
     String quizPath = "/courses/cmpsc475/quizzes/quiz1";*/
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final DocumentReference quizRef = FirebaseFirestore.getInstance().document(quizPath);
-    private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
-    int itemNum = 1;
 
     private TextView tvQNum;
     private EditText etQuestion;
@@ -85,15 +84,22 @@ public class CreateQuestion extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
 
-
         Button qButton = findViewById(R.id.nextQuestionButton);
         Button finishButton = findViewById(R.id.saveButton);
+
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        quizNum = intent.getIntExtra("quizNum", 1);
+        quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+        quizRef = FirebaseFirestore.getInstance().document(quizPath);
+        questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
 
         // Bottom Navigation
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.btnHome:
                         Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
