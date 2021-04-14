@@ -10,28 +10,45 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:context=".CourseInformation">
+        tools:context=".CourseInformation"
+        android:background="@color/blue_background">
+
+        <ImageView
+            android:id="@+id/imgInformation"
+            android:layout_width="325dp"
+            android:layout_height="425dp"
+            android:layout_marginTop="64dp"
+            android:background="@color/white"
+            android:contentDescription="@string/information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <TextView
             android:id="@+id/tvCourse_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:text="@string/course_information"
+            android:textColor="@color/dark_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/imgInformation" />
 
         <EditText
             android:id="@+id/etCourse_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="32dp"
             android:autofillHints="@string/edit_course_name"
+            android:background="@color/light_grey"
             android:ems="10"
             android:hint="@string/edit_course_name"
             android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="@color/medium_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,22 +58,43 @@
             android:id="@+id/etCourse_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="34dp"
             android:autofillHints="@string/edit_course_id"
+            android:background="@color/light_grey"
             android:ems="10"
             android:hint="@string/edit_course_id"
             android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="@color/medium_grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etCourse_name" />
 
         <EditText
+            android:id="@+id/etSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:autofillHints="@string/edit_section"
+            android:background="@color/light_grey"
+            android:ems="10"
+            android:hint="@string/edit_section"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="@color/medium_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etCourse_id" />
+
+        <EditText
             android:id="@+id/etCourse_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="34dp"
             android:autofillHints="@string/edit_course_description"
+            android:background="@color/light_grey"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/edit_course_description"
@@ -65,25 +103,27 @@
             android:maxLines="3"
             android:minLines="3"
             android:scrollbars="vertical"
+            android:textColor="@color/medium_grey"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etCourse_id" />
+            app:layout_constraintTop_toBottomOf="@+id/etSection" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="@color/blue_background"
+            android:onClick="CourseSchedule"
             android:text="@string/next_page"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintVertical_bias=".1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etCourse_description" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"

@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemoteLearningPlus">
-        <activity android:name=".StudentQuizzes"></activity>
+        <activity android:name=".EditQuestions"></activity>
+        <activity android:name=".QuizPage" />
+        <activity android:name=".QuizHome_" />
+        <activity android:name=".CreateQuestion" />
+        <activity android:name=".StudentQuizzes" />
         <activity android:name=".Quiz" />
         <activity android:name=".StudentResults" />
         <activity android:name=".quizScore" />

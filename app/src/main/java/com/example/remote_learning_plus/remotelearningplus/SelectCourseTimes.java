@@ -141,6 +141,16 @@ public class SelectCourseTimes extends AppCompatActivity{
 
         sTime = sH + ":" + sM;
         eTime = eH + ":" + eM;
+        if(sM < 10){
+            sTime = sH + ":" + "0"+sM;
+        }
+        else {
+            sTime = sH + ":" + sM;
+        }
+        if(eM < 10){
+            eTime = eH + ":" + "0"+eM;}
+        else { eTime = eH + ":" + eM;}
+
 
         EditText edtTextSection = findViewById(R.id.etsection);
         String TextSection = edtTextSection.getText().toString().trim();

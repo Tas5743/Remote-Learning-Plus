@@ -90,4 +90,28 @@
     <string name="flashcards">Flashcards</string>
     <string name="score">Score</string>
     <string name="quiz">Quiz</string>
+
+
+    <string name="questionNum">Question #</string>
+    <string name="choices">Choices</string>
+    <string name="new_question">New Question</string>
+    <string name="finish_quiz">Finish Quiz</string>
+    <string name="choice_1">Choice 1</string>
+    <string name="choice_2">Choice 2</string>
+    <string name="choice_3">Choice 3</string>
+    <string name="choice_4">Choice 4</string>
+    <string name="time_limit">Time Limit</string>
+    <string name="point_s">Point/s</string>
+    <string name="_10">10</string>
+    <string name="multiple_choice_1">Multiple Choice 1</string>
+    <string name="seconds">seconds</string>
+    <string name="_12">12</string>
+    <string name="next_question">Next Question</string>
+    <string name="save_quiz">Save Quiz</string>
+    <string name="topic">Topic</string>
+    <string name="add_questions">Add Questions</string>
+    <string name="enter_quiz_title">Enter quiz title</string>
+    <string name="edit_quiz_title">Edit quiz title</string>
+    <string name="edit_questions">Edit Questions</string>
+    <string name="_1">1</string>
 </resources>

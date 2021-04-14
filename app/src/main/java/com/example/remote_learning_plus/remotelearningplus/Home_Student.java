@@ -40,8 +40,8 @@ public class Home_Student extends AppCompatActivity {
                 intent.putExtra("courseID", course.getCourseID());
                 intent.putExtra("courseSection", course.getCourseSection());
                 intent.putExtra("courseRef", course.getCourseRef());
-                Log.d("STUDENT_HOME", "courseID: " + course.getCourseID());
-                Log.d("STUDENT_HOME", "courseRef: " + course.getCourseRef());
+                Log.d("STUDENT_HOME", "courseID: " + course.getCourseID()+" ");
+                Log.d("STUDENT_HOME", "courseRef: " + course.getCourseRef()+ " ");
                 startActivity(intent);
             }
         });

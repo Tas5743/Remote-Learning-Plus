@@ -63,6 +63,9 @@ public class Home_Teacher extends AppCompatActivity {
                 Intent intent = new Intent(Home_Teacher.this, instructor_course.class);
                 intent.putExtra("courseID", course.getCourseID());
                 intent.putExtra("courseSection", course.getCourseSection());
+                intent.putExtra("courseRef", course.getCourseRef());
+                String test = course.getCourseRef();
+                Log.d("HOME_TEACHER_ONCLICK", test + " ");
                 startActivity(intent);
             }
         });

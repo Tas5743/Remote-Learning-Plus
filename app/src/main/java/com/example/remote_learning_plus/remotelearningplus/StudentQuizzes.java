@@ -25,12 +25,14 @@ import java.util.Objects;
 public class StudentQuizzes extends AppCompatActivity {
     private static String TAG = "Tag";
 
-    /*Intent intent = getIntent();
-    String student = getIntent().getStringExtra("student");
-    String courseCodeStr = getIntent().getStringExtra("courseCodeStr");
-    String courseTitleStr = getIntent().getStringExtra("courseTitleStr");
-    String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
-    String quizzesPath ="/courses/" + courseCodeStr + "/quizzes/"; */
+    String courseRef;
+
+
+    //String student = getIntent().getStringExtra("student");
+    //String courseCodeStr = getIntent().getStringExtra("courseCodeStr");
+    //String courseTitleStr = getIntent().getStringExtra("courseTitleStr");
+    //String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
+    //String quizzesPath ="/courses/" + courseCodeStr + "/quizzes/";
 
     String student = "student";
     String courseCodeStr = "cmpsc475";
@@ -40,7 +42,7 @@ public class StudentQuizzes extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     //private CollectionReference quizRef = db.collection("quizzesPath");
-    private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+    private CollectionReference quizRef;
     private QuizAdapter adapter;
 
 
@@ -49,6 +51,12 @@ public class StudentQuizzes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_quizzes);
         setUpRecyclerView();
+
+        //***************** Passing courseRef ****************
+        Intent intent = getIntent();
+        courseRef = intent.getStringExtra("courseRef");
+        Log.d("STUDENT_QUIZZES", courseRef);
+        quizRef = db.collection(courseRef + "/quizzes/");
     }
 
     private void setUpRecyclerView() {
