@@ -23,32 +23,48 @@ import com.google.firebase.firestore.Query;
 import java.util.Objects;
 
 public class StudentQuizzes extends AppCompatActivity {
-    private static String TAG = "Tag";
 
-    /*Intent intent = getIntent();
-    String student = getIntent().getStringExtra("student");
-    String courseCodeStr = getIntent().getStringExtra("courseCodeStr");
-    String courseTitleStr = getIntent().getStringExtra("courseTitleStr");
-    String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
-    String quizzesPath ="/courses/" + courseCodeStr + "/quizzes/"; */
+    // TODO: Intent data needed from previous activity
+    //  Path: Student_HomePage -> Course Home Page -> Student Quizzes
+    //  intent.putExtra("student", student) // where student is doc id of student
+    //  intent.putExtra("courseCode", courseCodeStr) // as in cmpsc475 etc
+    //  intent.putExtra("courseTitle", courseTitleStr) // example: App Programming
+    //  intent.putExtra("courseSection", courseSectionStr) // example: section1
 
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = "Tag";
+    private QuizAdapter adapter;
+    int quizItems;
+
+    // Intent data
+    Intent intent;
+    String student;
+    String courseCodeStr;
+    String courseTitleStr;
+    String courseSectionStr;
+    String quizzesPath;
+    CollectionReference quizRef;
+    /* Test data
     String student = "student";
     String courseCodeStr = "cmpsc475";
     String courseTitleStr = "Computer Science";
     String courseSectionStr = "section1";
-    int quizItems;
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //private CollectionReference quizRef = db.collection("quizzesPath");
-    private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
-    private QuizAdapter adapter;
-
+    //private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_quizzes);
         setUpRecyclerView();
+
+        intent = getIntent();
+        student = intent.getStringExtra("student");
+        courseCodeStr = intent.getStringExtra("courseCode");
+        courseTitleStr = intent.getStringExtra("courseTitle");
+        courseSectionStr = intent.getStringExtra("section");
+        quizzesPath =  "/courses/" + courseCodeStr + "/quizzes/";
+        quizRef = db.collection(quizzesPath);
     }
 
     private void setUpRecyclerView() {
@@ -90,17 +106,13 @@ public class StudentQuizzes extends AppCompatActivity {
         Intent submit = new Intent(StudentQuizzes.this, quizHome.class);
 
         String quizPath = "courses/" + courseCodeStr + "/quizzes/quiz" + quizNum;
-        db.document(quizPath).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Quiz quiz = documentSnapshot.toObject(Quiz.class);
-                quizItems = Integer.parseInt(documentSnapshot.get("items").toString());
-                Log.d(TAG, "quiz items = " + quizItems);
+        db.document(quizPath).get().addOnSuccessListener(documentSnapshot -> {
+            quizItems = Integer.parseInt(documentSnapshot.get("items").toString());
+            Log.d(TAG, "quiz items = " + quizItems);
 
-            }
         });
 
-        Log.d(TAG, "Quiz items = " + Integer.toString(quizItems));
+        Log.d(TAG, "Quiz items = " + quizItems);
 
         submit.putExtra("student", student);
         submit.putExtra("quiz", quizPath);
