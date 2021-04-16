@@ -20,8 +20,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class instructor_course extends AppCompatActivity implements View.OnClickListener{
-    TextView courseName;
-    String courseID, courseSection, courseRef, uniqueCourseID;
+    TextView courseName, tvInviteCode;
+    String courseID, courseSection, courseRef, uniqueCourseID, inviteCode;
     Button btnQuiz, btnResource, btnClassList, btnInfo, btnStats, btnQuestions;
 
     @Override
@@ -43,6 +43,7 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
         btnInfo = findViewById(R.id.btnInformation);
         btnStats = findViewById(R.id.btnStatistics);
         btnQuestions = findViewById(R.id.btnQuestions);
+        tvInviteCode = findViewById(R.id.tvInviteCode);
 
         btnQuiz.setOnClickListener(this);
         btnResource.setOnClickListener(this);
@@ -57,7 +58,9 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if(documentSnapshot.exists()){
                     uniqueCourseID = documentSnapshot.get("uniqueCourseID").toString();
-                    Log.d("INSTRUCTOR_COURSE", "uniqueCourseID: " + uniqueCourseID);
+                    inviteCode = documentSnapshot.get("InviteCode").toString();
+                    Log.d("INSTRUCTOR_COURSE", "uniqueCourseID: " + uniqueCourseID + ", InviteCode: " + inviteCode);
+                    tvInviteCode.setText("Invite Code: " + inviteCode);
                 }else{
                     Toast.makeText(instructor_course.this, "Document does not exist", Toast.LENGTH_SHORT).show();
                 }
@@ -68,6 +71,8 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
 
             }
         });
+
+
 
 
         //Navigation Bar
@@ -101,6 +106,9 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
             case R.id.btnClass_List:
                 break;
             case R.id.btnInformation:
+                Intent intentInfo = new Intent(instructor_course.this, CourseInformationPageTeacher.class);
+                intentInfo.putExtra("courseRef", courseRef);
+                startActivity(intentInfo);
                 break;
             case R.id.btnStatistics:
                 break;

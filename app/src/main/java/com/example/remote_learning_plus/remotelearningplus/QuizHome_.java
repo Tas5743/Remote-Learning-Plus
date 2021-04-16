@@ -40,29 +40,30 @@ public class QuizHome_ extends AppCompatActivity {
     // Intent data
     Intent intent;
     String course;
-    //CollectionReference quizRef;
+    CollectionReference quizRef;
 
     // Data for testing
-     private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+     //private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_home);
-        setUpRecyclerView();
+        setContentView(R.layout.activity_quiz_home_);
+
 
         intent = getIntent();
         course = intent.getStringExtra("uniqueCourseID");
-        Log.d("QUIZ_HOME_", course);
-        //quizRef = db.collection("/courses/" + course + "/quizzes");
+        Log.d("QUIZ_HOME_", "uniqueCourseID: " + course );
+        quizRef = db.collection("/courses/" + course + "/quizzes");
+
+        setUpRecyclerView();
 
 
         // Bottom navigation
 
+        //Bottom Navigation
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch(item.getItemId()){

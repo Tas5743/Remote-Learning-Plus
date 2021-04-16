@@ -200,6 +200,8 @@ public class EditQuestions extends AppCompatActivity {
 
     private void createQuestion(){
         if (etQuestion.getText().toString().isEmpty()) {
+            etQuestion.setError("Please enter a question.");
+            etQuestion.requestFocus();
             Toast.makeText(EditQuestions.this, "Please fill out question", Toast.LENGTH_SHORT).show();
         } else if (etChoice1.getText().toString().isEmpty() || etChoice2.getText().toString().isEmpty() ||
                 etChoice3.getText().toString().isEmpty() || etChoice4.getText().toString().isEmpty()) {

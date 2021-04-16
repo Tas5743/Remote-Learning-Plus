@@ -114,4 +114,6 @@
     <string name="edit_quiz_title">Edit quiz title</string>
     <string name="edit_questions">Edit Questions</string>
     <string name="_1">1</string>
+    <string name="enter_question">Enter question here.</string>
+    <string name="invite_code_label">\Invite Code: </string>
 </resources>
