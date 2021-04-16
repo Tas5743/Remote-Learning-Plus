@@ -54,7 +54,7 @@ public class QuizHome_ extends AppCompatActivity {
         adapter = new QuizAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.quizRecycler);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
