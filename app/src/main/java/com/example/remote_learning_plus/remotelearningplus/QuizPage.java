@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -27,22 +29,23 @@ import java.util.Objects;
 
 public class QuizPage extends AppCompatActivity {
 
+    // Quiz home -> Create/Edit quiz page
+
     private static final String TAG = "TAG";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    // Get course/quizTitle from previous activity
-    //Intent intent = getIntent();
+    Intent intent;
+    String course;
+    Boolean isNewQuiz;
+    int quizNum;
+    String oldTitle;
 
-    //String course = intent.getStringExtra("course");
-    //Boolean isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
-    //int quizNum = intent.getIntExtra("quizNum", 1);
-    //String oldTitle = intent.getStringExtra("oldTitle");
-
-    // Test data
+    /*Test data
     String oldTitle = "Hashmaps";
     String course = "cmpsc475";
     int quizNum = 1;
     Boolean isNewQuiz = false;
+    */
 
     CollectionReference quizzesRef = db.collection("/courses/" + course + "/quizzes");
     Quiz quiz = new Quiz();
@@ -52,13 +55,38 @@ public class QuizPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_page);
 
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
+        quizNum = intent.getIntExtra("quizNum", 1);
+
         Button qButton = findViewById(R.id.qButton);
         TextView tvQuizTitle = findViewById(R.id.tvQuizTitle);
         EditText etQuizTitle = findViewById(R.id.etQuizTitle);
 
+        // Bottom Navigation
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
+
         // change values for the activity if quiz is being edited
         if (!isNewQuiz) {
 
+            oldTitle = intent.getStringExtra("oldTitle");
             tvQuizTitle.setText(R.string.edit_quiz_title);
             etQuizTitle.setText(oldTitle);
             qButton.setText(R.string.edit_questions);
@@ -68,7 +96,6 @@ public class QuizPage extends AppCompatActivity {
         qButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (!isNewQuiz) {
 
@@ -86,7 +113,6 @@ public class QuizPage extends AppCompatActivity {
         });
     }
 
-
     private void openEditQuestionsActivity() {
         Intent intent = new Intent(this, EditQuestions.class);
         String quizPath = quizzesRef.getPath() + "/quiz" + quizNum;
@@ -101,6 +127,7 @@ public class QuizPage extends AppCompatActivity {
         intent.putExtra("course", course);
         intent.putExtra("quizNum", quizNum+1);
         startActivity(intent);
+
     }
 
 }

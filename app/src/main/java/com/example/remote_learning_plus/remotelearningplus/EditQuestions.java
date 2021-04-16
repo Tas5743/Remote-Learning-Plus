@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,19 +26,20 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 public class EditQuestions extends AppCompatActivity {
 
     private static final String TAG = "Tag";
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    // String quizPath = getIntent().getStringExtra("quizPath");
-    String quizPAth = "/courses/cmpsc475/quizzes/quiz1";
-    DocumentReference quizRef = db.document(quizPAth);
-    CollectionReference questionsRef = db.collection(quizPAth + "/questions");
+
+    // Intent data
+    Intent intent;
+    String course;
+    int quizNum;
+    String quizPath;
+    CollectionReference questionsRef;
 
     private TextView tvQNum;
     private EditText etQuestion;
@@ -74,6 +77,36 @@ public class EditQuestions extends AppCompatActivity {
         radioButton2 = findViewById(R.id.radioButton2);
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
+
+        // Intent data
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        quizNum = intent.getIntExtra("quizNum", 1);
+        quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+        questionsRef = db.collection(quizPath + "/questions");
+
+
+
+        // Bottom Navigation
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         Button qButton = findViewById(R.id.nextQuestionButton);
         Button finishButton = findViewById(R.id.saveButton);
@@ -120,7 +153,6 @@ public class EditQuestions extends AppCompatActivity {
         });
 
     }
-
 
 
     private void fetchQuestion(){
@@ -222,12 +254,15 @@ public class EditQuestions extends AppCompatActivity {
 
     private void openNewCreateQuestionActivity() {
         Intent intent = new Intent(this, CreateQuestion.class);
+        intent.putExtra("course", course);
+        intent.putExtra("quizNum", quizNum);
         startActivity(intent);
     }
 
 
     private void openQuizHomeActivity() {
         Intent intent = new Intent(this, QuizHome_.class);
+        intent.putExtra("course", course);
         startActivity(intent);
     }
 

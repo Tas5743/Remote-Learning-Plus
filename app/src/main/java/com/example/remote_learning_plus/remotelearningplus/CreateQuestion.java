@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,21 +32,22 @@ import java.util.Objects;
 
 public class CreateQuestion extends AppCompatActivity {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    int itemNum = 1;
     private static final String TAG = "Tag";
 
     // Data from intent
-    //String course = getIntent().getStringExtra("course");
-    //int quizNum = getIntent().getIntExtra("quizNum", 1);
-    //String quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+    Intent intent;
+    String course;
+    int quizNum;
+    String quizPath;
+    DocumentReference quizRef;
+    CollectionReference questionsRef;
 
-    int quizNum = 1;
+    // Test data
+    /*int quizNum = 1;
     String course = "cmpsc475";
-    String quizPath = "/courses/cmpsc475/quizzes/quiz1";
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final DocumentReference quizRef = FirebaseFirestore.getInstance().document(quizPath);
-    private final CollectionReference questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
-    int itemNum = 1;
+    String quizPath = "/courses/cmpsc475/quizzes/quiz1";*/
 
     private TextView tvQNum;
     private EditText etQuestion;
@@ -81,9 +84,35 @@ public class CreateQuestion extends AppCompatActivity {
         radioButton3 = findViewById(R.id.radioButton3);
         radioButton4 = findViewById(R.id.radioButton4);
 
-
         Button qButton = findViewById(R.id.nextQuestionButton);
         Button finishButton = findViewById(R.id.saveButton);
+
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        quizNum = intent.getIntExtra("quizNum", 1);
+        quizPath ="/courses/" + course + "/quizzes/quiz" + quizNum;
+        quizRef = FirebaseFirestore.getInstance().document(quizPath);
+        questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
+
+        // Bottom Navigation
+        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        openNewCreateQuestionActivity();
+                        break;
+                }
+                return true;
+            }
+        });
+
 
         // retrieving the last question from the question collection
         questionsRef.orderBy("itemNum", Query.Direction.DESCENDING).limit(1)
@@ -102,12 +131,8 @@ public class CreateQuestion extends AppCompatActivity {
                             tvQNum.setText(Integer.toString(itemNum));
                         }
 
-
-
-                        //db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
-
-                        db.document("/courses/cmpsc475/quizzes/quiz1")
-                                .update("items", Integer.parseInt(tvQNum.getText().toString()));
+                        db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
+                        //db.document("/courses/cmpsc475/quizzes/quiz1").update("items", Integer.parseInt(tvQNum.getText().toString()));
                     }
                 });
 
@@ -189,7 +214,6 @@ public class CreateQuestion extends AppCompatActivity {
     private void openNewCreateQuestionActivity() {
         Intent intent = new Intent(this, CreateQuestion.class);
         intent.putExtra("quizNum", quizNum);
-        intent.putExtra("isNewQuiz", false);
         intent.putExtra("course", course);
         startActivity(intent);
     }
