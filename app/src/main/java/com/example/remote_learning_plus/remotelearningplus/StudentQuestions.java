@@ -39,7 +39,7 @@ public class StudentQuestions extends AppCompatActivity {
         courseID = intent.getStringExtra("courseID");
         courseSection = intent.getStringExtra("courseSection");
         String coursePath = intent.getStringExtra("courseRef");
-        Log.d("getStringExtra", "courseRef: " + coursePath);
+        Log.d("STUDENT_QUESTIONS", "courseRef: " + coursePath);
         courseRef = db.collection(coursePath + "/questions");
 
         setUpRecyclerView();
@@ -54,7 +54,8 @@ public class StudentQuestions extends AppCompatActivity {
                         .setPositiveButton(R.string.answered, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        db.document(courseRef + "/questions/" + documentSnapshot.getId())
+                                        Log.d("STUDENT_QUESTIONS", coursePath + "/questions/" + documentSnapshot.getId());
+                                        db.document(coursePath + "/questions/" + documentSnapshot.getId())
                                                 .delete()
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override

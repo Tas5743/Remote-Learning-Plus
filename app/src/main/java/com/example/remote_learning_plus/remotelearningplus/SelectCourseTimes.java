@@ -206,12 +206,13 @@ public class SelectCourseTimes extends AppCompatActivity{
             dataToSave.put("endTime",eTime);
             dataToSave.put("InviteCode", inviteCode);
             dataToSave.put("courseDesc", TextCourseDescription);
+            dataToSave.put("uniqueCourseID", uniqueCourseID);
 
             // Reference new course to teachers course list
             String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
             DocumentReference docRefInstructor = db.collection("users").document(userId).collection("courses").document(TextID+TextSection);
             Map<String, Object> courseList = new HashMap<>();
-            courseList.put("sectionReference","courses/"+uniqueCourseID+"/section/"+TextSection);
+            courseList.put("courseRef","courses/"+uniqueCourseID+"/section/"+TextSection);
             courseList.put("courseSection", TextSection);
             courseList.put("courseID", TextID);
             docRefInstructor.set(courseList);

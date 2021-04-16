@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,16 +21,27 @@ public class QuizHome_ extends AppCompatActivity {
 
     // TO DO: Get course
     //String course = getIntent().getStringExtra("course");
-    String course="CMPSC475";
+    //String course="CMPSC475";
+    String course, courseRef, uniqueCourseID;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+    //private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+    private CollectionReference quizRef;
+
     private QuizAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_home);
+
+        Intent intent = getIntent();
+        course = intent.getStringExtra("courseID");
+        courseRef = intent.getStringExtra("courseRef");
+        uniqueCourseID = intent.getStringExtra("uniqueCourseID");
+        quizRef = db.collection("/courses/" + uniqueCourseID + "/quizzes/");
+        Log.d("QUIZ_HOME_", "quizRef: " + "/courses/" + uniqueCourseID + "/quizzes/");
+
         setUpRecyclerView();
     }
 
@@ -42,7 +54,7 @@ public class QuizHome_ extends AppCompatActivity {
         adapter = new QuizAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.quizRecycler);
-        recyclerView.setHasFixedSize(false);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
