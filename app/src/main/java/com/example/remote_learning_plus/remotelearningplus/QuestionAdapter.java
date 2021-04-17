@@ -15,7 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.w3c.dom.Text;
 
-public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseAdapter.CourseHolder> {
+public class QuestionAdapter extends FirestoreRecyclerAdapter<QuestionModel, QuestionAdapter.QuestionHolder> {
     private OnItemClickListener listener;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
@@ -23,34 +23,27 @@ public class CourseAdapter extends FirestoreRecyclerAdapter<CourseModel, CourseA
      *
      * @param options
      */
-    public CourseAdapter(@NonNull FirestoreRecyclerOptions<CourseModel> options) {
+    public QuestionAdapter(@NonNull FirestoreRecyclerOptions<QuestionModel> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull CourseHolder holder, int position, @NonNull CourseModel model) {
-        holder.txtCourseID.setText(model.getCourseID());
-        holder.txtCourseSection.setText(model.getCourseSection());
-
+    protected void onBindViewHolder(@NonNull QuestionHolder holder, int position, @NonNull QuestionModel model) {
+        holder.txtQuestion.setText(model.getQuestion());
     }
 
     @NonNull
     @Override
-    public CourseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_item, parent, false);
-        return new CourseHolder(v);
+    public QuestionHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item, parent, false);
+        return new QuestionHolder(v);
     }
 
-    class CourseHolder extends RecyclerView.ViewHolder{
-        TextView txtCourseID;
-        TextView txtCourseSection;
-
-
-        public CourseHolder(@NonNull View itemView) {
+    class QuestionHolder extends RecyclerView.ViewHolder{
+        TextView txtQuestion = itemView.findViewById(R.id.txtQuestion);
+        public QuestionHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtCourseID = itemView.findViewById(R.id.txtCourse);
-            txtCourseSection = itemView.findViewById(R.id.txtSection);
 
             itemView.setOnClickListener(new View.OnClickListener(){
                 @Override

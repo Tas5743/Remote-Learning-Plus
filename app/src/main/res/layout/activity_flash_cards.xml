@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_background">
+
+    <TextView
+        android:id="@+id/flashTitle"
+        android:layout_width="359dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="71dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/Flip_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Quiz Title" />
+
+    <TextView
+        android:id="@+id/courseCodeflash"
+        android:layout_width="174dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="51dp"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/flashTitle"
+        app:layout_constraintEnd_toStartOf="@+id/flash_section"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CourseCode" />
+
+    <TextView
+        android:id="@+id/flash_course_title"
+        android:layout_width="174dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/flash_section"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toEndOf="@+id/courseCodeflash"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Course Title" />
+
+    <TextView
+        android:id="@+id/flash_section"
+        android:layout_width="174dp"
+        android:layout_height="18dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="54dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/flashTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flash_course_title"
+        tools:text="Section" />
+
+    <Button
+        android:id="@+id/btn_prev_flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_exit_flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_prev_flash" />
+
+    <Button
+        android:id="@+id/btn_next_flash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/grey"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_exit_flash" />
+
+    <Button
+        android:id="@+id/Flip_card"
+        android:layout_width="394dp"
+        android:layout_height="325dp"
+        android:layout_marginBottom="102dp"
+        android:background="@android:color/white"
+        android:textColor="@color/dark_grey"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_exit_flash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Flashcardstuff"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>

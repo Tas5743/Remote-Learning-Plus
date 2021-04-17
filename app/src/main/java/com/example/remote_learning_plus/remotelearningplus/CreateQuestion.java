@@ -118,23 +118,23 @@ public class CreateQuestion extends AppCompatActivity {
         questionsRef.orderBy("itemNum", Query.Direction.DESCENDING).limit(1)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                   @Override
-                   public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                       if (task.isSuccessful()) {
-                           for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                               Question q = document.toObject(Question.class);
-                               itemNum = q.getItemNum() +1;
-                               tvQNum.setText(Integer.toString(itemNum));
-                           }
-                       } else {
-                           Log.d(TAG, "error", task.getException());
-                           tvQNum.setText(Integer.toString(itemNum));
-                       }
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                Question q = document.toObject(Question.class);
+                                itemNum = q.getItemNum() +1;
+                                tvQNum.setText(Integer.toString(itemNum));
+                            }
+                        } else {
+                            Log.d(TAG, "error", task.getException());
+                            tvQNum.setText(Integer.toString(itemNum));
+                        }
 
-                       db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
-                       //db.document("/courses/cmpsc475/quizzes/quiz1").update("items", Integer.parseInt(tvQNum.getText().toString()));
-                   }
-               });
+                        db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
+                        //db.document("/courses/cmpsc475/quizzes/quiz1").update("items", Integer.parseInt(tvQNum.getText().toString()));
+                    }
+                });
 
 
         qButton.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +151,7 @@ public class CreateQuestion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createQuestion();
-                openQuizHomeActivity();
+
             }
 
         });
@@ -161,18 +161,31 @@ public class CreateQuestion extends AppCompatActivity {
 
     public void createQuestion() {
         if (etQuestion.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out question", Toast.LENGTH_SHORT).show();
-        } else if (etChoice1.getText().toString().isEmpty() || etChoice2.getText().toString().isEmpty() ||
-                etChoice3.getText().toString().isEmpty() || etChoice4.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out all the choices", Toast.LENGTH_SHORT).show();
-        } else if (etPoints.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out points", Toast.LENGTH_SHORT).show();
+            etQuestion.setError("Please fill out question");
+            etQuestion.requestFocus();
+        } else if (etChoice1.getText().toString().isEmpty()) {
+            etChoice1.setError("Please enter choice 1.");
+            etChoice1.requestFocus();
+        } else if (etChoice2.getText().toString().isEmpty()) {
+            etChoice2.setError("Please enter choice 2.");
+            etChoice2.requestFocus();
+        } else if (etChoice3.getText().toString().isEmpty()) {
+            etChoice3.setError("Please enter choice 3.");
+            etChoice3.requestFocus();
+        } else if (etChoice4.getText().toString().isEmpty()) {
+            etChoice4.setError("Please enter choice 4.");
+            etChoice4.requestFocus();
+        }else if (etPoints.getText().toString().isEmpty()) {
+            etPoints.setError("Please fill out points.");
+            etPoints.requestFocus();
         } else if (etTimeLimit.getText().toString().isEmpty()) {
-            Toast.makeText(CreateQuestion.this, "Please fill out time limit", Toast.LENGTH_SHORT).show();
+            etTimeLimit.setError("Please fill out time limit.");
+            etTimeLimit.requestFocus();
         } else if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(CreateQuestion.this, "Please select the correct answer", Toast.LENGTH_SHORT).show();
+            etChoice4.setError("Please select a correct choice.");
         } else {
             writeData();
+            openQuizHomeActivity();
         }
     }
     public void writeData() {
@@ -220,7 +233,7 @@ public class CreateQuestion extends AppCompatActivity {
 
 
     private void openQuizHomeActivity() {
-        Intent intent = new Intent(this, QuizHome.class);
+        Intent intent = new Intent(this, QuizHome_.class);
         intent.putExtra("course", course);
         startActivity(intent);
     }

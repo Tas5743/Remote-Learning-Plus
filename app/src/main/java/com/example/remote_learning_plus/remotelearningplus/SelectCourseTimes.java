@@ -1,11 +1,13 @@
 package com.example.remote_learning_plus.remotelearningplus;
 
 
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.text.format.Time;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -17,8 +19,12 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,16 +39,19 @@ import java.util.Objects;
 
 public class SelectCourseTimes extends AppCompatActivity{
 
-//    String TextName;
+    String TextName;
     String TextID;
     String TextInviteCode;
-    String TextSection;
-//    String TextCourseDescription;
+    String uniqueCourseID;
+    String TextCourseDescription;
     Button add_course;
     TimePicker startTime;
     TimePicker endTime;
     String sTime;
     String eTime;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
@@ -54,12 +63,38 @@ public class SelectCourseTimes extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_meeting_schedule);
+        
+        //Navigation Bar
+         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.btnHome:
+                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.btnAdd:
+                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                        startActivity(intent2);
+                        break;
+                }
+                return true;
+            }
+        });
         //Bundle bundle = getIntent().getExtras();
 //        TextName = bundle.getString("courseName");
         //TextID = bundle.getString("courseID");
 //        TextInviteCode = bundle.getString("CourseInviteCode");
         //TextSection = bundle.getString("courseSection");
 //        TextCourseDescription = bundle.getString("courseDescription");
+
+        Intent intent = getIntent();
+        TextName = intent.getStringExtra("courseName");
+        TextID = intent.getStringExtra("courseId");
+        uniqueCourseID = intent.getStringExtra("uniqueCourseID");
+        TextCourseDescription = intent.getStringExtra("courseDesc");
+
 
         add_course = findViewById(R.id.add_course);
 
@@ -83,7 +118,7 @@ public class SelectCourseTimes extends AppCompatActivity{
 
     public void savecourse2(View v){
 
-        ArrayList<String> days = new ArrayList<>();
+        //ArrayList<String> days = new ArrayList<>();
         CheckBox M = findViewById(R.id.chkboxMonday);
         CheckBox T = findViewById(R.id.chkboxTuesday);
         CheckBox W = findViewById(R.id.chkboxWednesday);
@@ -106,19 +141,38 @@ public class SelectCourseTimes extends AppCompatActivity{
 
         sTime = sH + ":" + sM;
         eTime = eH + ":" + eM;
+        if(sM < 10){
+            sTime = sH + ":" + "0"+sM;
+        }
+        else {
+            sTime = sH + ":" + sM;
+        }
+        if(eM < 10){
+            eTime = eH + ":" + "0"+eM;}
+        else { eTime = eH + ":" + eM;}
+
 
         EditText edtTextSection = findViewById(R.id.etsection);
         String TextSection = edtTextSection.getText().toString().trim();
 
-
+        /*
         if (M.isChecked()){days.add("Monday");}
         if (T.isChecked()){days.add("Tuesday");}
         if (W.isChecked()){days.add("Wednesday");}
         if (TH.isChecked()){days.add("Thursday");}
-        if (F.isChecked()){days.add("Friday");}
+        if (F.isChecked()){days.add("Friday");}*/
+
+        String days = "";
+        if (M.isChecked()){days += "M ";}
+        if (T.isChecked()){days += "T ";}
+        if (W.isChecked()){days += "W ";}
+        if (TH.isChecked()){days += "Th ";}
+        if (F.isChecked()){days += "F ";}
+
 
         if(TextSection.isEmpty()){
-                Toast.makeText(SelectCourseTimes.this,"Please fill out Course Section", Toast.LENGTH_SHORT).show();
+                edtTextSection.setError("Enter a course section.");
+                edtTextSection.requestFocus();
               }
         else if (days.isEmpty()){
             Toast.makeText(SelectCourseTimes.this, "Please select meeting day(s).", Toast.LENGTH_SHORT).show();;
@@ -143,22 +197,38 @@ public class SelectCourseTimes extends AppCompatActivity{
 
 
             Map<String, Object> dataToSave = new HashMap<String, Object>();
-
+            dataToSave.put("courseName", TextName);
+            dataToSave.put("courseSection", TextSection);
+            dataToSave.put("courseId", TextID);
+            //dataToSave.put("courseDays",days);
             dataToSave.put("courseDays",days);
             dataToSave.put("startTime",sTime);
             dataToSave.put("endTime",eTime);
             dataToSave.put("InviteCode", inviteCode);
+            dataToSave.put("courseDesc", TextCourseDescription);
+            dataToSave.put("uniqueCourseID", uniqueCourseID);
 
-            Toast.makeText(SelectCourseTimes.this, "Course Successfully crated!", Toast.LENGTH_SHORT).show();
-            //TODO redirect to course page.
-            //TODO Add section textbox
+            // Reference new course to teachers course list
+            String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+            DocumentReference docRefInstructor = db.collection("users").document(userId).collection("courses").document(TextID+TextSection);
+            Map<String, Object> courseList = new HashMap<>();
+            courseList.put("courseRef","courses/"+uniqueCourseID+"/section/"+TextSection);
+            courseList.put("courseSection", TextSection);
+            courseList.put("courseID", TextID);
+            docRefInstructor.set(courseList);
 
 
-            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+TextID+"/sections").document(TextSection);
+
+            DocumentReference colRef = FirebaseFirestore.getInstance().collection("courses/"+uniqueCourseID+"/section").document(TextSection);
             colRef.set(dataToSave);
             Map<String, Object> masterlist = new HashMap<String, Object>();
-            masterlist.put("sectionReference","courses/"+TextID+"/sections/"+TextSection);
+            masterlist.put("sectionReference","courses/"+uniqueCourseID+"/section/"+TextSection);
             colSections.set(masterlist);
+
+            Toast.makeText(SelectCourseTimes.this, "Course Successfully created!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SelectCourseTimes.this, Home_Teacher.class);
+            startActivity(intent);
+
         }
 
     }

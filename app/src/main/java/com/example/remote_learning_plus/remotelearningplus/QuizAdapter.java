@@ -33,7 +33,7 @@ public class QuizAdapter extends FirestoreRecyclerAdapter<Quiz, QuizAdapter.Quiz
     @NonNull
     @Override
     public QuizHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.quiz_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.student_quizzes_item, parent, false);
 
         return new QuizHolder(v);
     }

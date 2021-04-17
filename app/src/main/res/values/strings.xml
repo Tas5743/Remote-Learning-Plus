@@ -65,6 +65,33 @@
     <string name="statistics">Statistics</string>
     <string name="add_student">Add Student</string>
     <string name="results">Results</string>
+    <string name="course">Course</string>
+
+    <string name="join_a_course">Join a course +</string>
+    <string name="enter_course_invite_code">Enter course invite Code.</string>
+    <string name="invite_code">Invite Code</string>
+    <string name="inivte_code">Inivte Code</string>
+    <string name="hide_name">Hide Name</string>
+    <string name="questions">Questions</string>
+    <string name="answered">Answered</string>
+    <string name="back">Back</string>
+    <string name="course_id">Course: </string>
+    <string name="course_desc">Description</string>
+    <string name="days">Days</string>
+    <string name="schedule">Schedule</string>
+    <string name="times">Times</string>
+
+    <!--String values for join course -->
+
+    <string name="exit">Exit</string>
+    <string name="description">desc</string>
+    <string name="final_score">Final Score</string>
+    <string name="returnhome">Return</string>
+    <string name="flashcards">Flashcards</string>
+    <string name="score">Score</string>
+    <string name="quiz">Quiz</string>
+
+
     <string name="questionNum">Question #</string>
     <string name="choices">Choices</string>
     <string name="new_question">New Question</string>
@@ -79,7 +106,6 @@
     <string name="multiple_choice_1">Multiple Choice 1</string>
     <string name="seconds">seconds</string>
     <string name="_12">12</string>
-    <string name="quiz">Quiz</string>
     <string name="next_question">Next Question</string>
     <string name="save_quiz">Save Quiz</string>
     <string name="topic">Topic</string>
@@ -88,6 +114,6 @@
     <string name="edit_quiz_title">Edit quiz title</string>
     <string name="edit_questions">Edit Questions</string>
     <string name="_1">1</string>
-
-
+    <string name="enter_question">Enter question here.</string>
+    <string name="invite_code_label">\Invite Code: </string>
 </resources>

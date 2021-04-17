@@ -9,7 +9,7 @@ public class Quiz {
     private HashMap<String, Boolean> tags;
     private HashMap<String, Double> scores;
 
-    
+
     public Quiz() {
 
     }
@@ -49,6 +49,5 @@ public class Quiz {
     public void setScores(HashMap<String, Double> scores) {
         this.scores = scores;
     }
-
 
 }

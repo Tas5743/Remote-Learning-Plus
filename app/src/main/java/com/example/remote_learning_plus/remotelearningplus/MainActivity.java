@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         txtRegister = findViewById(R.id.txtSignUp);
         btnLogin = findViewById(R.id.btnLogin);
 
+        /*
         mAuthStateListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Please Login", Toast.LENGTH_SHORT).show();
                 }
             }
-        };
+        };*/
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -79,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+                                Log.d("LOGIN_AUTH", task.getException().getLocalizedMessage());
+                                edtTxtEmail.setError("Invalid User Credentials");
+                                edtTxtEmail.requestFocus();
                             }
                             else{
 
@@ -106,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(MainActivity.this, "Error Occurred!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
