@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ResourceHome"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <item
+        android:id="@+id/btnHome"
+        android:title=""
+        android:icon="@drawable/ic_home"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/btnAdd"
+        android:title=""
+        android:icon="@drawable/ic_add"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/btnAccount"
+        android:title=""
+        android:icon="@drawable/ic_account"
+        app:showAsAction="ifRoom"/>
+</menu>
