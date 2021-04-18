@@ -88,23 +88,19 @@ public class EditQuestions extends AppCompatActivity {
 
 
         // Bottom Navigation
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
-                        startActivity(intent2);
-                        break;
-                }
-                return true;
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch(item.getItemId()){
+                case R.id.btnHome:
+                    Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btnAdd:
+                    Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
+                    startActivity(intent2);
+                    break;
             }
+            return true;
         });
 
 
@@ -116,81 +112,68 @@ public class EditQuestions extends AppCompatActivity {
         // get last item number
         questionsRef.orderBy("itemNum", Query.Direction.DESCENDING).limit(1)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                Question q = document.toObject(Question.class);
-                                lastNum = q.getItemNum();
-                            }
-                        } else {
-                            Log.d(TAG, "error", task.getException());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            Question q = document.toObject(Question.class);
+                            lastNum = q.getItemNum();
                         }
+                    } else {
+                        Log.d(TAG, "error", task.getException());
                     }
                 });
 
 
 
-        qButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createQuestion();
-                itemNum++;
-                if (itemNum > lastNum) { openNewCreateQuestionActivity(); }
-                else fetchQuestion();
-            }
-
+        qButton.setOnClickListener(v -> {
+            createQuestion();
+            itemNum++;
+            if (itemNum > lastNum) { openNewCreateQuestionActivity(); }
+            else fetchQuestion();
         });
 
 
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createQuestion();
-                openQuizHomeActivity();
-            }
+        finishButton.setOnClickListener(v -> {
+            createQuestion();
+            openQuizHomeActivity();
         });
 
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void fetchQuestion(){
 
         questionsRef.whereEqualTo("itemNum", itemNum)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                Question q = document.toObject(Question.class);
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            Question q = document.toObject(Question.class);
 
-                                tvQNum.setText(Integer.toString(q.getItemNum()));
-                                etQuestion.setText(q.getQuestion());
+                            tvQNum.setText(Integer.toString(q.getItemNum()));
+                            etQuestion.setText(q.getQuestion());
 
-                                HashMap<String, String> choices = q.getChoices();
-                                etChoice1.setText(choices.get("option1"));
-                                etChoice2.setText(choices.get("option2"));
-                                etChoice3.setText(choices.get("option3"));
-                                etChoice4.setText(choices.get("option4"));
+                            HashMap<String, String> choices = q.getChoices();
+                            etChoice1.setText(choices.get("option1"));
+                            etChoice2.setText(choices.get("option2"));
+                            etChoice3.setText(choices.get("option3"));
+                            etChoice4.setText(choices.get("option4"));
 
-                                int key = q.getKey();
-                                switch (key) {
-                                    case 1 : radioGroup.check(radioButton1.getId());
-                                    case 2 : radioGroup.check(radioButton2.getId());
-                                    case 3 : radioGroup.check(radioButton3.getId());
-                                    case 4 : radioGroup.check(radioButton4.getId());
-                                }
-
-                                etTimeLimit.setText(Integer.toString(q.getTimeLimit()));
-                                etPoints.setText(Integer.toString(q.getPoint()));
-
+                            int key = q.getKey();
+                            switch (key) {
+                                case 1 : radioGroup.check(radioButton1.getId());
+                                case 2 : radioGroup.check(radioButton2.getId());
+                                case 3 : radioGroup.check(radioButton3.getId());
+                                case 4 : radioGroup.check(radioButton4.getId());
                             }
-                        } else {
-                            Log.d(TAG, "error", task.getException());
+
+                            etTimeLimit.setText(Integer.toString(q.getTimeLimit()));
+                            etPoints.setText(Integer.toString(q.getPoint()));
+
                         }
+                    } else {
+                        Log.d(TAG, "error", task.getException());
                     }
                 });
 
@@ -223,7 +206,6 @@ public class EditQuestions extends AppCompatActivity {
         Question question = new Question();
 
         question.setItemNum(Integer.parseInt(tvQNum.getText().toString()));
-
         question.setQuestion(etQuestion.getText().toString());
 
         HashMap<String,String> choices = new HashMap<>();
@@ -250,6 +232,7 @@ public class EditQuestions extends AppCompatActivity {
         question.setPoint(Integer.parseInt(etPoints.getText().toString()));
         question.setTimeLimit(Integer.parseInt(etTimeLimit.getText().toString()));
 
+
         db.document(questionsRef.getPath() + "/" + question.getItemNum()).set(question);
     }
 
@@ -264,7 +247,7 @@ public class EditQuestions extends AppCompatActivity {
 
     private void openQuizHomeActivity() {
         Intent intent = new Intent(this, QuizHome_.class);
-        intent.putExtra("course", course);
+        intent.putExtra("uniqueCourseID", course);
         startActivity(intent);
     }
 

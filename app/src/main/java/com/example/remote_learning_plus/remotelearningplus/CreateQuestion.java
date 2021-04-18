@@ -95,55 +95,44 @@ public class CreateQuestion extends AppCompatActivity {
         questionsRef = FirebaseFirestore.getInstance().collection(quizRef.getPath() + "/questions");
 
         // Bottom Navigation
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.btnAdd:
-                        openNewCreateQuestionActivity();
-                        break;
-                }
-                return true;
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch(item.getItemId()){
+                case R.id.btnHome:
+                    Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btnAdd:
+                    openNewCreateQuestionActivity();
+                    break;
             }
+            return true;
         });
 
 
         // retrieving the last question from the question collection
         questionsRef.orderBy("itemNum", Query.Direction.DESCENDING).limit(1)
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                Question q = document.toObject(Question.class);
-                                itemNum = q.getItemNum() +1;
-                                tvQNum.setText(Integer.toString(itemNum));
-                            }
-                        } else {
-                            Log.d(TAG, "error", task.getException());
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            Question q = document.toObject(Question.class);
+                            itemNum = q.getItemNum() +1;
                             tvQNum.setText(Integer.toString(itemNum));
                         }
-
-                        db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
-                        //db.document("/courses/cmpsc475/quizzes/quiz1").update("items", Integer.parseInt(tvQNum.getText().toString()));
+                    } else {
+                        Log.d(TAG, "error", task.getException());
+                        tvQNum.setText(Integer.toString(itemNum));
                     }
+
+                    db.document(quizPath).update("items", Integer.parseInt(tvQNum.getText().toString()));
+                    //db.document("/courses/cmpsc475/quizzes/quiz1").update("items", Integer.parseInt(tvQNum.getText().toString()));
                 });
 
 
-        qButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createQuestion();
-                openNewCreateQuestionActivity();
-            }
-
+        qButton.setOnClickListener(v -> {
+            createQuestion();
+            openNewCreateQuestionActivity();
         });
 
 
@@ -151,7 +140,7 @@ public class CreateQuestion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createQuestion();
-
+                openQuizHomeActivity();
             }
 
         });
@@ -185,7 +174,6 @@ public class CreateQuestion extends AppCompatActivity {
             etChoice4.setError("Please select a correct choice.");
         } else {
             writeData();
-            openQuizHomeActivity();
         }
     }
     public void writeData() {
@@ -234,7 +222,7 @@ public class CreateQuestion extends AppCompatActivity {
 
     private void openQuizHomeActivity() {
         Intent intent = new Intent(this, QuizHome_.class);
-        intent.putExtra("course", course);
+        intent.putExtra("uniqueCourseID", course);
         startActivity(intent);
     }
 

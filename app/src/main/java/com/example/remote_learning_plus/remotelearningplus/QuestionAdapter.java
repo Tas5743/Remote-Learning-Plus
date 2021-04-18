@@ -45,13 +45,10 @@ public class QuestionAdapter extends FirestoreRecyclerAdapter<QuestionModel, Que
             super(itemView);
 
 
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    int position = getAdapterPosition();
-                    if(position != RecyclerView.NO_POSITION && listener != null){
-                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
-                    }
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION && listener != null){
+                    listener.onItemClick(getSnapshots().getSnapshot(position), position);
                 }
             });
         }
@@ -65,4 +62,8 @@ public class QuestionAdapter extends FirestoreRecyclerAdapter<QuestionModel, Que
         this.listener = listener;
     }
 
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }

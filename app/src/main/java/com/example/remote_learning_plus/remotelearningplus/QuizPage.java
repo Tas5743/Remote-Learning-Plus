@@ -39,16 +39,16 @@ public class QuizPage extends AppCompatActivity {
     Boolean isNewQuiz;
     int quizNum;
     String oldTitle;
-
+    CollectionReference quizzesRef;
+    Button qButton;
+    TextView tvQuizTitle;
+    EditText etQuizTitle;
     /*Test data
     String oldTitle = "Hashmaps";
     String course = "cmpsc475";
     int quizNum = 1;
     Boolean isNewQuiz = false;
     */
-
-    CollectionReference quizzesRef = db.collection("/courses/" + course + "/quizzes");
-    Quiz quiz = new Quiz();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,59 +58,53 @@ public class QuizPage extends AppCompatActivity {
         intent = getIntent();
         course = intent.getStringExtra("course");
         isNewQuiz = intent.getBooleanExtra("isNewQuiz", true);
-        quizNum = intent.getIntExtra("quizNum", 1);
+        quizNum = intent.getIntExtra("quizNum", 1) +1;
+        quizzesRef = db.collection("/courses/" + course + "/quizzes");
+        oldTitle = intent.getStringExtra("oldTitle");
 
-        Button qButton = findViewById(R.id.qButton);
-        TextView tvQuizTitle = findViewById(R.id.tvQuizTitle);
-        EditText etQuizTitle = findViewById(R.id.etQuizTitle);
+        qButton = findViewById(R.id.qButton);
+        tvQuizTitle = findViewById(R.id.tvQuizTitle);
+        etQuizTitle = findViewById(R.id.etQuizTitle);
 
-        // Bottom Navigation
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.btnAdd:
-                        Intent intent2 = new Intent(getApplicationContext(), CourseInformation.class);
-                        startActivity(intent2);
-                        break;
-                }
-                return true;
-            }
-        });
-
-        // change values for the activity if quiz is being edited
         if (!isNewQuiz) {
-
-            oldTitle = intent.getStringExtra("oldTitle");
             tvQuizTitle.setText(R.string.edit_quiz_title);
             etQuizTitle.setText(oldTitle);
             qButton.setText(R.string.edit_questions);
         }
 
+         qButton.setOnClickListener(v -> {
 
-        qButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+             if (isNewQuiz) {
+                 Quiz quiz = new Quiz();
+                 quizNum--;
+                 quiz.setTitle(etQuizTitle.getText().toString());
+                 db.document("/courses/" + course + "/quizzes/quiz" + quizNum).set(quiz);
+                 openCreateQuestionsActivity();
 
-                if (!isNewQuiz) {
+             } else {
+                 db.document(quizzesRef.getPath() + "/quiz" + quizNum)
+                         .update("title", etQuizTitle.getText().toString());
+                 openEditQuestionsActivity();
 
-                    db.document(quizzesRef.getPath() + "/quiz" + quizNum)
-                            .update("title", etQuizTitle.getText().toString());
-                    openEditQuestionsActivity();
+             }
+         });
 
-                } else {
-
-                    quiz.setTitle(etQuizTitle.getText().toString());
-                    db.document(quizzesRef.getPath() + "/quiz" + quizNum).set(quiz);
-                    openCreateQuestionsActivity();
-                }
+        // Bottom Navigation
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch(item.getItemId()){
+                case R.id.btnHome:
+                    Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btnAccount:
+                    Intent intent2 = new Intent(getApplicationContext(), CourseInformationPage.class);
+                    startActivity(intent2);
+                    break;
             }
+            return true;
         });
+
     }
 
     private void openEditQuestionsActivity() {
@@ -125,7 +119,7 @@ public class QuizPage extends AppCompatActivity {
     private void openCreateQuestionsActivity() {
         Intent intent = new Intent(this, CreateQuestion.class);
         intent.putExtra("course", course);
-        intent.putExtra("quizNum", quizNum+1);
+        intent.putExtra("quizNum", quizNum);
         startActivity(intent);
 
     }

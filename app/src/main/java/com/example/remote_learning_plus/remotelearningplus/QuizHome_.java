@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class QuizHome_ extends AppCompatActivity {
 
+    private static final String TAG = "TAG";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private QuizAdapter adapter;
 
@@ -36,47 +37,42 @@ public class QuizHome_ extends AppCompatActivity {
         - intent.putExtra("course", course); // copy this
     */
 
-
     // Intent data
     Intent intent;
     String course;
     CollectionReference quizRef;
+    int numQuizzes;
 
     // Data for testing
-     //private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
+    //private CollectionReference quizRef = db.collection("/courses/cmpsc475/quizzes/");
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_home_);
 
-
         intent = getIntent();
         course = intent.getStringExtra("uniqueCourseID");
-        Log.d("QUIZ_HOME_", "uniqueCourseID: " + course );
+        Log.d("QUIZ_HOME_", "uniqueCourseID: " + course);
         quizRef = db.collection("/courses/" + course + "/quizzes");
 
         setUpRecyclerView();
 
-
-        // Bottom navigation
-
         //Bottom Navigation
-        BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.btnHome:
-                        Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.btnAdd:
-                        openNewQuizPageActivity(count());
-                        break;
-                }
-                return true;
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.btnHome:
+                    Intent intent = new Intent(getApplicationContext(), Home_Teacher.class);
+                    startActivity(intent);
+                    break;
+                case R.id.btnAdd:
+                    Log.d("count is:", Integer.toString(adapter.getItemCount()));
+                    openNewQuizPageActivity(adapter.getItemCount()+1);
+                    break;
             }
+            return true;
         });
 
     }
@@ -123,10 +119,12 @@ public class QuizHome_ extends AppCompatActivity {
     }
 
     private void openNewQuizPageActivity(int quizNum) {
+
         Intent intent = new Intent(this, QuizPage.class);
         intent.putExtra("quizNum", quizNum);
         intent.putExtra("isNewQuiz", true);
         intent.putExtra("course", course);
+
         startActivity(intent);
     }
 
@@ -141,29 +139,32 @@ public class QuizHome_ extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
+}
 
-
+/*
     // TODO: if creating new quiz, count the number of quizzes already existing
     //  Pass this along with intent
 
     public int count () {
-        final int[] numQuizzes = {0};
-        db.collection(quizRef.getPath())
-                .get()
+        quizRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     private static final String TAG = "Tag";
 
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            int num = 0;
                             for (DocumentSnapshot document : task.getResult()) {
-                                numQuizzes[0]++;
+                                num++;
+                                numQuizzes = num;
+                                Log.d("numQuiz:", Integer.toString(numQuizzes));
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
-        return numQuizzes[0];
+        Log.d("end Num", Integer.toString(numQuizzes));
+        return numQuizzes+1;
     }
-}
+}*/
