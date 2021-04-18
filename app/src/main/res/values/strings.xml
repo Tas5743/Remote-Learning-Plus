@@ -116,4 +116,8 @@
     <string name="_1">1</string>
     <string name="enter_question">Enter question here.</string>
     <string name="invite_code_label">\Invite Code: </string>
+    <string name="add_resource">Add Resource</string>
+    <string name="resource_url">Resource URL</string>
+    <string name="title">Title</string>
+    <string name="resource">Resource</string>
 </resources>

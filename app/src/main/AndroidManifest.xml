@@ -29,6 +29,8 @@
         <activity android:name=".Home_Student" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".CourseInformation" />
+        <activity android:name=".ResourceHome" />
+        <activity android:name=".AddResource" />
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize">

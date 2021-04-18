@@ -102,6 +102,10 @@ public class instructor_course extends AppCompatActivity implements View.OnClick
                 startActivity(intentQuizzes);
                 break;
             case R.id.btnResources:
+                Intent intentResources = new Intent(instructor_course.this, ResourceHome.class);
+                intentResources.putExtra("course", uniqueCourseID);
+                Log.d("course id for intent", uniqueCourseID);
+                startActivity(intentResources);
                 break;
             case R.id.btnClass_List:
                 break;
