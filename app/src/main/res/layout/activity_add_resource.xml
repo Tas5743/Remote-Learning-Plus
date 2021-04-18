@@ -7,7 +7,7 @@
     tools:context=".AddResource">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvAddResource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="320dp"
@@ -32,12 +32,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTitle"
+        app:layout_constraintTop_toBottomOf="@+id/etResourceTitle"
         tools:ignore="LabelFor"
         tools:inputType="textUri" />
 
     <EditText
-        android:id="@+id/etTitle"
+        android:id="@+id/etResourceTitle"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
@@ -48,11 +48,11 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddResource"
         tools:ignore="LabelFor" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/btnAddResource"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"

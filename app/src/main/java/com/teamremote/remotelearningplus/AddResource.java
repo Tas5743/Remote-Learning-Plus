@@ -6,107 +6,60 @@ package com.teamremote.remotelearningplus;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AddResource extends AppCompatActivity {
 
     // TODO: get course info from previous activity
 
-    Intent intent = getIntent();
-    String course = intent.getStringExtra("course");
-
-    private final CollectionReference colRef = FirebaseFirestore.getInstance()
-                    .collection("courses/" + course + "/learningResources");
-
-    private EditText editTextURL;
-    private EditText editTextTag;
-    private ImageView imagePreview;
-    private TextView resourceTitle;
-    private TextView resourceText;
-
+    Intent intent;
+    String course;
+    CollectionReference colRef;
+    private EditText etURL;
+    private EditText etResourceTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_resource);
 
-        editTextURL= findViewById(R.id.etURL);
-        editTextTag= findViewById(R.id.etTitle);
-        imagePreview = findViewById(R.id.imagePreview);
-        resourceTitle = findViewById(R.id.resourceTitle);
-        resourceText = findViewById(R.id.resourceText);
+        etURL = findViewById(R.id.etURL);
+        etResourceTitle = findViewById(R.id.etResourceTitle);
+        intent = getIntent();
+        course = intent.getStringExtra("course");
+        course = "0915U1AvP";
+        colRef = FirebaseFirestore.getInstance()
+                .collection("/courses/" + course + "/learningResources");
 
+        Button addResource = findViewById(R.id.btnAddResource);
+        addResource.setOnClickListener(v -> {
 
-        editTextURL.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+            Map<String, Object> resource = new HashMap<String, Object>();
+            resource.put("URL", etURL.getText().toString());
+            resource.put("title", etResourceTitle.getText().toString());
+            colRef.add(resource);
+            openNewResourcePageActivity(course);
 
-                String inputURL = editTextURL.getText().toString();
-                if (!hasFocus) {
-
-                    if (!inputURL.startsWith("http://") && !inputURL.startsWith("https://")) { inputURL = "http://" + inputURL; }
-
-                    if (isValidURL(editTextURL.getText().toString())) {
-                        try {
-                            generatePreview(findViewById(R.id.etURL));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    else Toast.makeText(AddResource.this, "Please enter a valid link.", Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-
-        final Button button = findViewById(R.id.addButton);
-        button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-
-                Map<String, Object> resource = new HashMap<String, Object>();
-                resource.put("URL", editTextURL.getText().toString());
-                resource.put("title", resourceTitle.getText().toString());
-                resource.put("description", resourceTitle.getText().toString());
-                resource.put("preview", resourceText.getText().toString());
-
-                // TODO Reading and adding multiple tags separated by a space
-                Map<String, Boolean> tags = new HashMap<String, Boolean>();
-                tags.put(editTextTag.toString(), Boolean.TRUE);
-
-                colRef.add(resource);
-                colRef.add(tags);
-            }
         });
 
     }
 
 
+    private void openNewResourcePageActivity(String course) {
+        Intent intent = new Intent(this, ResourceHome.class);
+        intent.putExtra("course", course);
+        startActivity(intent);
+    }
 
 
-    String getMetaTag(String document, String attr) throws IOException {
+  /*  String getMetaTag(String document, String attr) throws IOException {
 
         Document doc = Jsoup.connect(document).get();
 
@@ -170,7 +123,7 @@ public class AddResource extends AppCompatActivity {
         // matched the ReGex
         return m.matches();
     }
-
+*/
 
 
 
