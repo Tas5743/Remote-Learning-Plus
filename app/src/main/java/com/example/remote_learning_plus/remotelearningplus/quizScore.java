@@ -64,7 +64,7 @@ public class quizScore  extends AppCompatActivity {
 
 
         DocumentReference QuizQuestion = FirebaseFirestore.getInstance().document(quizPath);
-        String path = QuizQuestion.getParent().getParent().getPath() + "/sections/" + courseSection + "/quizresults/" + quizTitle + "/" + student+"/grade";
+        String path = QuizQuestion.getParent().getParent().getPath() + "/section/" + courseSection + "/quizresults/" + quizTitle + "/" + student+"/grade";
         DocumentReference studentGrade = FirebaseFirestore.getInstance().document(path);
         //Collect grade from student's quiz.
         studentGrade.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

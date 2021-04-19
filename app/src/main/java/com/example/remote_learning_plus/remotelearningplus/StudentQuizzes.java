@@ -25,7 +25,7 @@ import java.util.Objects;
 public class StudentQuizzes extends AppCompatActivity {
     private static String TAG = "Tag";
 
-    String courseRef, uniqueCourseID;
+    String courseRef, uniqueCourseID, student, courseCodeStr, courseTitleStr;
 
 
     //String student = getIntent().getStringExtra("student");
@@ -34,10 +34,7 @@ public class StudentQuizzes extends AppCompatActivity {
     //String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
     //String quizzesPath ="/courses/" + "0915U1AvP" + "/quizzes/";
 
-    String student = "student";
-    String courseCodeStr = "cmpsc475";
-    String courseTitleStr = "Computer Science";
-    String courseSectionStr = "section1";
+    String courseSectionStr;
     int quizItems;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,6 +53,10 @@ public class StudentQuizzes extends AppCompatActivity {
         Intent intent = getIntent();
         courseRef = intent.getStringExtra("courseRef");
         uniqueCourseID = intent.getStringExtra("uniqueCourseID");
+        courseSectionStr = intent.getStringExtra("courseSection");
+        student = intent.getStringExtra("student");
+        courseCodeStr = intent.getStringExtra("courseCode");
+        courseTitleStr = intent.getStringExtra("courseTitle");
         Log.d("STUDENT_QUIZZES", "courses/" + uniqueCourseID + "/quizzes/");
         quizRef = db.collection("courses/" + uniqueCourseID + "/quizzes/");
 
@@ -98,7 +99,7 @@ public class StudentQuizzes extends AppCompatActivity {
     }
 
     private void openQuizPageActivity(int quizNum, String quizTitleStr) {
-        Intent submit = new Intent(StudentQuizzes.this, QuizHome_.class);
+        Intent submit = new Intent(StudentQuizzes.this, QuizHome.class);
 
         String quizPath = "courses/" + uniqueCourseID + "/quizzes/quiz" + quizNum;
         db.document(quizPath).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -106,22 +107,22 @@ public class StudentQuizzes extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Quiz quiz = documentSnapshot.toObject(Quiz.class);
                 quizItems = Integer.parseInt(documentSnapshot.get("items").toString());
+                submit.putExtra("total", quizItems);
                 Log.d(TAG, "quiz items = " + quizItems);
+                submit.putExtra("student", student);
+                submit.putExtra("quiz", quizPath);
+                submit.putExtra("courseCode", courseCodeStr);
+                submit.putExtra("courseTitle", courseTitleStr);
+                submit.putExtra("section", courseSectionStr);
+                submit.putExtra("quizTitle", quizTitleStr);
+                submit.putExtra("uniqueCourseID", uniqueCourseID);
+                startActivity(submit);
 
             }
         });
 
-        Log.d(TAG, "Quiz items = " + Integer.toString(quizItems));
 
-        submit.putExtra("student", student);
-        submit.putExtra("quiz", quizPath);
-        submit.putExtra("total", quizItems);
-        submit.putExtra("courseCode", courseCodeStr);
-        submit.putExtra("courseTitle", courseTitleStr);
-        submit.putExtra("section", courseSectionStr);
-        submit.putExtra("quizTitle", quizTitleStr);
-        submit.putExtra("uniqueCourseID", uniqueCourseID);
-        startActivity(submit);
+
     }
 
     @Override

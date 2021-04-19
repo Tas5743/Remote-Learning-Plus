@@ -165,7 +165,7 @@ public class StudentResults extends AppCompatActivity {
 //                            responses.getChildAt(i).setVisibility(View.VISIBLE);}
 //                        }
 
-                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath()+ "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr+ "/" + student;
+                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath()+ "/section/" + courseSectionStr + "/quizresults/" + quizTitleStr+ "/" + student;
                         studentcopy = FirebaseFirestore.getInstance().document(path  + "/" +questionnum);
                         studentcopy.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override

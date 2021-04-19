@@ -92,10 +92,12 @@ public class StudentQuiz extends AppCompatActivity {
         next = findViewById(R.id.btn_next);
         submit = findViewById(R.id.btn_submit_quiz);
 
+        Intent intent = getIntent();
         Bundle query = getIntent().getExtras();
         student = query.getString("student");
         quizPath = query.getString("quiz");
-        totalquestion = query.getInt("total");
+        totalquestion = intent.getIntExtra("total", 1);
+        Log.d("STUDENT_QUIZ", "totalquestion: " + totalquestion);
         String courseCodeStr = query.getString("courseCode");
         String courseTitleStr = query.getString("courseTitle");
         courseSectionStr = query.getString("section");
@@ -160,7 +162,8 @@ public class StudentQuiz extends AppCompatActivity {
 //                            responses.getChildAt(i).setVisibility(View.VISIBLE);}
 //                        }
 
-                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath() + "/sections/" + courseSectionStr + "/quizresults/" + quizTitleStr + "/" + student;
+                        path = QuizQuestion.getParent().getParent().getParent().getParent().getPath() + "/section/" + courseSectionStr + "/quizresults/" + quizTitleStr + "/" + student;
+                        Log.d("STUDENTQUIZ", courseSectionStr);
                         studentcopy = FirebaseFirestore.getInstance().document(path + "/" + questionnum);
                         studentcopy.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -216,6 +219,7 @@ public class StudentQuiz extends AppCompatActivity {
                 previous.putExtra("student", student);
                 previous.putExtra("quiz", quizPath);
                 previous.putExtra("num", questionnum - 1);
+                Log.d("STUDENT_QUIZ", (questionnum - 1) + "");
                 previous.putExtra("total", totalquestion);
                 previous.putExtra("courseCode", courseCodeStr);
                 previous.putExtra("courseTitle", courseTitleStr);
@@ -235,6 +239,7 @@ public class StudentQuiz extends AppCompatActivity {
                 next.putExtra("student", student);
                 next.putExtra("quiz", quizPath);
                 next.putExtra("num", questionnum + 1);
+                Log.d("STUDENT_QUIZ", (questionnum + 1) + "");
                 next.putExtra("total", totalquestion);
                 next.putExtra("courseCode", courseCodeStr);
                 next.putExtra("courseTitle", courseTitleStr);

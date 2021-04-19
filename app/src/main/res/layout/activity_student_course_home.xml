@@ -45,18 +45,6 @@
         app:layout_constraintStart_toEndOf="@+id/btnQuizzes"
         app:layout_constraintTop_toBottomOf="@+id/tvCourse_Name" />
 
-    <Button
-        android:id="@+id/btnResults"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/white"
-        android:text="@string/results"
-        android:textColor="@color/dark_grey"
-        app:layout_constraintEnd_toStartOf="@+id/btnInformation"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnQuizzes" />
 
     <Button
         android:id="@+id/btnInformation"
@@ -68,7 +56,7 @@
         android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnResults"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnResources" />
 
     <LinearLayout

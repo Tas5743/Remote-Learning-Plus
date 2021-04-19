@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_grey"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:text="response1" />
 
         <RadioButton
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/light_grey"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:text="response2" />
 
         <RadioButton
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/light_grey"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:text="response3" />
 
         <RadioButton
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/light_grey"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:text="response4" />
 
         <RadioButton
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/light_grey"
-            android:visibility="visible"
+            android:visibility="invisible"
             tools:layout_editor_absoluteX="24dp"
             tools:layout_editor_absoluteY="742dp"
             tools:text="response5" />
