@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_background"
+    tools:context=".QuizHome">
+
+    <TextView
+        android:id="@+id/tvQuiz_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnQuizResults"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/results"
+        android:textColor="@color/dark_grey"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/btnFlashcards"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuiz_Name" />
+
+    <Button
+        android:id="@+id/btnFlashcards"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/flashcards"
+        android:textColor="@color/dark_grey"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnQuizResults"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuiz_Name" />
+
+    <Button
+        android:id="@+id/btnScore"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/score"
+        android:textColor="@color/dark_grey"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnQuizResults" />
+
+    <Button
+        android:id="@+id/btnTakeQuiz"
+        android:layout_width="320dp"
+        android:layout_height="317dp"
+        android:backgroundTint="@color/white"
+        android:text="Take\nQuiz"
+        android:textColor="@color/dark_grey"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvQuiz_Name"
+        app:layout_constraintVertical_bias="0.16" />
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="bottom"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent">-->
+    <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+    <!--            android:id="@+id/bottomNavigation"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            app:menu="@menu/menu_main"/>-->
+    <!--    </LinearLayout>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
