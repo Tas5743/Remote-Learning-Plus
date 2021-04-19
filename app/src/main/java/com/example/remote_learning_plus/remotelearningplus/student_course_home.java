@@ -10,12 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class student_course_home extends AppCompatActivity implements View.OnClickListener {
     TextView txtCourseName;
-    String courseID, courseSection, courseRef;
+    String courseID, courseSection, courseRef, uniqueCourseID;
     Button btnQuiz, btnResources, btnResults, btnInformation;
 
     @Override
@@ -42,6 +48,23 @@ public class student_course_home extends AppCompatActivity implements View.OnCli
         courseRef = intent.getStringExtra("courseRef");
         Log.d("STUDENT_COURSE_HOME", courseRef);
         txtCourseName.setText(courseID);
+
+        DocumentReference courseDoc = FirebaseFirestore.getInstance().document(courseRef);
+        courseDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if(documentSnapshot.exists()){
+                    uniqueCourseID = documentSnapshot.get("uniqueCourseID").toString();
+                }else{
+                    Toast.makeText(student_course_home.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,6 +94,7 @@ public class student_course_home extends AppCompatActivity implements View.OnCli
             case R.id.btnQuizzes:
                 Intent studentQuiz = new Intent(this, StudentQuizzes.class);
                 studentQuiz.putExtra("courseRef", courseRef);
+                studentQuiz.putExtra("uniqueCourseID", uniqueCourseID);
                 startActivity(studentQuiz);
                 break;
             case R.id.btnResources:

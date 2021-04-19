@@ -21,7 +21,7 @@
         <activity android:name=".StudentResults" />
         <activity android:name=".quizScore" />
         <activity android:name=".StudentQuiz" />
-        <activity android:name=".quizHome" />
+        <activity android:name=".QuizHome" />
         <activity android:name=".FlashCards" />
         <activity android:name=".CourseInformationPage" />
         <activity android:name=".StudentQuestions" />

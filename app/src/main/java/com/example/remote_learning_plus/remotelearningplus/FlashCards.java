@@ -159,7 +159,7 @@ public class FlashCards extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent submit = new Intent(FlashCards.this, quizHome.class);
+                Intent submit = new Intent(FlashCards.this, QuizHome.class);
                 submit.putExtra("student", student);
                 submit.putExtra("quiz", quizPath);
                 submit.putExtra("total", totalquestion);

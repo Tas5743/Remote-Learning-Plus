@@ -88,7 +88,7 @@ public class quizScore  extends AppCompatActivity {
         quizHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent submit = new Intent(quizScore.this, quizHome.class);;
+                Intent submit = new Intent(quizScore.this, QuizHome.class);;
                 submit.putExtra("student", student);
                 submit.putExtra("quiz", quizPath);
                 submit.putExtra("total", totalquestion);

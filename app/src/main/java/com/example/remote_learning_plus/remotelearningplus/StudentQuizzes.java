@@ -25,14 +25,14 @@ import java.util.Objects;
 public class StudentQuizzes extends AppCompatActivity {
     private static String TAG = "Tag";
 
-    String courseRef;
+    String courseRef, uniqueCourseID;
 
 
     //String student = getIntent().getStringExtra("student");
     //String courseCodeStr = getIntent().getStringExtra("courseCodeStr");
     //String courseTitleStr = getIntent().getStringExtra("courseTitleStr");
     //String courseSectionStr = getIntent().getStringExtra("courseSectionStr");
-    //String quizzesPath ="/courses/" + courseCodeStr + "/quizzes/";
+    //String quizzesPath ="/courses/" + "0915U1AvP" + "/quizzes/";
 
     String student = "student";
     String courseCodeStr = "cmpsc475";
@@ -41,7 +41,7 @@ public class StudentQuizzes extends AppCompatActivity {
     int quizItems;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //private CollectionReference quizRef = db.collection("quizzesPath");
+    //private CollectionReference quizRef = db.collection(quizzesPath);
     private CollectionReference quizRef;
     private QuizAdapter adapter;
 
@@ -50,13 +50,16 @@ public class StudentQuizzes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_quizzes);
-        setUpRecyclerView();
+
 
         //***************** Passing courseRef ****************
         Intent intent = getIntent();
         courseRef = intent.getStringExtra("courseRef");
-        Log.d("STUDENT_QUIZZES", courseRef);
-        quizRef = db.collection(courseRef + "/quizzes/");
+        uniqueCourseID = intent.getStringExtra("uniqueCourseID");
+        Log.d("STUDENT_QUIZZES", "courses/" + uniqueCourseID + "/quizzes/");
+        quizRef = db.collection("courses/" + uniqueCourseID + "/quizzes/");
+
+        setUpRecyclerView();
     }
 
     private void setUpRecyclerView() {
@@ -95,9 +98,9 @@ public class StudentQuizzes extends AppCompatActivity {
     }
 
     private void openQuizPageActivity(int quizNum, String quizTitleStr) {
-        Intent submit = new Intent(StudentQuizzes.this, quizHome.class);
+        Intent submit = new Intent(StudentQuizzes.this, QuizHome_.class);
 
-        String quizPath = "courses/" + courseCodeStr + "/quizzes/quiz" + quizNum;
+        String quizPath = "courses/" + uniqueCourseID + "/quizzes/quiz" + quizNum;
         db.document(quizPath).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -117,6 +120,7 @@ public class StudentQuizzes extends AppCompatActivity {
         submit.putExtra("courseTitle", courseTitleStr);
         submit.putExtra("section", courseSectionStr);
         submit.putExtra("quizTitle", quizTitleStr);
+        submit.putExtra("uniqueCourseID", uniqueCourseID);
         startActivity(submit);
     }
 
