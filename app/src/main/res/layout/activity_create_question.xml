@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".CreateQuestion">
+
+    <ImageView
+        android:id="@+id/imgResults"
+        android:layout_width="350dp"
+        android:layout_height="605dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <EditText
         android:id="@+id/etQuestion"

@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".QuizPage">
+
+    <ImageView
+        android:id="@+id/imgQuestion"
+        android:layout_width="325dp"
+        android:layout_height="325dp"
+        android:layout_marginTop="188dp"
+        android:background="@color/white"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/etQuizTitle"

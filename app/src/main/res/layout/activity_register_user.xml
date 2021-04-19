@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_background"
-    tools:context=".register_user">
+    tools:context=".RegisterUser">
 
     <TextView
         android:id="@+id/txtSignUp"
@@ -59,6 +59,7 @@
         android:autofillHints="name"
         android:background="@color/white"
         android:hint="@string/first_name"
+
         android:inputType="textPersonName"
         android:padding="5dp"
         android:textColor="@color/light_grey"

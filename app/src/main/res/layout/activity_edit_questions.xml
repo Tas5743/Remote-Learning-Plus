@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     tools:context=".CreateQuestion">
 
     <EditText
@@ -19,6 +20,18 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgResults"
+        android:layout_width="370dp"
+        android:layout_height="607dp"
+        android:layout_marginTop="64dp"
+        android:background="@color/white"
+        android:contentDescription="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/qLabel"
@@ -74,14 +87,16 @@
         android:layout_marginEnd="25dp"
         android:text="@string/next_question"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf=""
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="57dp"
         android:text="@string/save_quiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -196,7 +211,7 @@
 
     <EditText
         android:id="@+id/etTime"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:autofillHints=""
@@ -216,13 +231,15 @@
         android:gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            app:menu="@layout/menu_main"/>
+            app:menu="@layout/menu_main" />
     </LinearLayout>
 
 
